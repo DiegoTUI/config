@@ -1,0 +1,13 @@
+/var/tuiinnovation/log/nginx-tuiinnovation*.log {
+	weekly
+	missingok
+	rotate 999999
+	compress
+	delaycompress
+	notifempty
+	create 640 root adm
+	sharedscripts
+	postrotate
+		/etc/init.d/nginx reload > /dev/null
+	endscript
+}

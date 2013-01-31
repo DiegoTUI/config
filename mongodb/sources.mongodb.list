@@ -1,0 +1,3 @@
+# Alex 20110626: MongoDB
+deb http://downloads-distro.mongodb.org/repo/debian-sysvinit dist 10gen
+

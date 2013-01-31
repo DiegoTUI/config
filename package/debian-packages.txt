@@ -1,0 +1,26 @@
+unattended-upgrades
+s3cmd
+nmap
+apache2-mpm-prefork libapache2-mod-rpaf
+php5 php-pear php5-dev
+libcurl4-openssl-dev
+vim vim-scripts
+imagemagick libmagickwand-dev libmagickcore-dev
+libqt4-webkit xvfb libgl1-mesa-dri
+xfonts-100dpi xfonts-75dpi xfonts-scalable xfonts-cyrillic
+unzip
+apg
+python-setuptools
+python-dev
+python-pip
+logtail
+python-boto
+ntp
+php5-curl
+php-xml-parser
+php5-imagick
+autopoint
+gettext
+gettext-base
+liblocale-gettext-perl
+po-debconf

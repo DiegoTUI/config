@@ -1,0 +1,12 @@
+" Alex 2011-06-26
+" Stop VIM from repeating comments in PHP
+" from http://ubuntuforums.org/showthread.php?t=1296879
+
+"au FileType php setl fo-=ro
+syntax on
+
+" Alex 20110925: prevent vim from eating up all the screen
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+

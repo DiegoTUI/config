@@ -1,0 +1,26 @@
+# TuiInnovation nginx configuration.
+# Global configuration file.
+# (C) 2013 TuiInnovation.
+
+# TuiInnovation main domain, localhost via http
+server
+{
+        listen 80;
+
+        server_name localhost;
+
+        access_log  /var/tuiinnovation/log/nginx-tuiinnovation.access.log;
+        error_log   /var/tuiinnovation/log/nginx-tuiinnovation.error.log;
+
+        # Main web pages
+        location / {
+                root   /var/tuiinnovation/deploy/web;
+                index  index.html;
+                ssi    on;
+        }
+
+        # Proxy the PHP scripts to Apache listening on 127.0.0.1:8000
+        location ~ ^/api/\w+.php$ {
+                include /etc/tuiinnovation/config/nginx/inc/proxy-nginx;
+        }
+}

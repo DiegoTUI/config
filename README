@@ -1,0 +1,13 @@
+Diego 20130131
+TuiInnovation server configuration
+
+Run as root:
+  # ./bootstrap.sh
+To initialize the Debian server configuration. This script should only be run once.
+
+Run as root:
+  # ./setup.sh
+To complete the Debian server configuration. This script can be run as many
+times as necessary.
+
+(C) 2013 TuiInnovation.

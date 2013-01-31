@@ -1,0 +1,3 @@
+mongo
+pecl_http
+xdebug

@@ -1,0 +1,34 @@
+# Apache configuration for PHP
+# (C) 2013 TuiInnovation
+
+Listen 8000
+
+NameVirtualHost *:8000
+
+# Main domain
+<VirtualHost *:8000>
+	ServerName localhost
+	ServerAdmin webmaster@localhost
+
+	DocumentRoot /var/tuiinnovation/deploy/php
+	<Directory />
+		Options FollowSymLinks
+		AllowOverride None
+	</Directory>
+	<Directory /var/tuiinnovation/deploy/php/>
+		Header set Access-Control-Allow-Origin "*"
+		Options FollowSymLinks MultiViews
+		AllowOverride None
+		Order allow,deny
+		allow from all
+		SetEnv no-gzip
+	</Directory>
+
+	ErrorLog /var/tuiinnovation/log/apache-tuiinnovation-error.log
+
+	# Possible values include: debug, info, notice, warn, error, crit,
+	# alert, emerg.
+	LogLevel warn
+
+	CustomLog /var/tuiinnovation/log/apache-tuiinnovation-access.log combined
+</VirtualHost>
