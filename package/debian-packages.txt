@@ -19,6 +19,7 @@ ntp
 php5-curl
 php-xml-parser
 php5-imagick
+phpunit
 autopoint
 gettext
 gettext-base
