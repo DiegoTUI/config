@@ -52,6 +52,11 @@ ln -fs ../mods-available/headers.load /etc/apache2/mods-enabled/
 # link cron jobs -- without periods in the name
 ln -fs "$current/backup/backup.sh" /etc/cron.daily/backup
 
+#install phpunit
+pear upgrade pear;
+pear install --alldeps --force phpunit/phpunit
+pear install --force phpunit/PHPUnit_MockObject
+
 # set up web repos
 mkdir -p /var/tuiinnovation/deploy
 
