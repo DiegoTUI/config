@@ -32,7 +32,7 @@ db.users.update({userId : "tstadmin"},
 {upsert : true}
 );
 
-db.users.upsert({userId : "tstuser"},
+db.users.update({userId : "tstuser"},
 {
 	$set:{
 		userId : "tstuser",
