@@ -9,7 +9,7 @@ db.roles.update({roleId : "admin"},
 {upsert : true}
 );
 
-db.roles.update({roleId : "admin"},
+db.roles.update({roleId : "user"},
 {	$set:{
 		roleId : "user",
 		authServices : ["read_user"]}},
