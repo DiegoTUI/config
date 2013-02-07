@@ -65,3 +65,6 @@ db.tokens.update({token : "usertoken11"},
 		created: new Date ()}},	
 {upsert : true}
 );
+
+//remove zurullo user
+db.users.remove({email:"zurullo@test"});
