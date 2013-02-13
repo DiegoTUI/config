@@ -5,9 +5,9 @@ var app = require('http').createServer(handler)
 
 app.listen(8080);
 
-var message = '';
+//var message = '';
 
-function handler (req, res) {
+/*function handler (req, res) {
   // parse URL
   var requestURL = url.parse(req.url, true);
   console.log('requestURL');
@@ -28,7 +28,7 @@ function handler (req, res) {
     res.writeHead(200);
     res.end(data);
   });
-}
+}*/
 
 function sendMessage(message) {
         console.log('sending message: %s', message);
@@ -36,17 +36,10 @@ function sendMessage(message) {
 }
 
 io.sockets.on('connection', function (socket) {
-  socket.emit('news', { hello: message });
-  socket.on('my other event', function (data) {
-    console.log(data);
-  });
+  socket.emit('news', { hello: "you are connected" });
   socket.on('client', function(data){
 	console.log ('received a client message');
 	sendMessage (data.message);
 	});
 });
 
-/*io.sockets.on('client', function(data){
-	console.log ('received a client message');
-	sendMessage (data.message);
-});*/
