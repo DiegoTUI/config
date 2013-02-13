@@ -43,5 +43,6 @@ io.sockets.on('connection', function (socket) {
 });
 
 io.sockets.on('client', function(data){
+	console.log ('received a client message');
 	sendMessage (data.message);
 });
