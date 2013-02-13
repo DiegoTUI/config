@@ -32,7 +32,7 @@ function handler (req, res) {
 
 function sendMessage(message) {
         console.log('sending message: %s', message);
-        io.sockets.emit('notification', {'message': message});
+        io.sockets.emit('notification', {'message': message,time: new Date()});
 }
 
 io.sockets.on('connection', function (socket) {
