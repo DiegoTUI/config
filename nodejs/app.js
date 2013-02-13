@@ -40,9 +40,13 @@ io.sockets.on('connection', function (socket) {
   socket.on('my other event', function (data) {
     console.log(data);
   });
-});
-
-io.sockets.on('client', function(data){
+  socket.on('client', function(data){
 	console.log ('received a client message');
 	sendMessage (data.message);
+	});
 });
+
+/*io.sockets.on('client', function(data){
+	console.log ('received a client message');
+	sendMessage (data.message);
+});*/
