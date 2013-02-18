@@ -1,4 +1,4 @@
-var io = require ('/etc/tuiinnovation/config/nodejs/node_modules/socket.io/lib/socket.io.js');
+var io = require ('/root/.npm/socket.io-client/0.9.11/package/dist/socket.io.js');
 
   var socket = io.connect('http://54.246.80.107:8080');
   
