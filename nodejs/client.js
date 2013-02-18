@@ -1,4 +1,4 @@
-require ('http://54.246.80.107:8080/socket.io/socket.io.js');
+require ('http://localhost:8080/socket.io/socket.io.js');
 
   var socket = io.connect('http://54.246.80.107:8080');
   
