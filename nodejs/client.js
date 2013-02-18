@@ -1,5 +1,4 @@
-var app = require('http').createServer()
-  , io = require('socket.io').listen(app)
+var io = require('socket.io');
 
   var socket = io.connect('http://54.246.80.107:8080');
   
