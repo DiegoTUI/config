@@ -1,4 +1,5 @@
 
+  var io = require('./io-client').io;
   var socket = new io.Socket ('localhost', 8080);
   
   function broadcastMessage()
