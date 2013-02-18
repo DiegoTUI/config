@@ -1,4 +1,3 @@
- var io = require('socket.io');
 
   var socket = new io.Socket ('localhost', 8080);
   
@@ -25,4 +24,6 @@
     console.log('Last Update: ' + data.time);
 });
 
-broadcastMessage("you madafacka");
+//broadcastMessage("you madafacka");
+
+socket.connect();
