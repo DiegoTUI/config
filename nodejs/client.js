@@ -1,6 +1,6 @@
-require ('/root/.npm/socket.io-client/0.9.11/package/dist/socket.io.js');
+ var io = require('socket.io');
 
-  var socket = io.connect('http://54.246.80.107:8080');
+  var socket = new io.Socket ('localhost', 8080);
   
   function broadcastMessage()
   {
@@ -8,6 +8,12 @@ require ('/root/.npm/socket.io-client/0.9.11/package/dist/socket.io.js');
 	socket.emit('client',{message: $('#textmessage').val()});
 	return false;
   }
+  
+  socket.on('connect', function () {
+  console.log('yay, connected!');
+  socket.send('hi there!');
+});
+
   //Log first message for debugging purposes
   socket.on('news', function (data) {
     console.log(data);
