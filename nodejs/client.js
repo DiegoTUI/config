@@ -18,3 +18,5 @@
     $('#container').html('Last Message: ' + data.message);
     $('#time').html('Last Update: ' + data.time);
   });
+  
+ broadcastMessage("Holy Crap");
