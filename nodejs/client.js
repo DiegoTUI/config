@@ -3,10 +3,10 @@
   
   var socket = io.connect('http://54.246.80.107:8080');
   
-  function broadcastMessage()
+  function broadcastMessage(message)
   {
-    console.log('Broadcasting message: ' + $('#textmessage').val());
-	socket.emit('client',{message: $('#textmessage').val()});
+    console.log('Broadcasting message: ' + message);
+	socket.emit('client',{message: message});
   }
   //Log first message for debugging purposes
   socket.on('news', function (data) {
@@ -15,8 +15,8 @@
   // on every message recived we print the new datas inside the #container div
   socket.on('notification', function (data) {
     console.log ("updating labels...");
-    $('#container').html('Last Message: ' + data.message);
-    $('#time').html('Last Update: ' + data.time);
+    console.log('Last Message: ' + data.message);
+    console.log('Last Update: ' + data.time);
   });
   
  broadcastMessage("Holy Crap");
