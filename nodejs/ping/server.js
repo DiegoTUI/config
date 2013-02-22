@@ -24,7 +24,9 @@ var port = 8080;
 var maxClients = 2;
 var connectedClients = {
 	clients:[],
-	length: function(){Object.keys(this.clients).length;}
+	length: function(){
+		return Object.keys(this.clients).length;
+		}
 };
 var server = http.createServer(serve).listen(port, function() {
 	info('Server running at http://127.0.0.1:' + port + '/');
