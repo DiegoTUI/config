@@ -63,16 +63,4 @@ function serve (request, response) {
 		info ("Client disconnected: " + client.id);});
  });
 
-function sendMessage(message) {
-        console.log('sending message: %s', message);
-        io.sockets.emit('notification', {'message': message,time: new Date()});
-}
-
-io.sockets.on('connection', function (socket) {
-  socket.emit('news', { hello: "you are connected" });
-  socket.on('client', function(data){
-	console.log ('received a client message');
-	sendMessage (data.message);
-	});
-});
 
