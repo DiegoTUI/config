@@ -51,7 +51,7 @@ function serve (request, response) {
 	if (connectedClients.length < maxClients)  //come on in
 	{
 		connectedClients[client.id] = client;
-		info ("New client connected: " + client.id + ". Total clients: " + connectedClients.length);
+		info ("New client connected: " + client.id + ". Total clients: " + Object.keys(connectedClients).length);
 		client.send("hello");
 	}
 	else	//kick him out
