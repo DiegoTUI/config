@@ -52,7 +52,7 @@ function serve (request, response) {
 	{
 		connectedClients[client.id] = client;
 		info ("New client connected: " + client.id + ". Total clients: " + Object.keys(connectedClients).length);
-		client.send("hello");
+		client.emit("hello", null);
 	}
 	else	//kick him out
 	{
