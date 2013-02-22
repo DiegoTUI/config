@@ -21,3 +21,5 @@ function pinger(period)
 		info ("Connected!!");
 	});
 }
+
+new pinger(7);
