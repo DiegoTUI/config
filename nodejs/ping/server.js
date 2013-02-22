@@ -50,7 +50,7 @@ function serve (request, response) {
 	//Check if the connection is allowed
 	if (connectedClients.length < maxClients)  //come on in
 	{
-		connectedClients.push(client);
+		connectedClients.push({client.id: client});
 		info ("New client connected: " + client.id + ". Total clients: " + connectedClients.length);
 		client.send("hello");
 	}
@@ -60,6 +60,7 @@ function serve (request, response) {
 	}
 	
 	client.on('disconnect', function(){
+		delete connectedClients[client.id];
 		info ("Client disconnected: " + client.id);});
  });
 
