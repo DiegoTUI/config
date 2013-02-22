@@ -21,7 +21,7 @@ process.title = 'pinger';
  * Globals.
  */
 var port = 8080;
-var maxClients = 3;
+var maxClients = 2;
 var connectedClients = [];
 var server = http.createServer(serve).listen(port, function() {
 	info('Server running at http://127.0.0.1:' + port + '/');
@@ -52,10 +52,11 @@ function serve (request, response) {
 	{
 		connectedClients[client.id] = client;
 		info ("New client connected: " + client.id + ". Total clients: " + Object.keys(connectedClients).length);
-		client.emit("hello", "crap");
+		client.emit("notification", "Welcome, you are now connected");
 	}
 	else	//kick him out
 	{
+		client.emit("notification", "Too many connections, you are being kicked out");
 		client.disconnect();
 	}
 	

@@ -17,8 +17,8 @@ function pinger(period)
 	//connection
 	var socket = io.connect('http://54.246.80.107:8080');
 	//connected event
-	socket.on("hello", function(data){
-		info ("Connected!!");
+	socket.on("notification", function(data){
+		info ("Notification: " + data);
 	});
 }
 
