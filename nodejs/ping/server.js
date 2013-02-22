@@ -50,7 +50,7 @@ function serve (request, response) {
 	//Check if the connection is allowed
 	if (connectedClients.length < maxClients)  //come on in
 	{
-		connectedClients.push({client.id: client});
+		connectedClients[client.id] = client;
 		info ("New client connected: " + client.id + ". Total clients: " + connectedClients.length);
 		client.send("hello");
 	}
