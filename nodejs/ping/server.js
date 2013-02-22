@@ -51,10 +51,10 @@ function serve (request, response) {
  */
  wsServer.on("connection", function(client){
 	//Check if the connection is allowed
-	if (connectedClients.length < maxClients)  //come on in
+	if (connectedClients.length() < maxClients)  //come on in
 	{
 		connectedClients.clients[client.id] = client;
-		info ("New client connected: " + client.id + ". Total clients: " + connectedClients.length + ". Max clients allowed: " + maxClients);
+		info ("New client connected: " + client.id + ". Total clients: " + connectedClients.length() + ". Max clients allowed: " + maxClients);
 		client.emit("notification", "Welcome, you are now connected");
 	}
 	else	//kick him out
