@@ -22,7 +22,10 @@ process.title = 'pinger';
  */
 var port = 8080;
 var maxClients = 2;
-var connectedClients = [];
+var connectedClients = {
+	clients:[],
+	length: function(){Object.keys(this.clients).length}
+};
 var server = http.createServer(serve).listen(port, function() {
 	info('Server running at http://127.0.0.1:' + port + '/');
 });
@@ -50,8 +53,8 @@ function serve (request, response) {
 	//Check if the connection is allowed
 	if (connectedClients.length < maxClients)  //come on in
 	{
-		connectedClients[client.id] = client;
-		info ("New client connected: " + client.id + ". Total clients: " + Object.keys(connectedClients).length + ". Max clients allowed: " + maxClients);
+		connectedClients.clients[client.id] = client;
+		info ("New client connected: " + client.id + ". Total clients: " + connectedClients.length + ". Max clients allowed: " + maxClients);
 		client.emit("notification", "Welcome, you are now connected");
 	}
 	else	//kick him out
