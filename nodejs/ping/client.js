@@ -57,6 +57,7 @@ function processArguments(args)
  */
 function createPinger()
 {
+	debug("Creating new pinger");
 	var p = new pinger();
 	p.start(period);
 }
@@ -66,7 +67,6 @@ function createPinger()
  */
 for (var i=0; i<numberOfPingers; i++)
 {
-		debug("Creating pinger: " + i + " with period " + period);
 		setTimeout(createPinger, 10000);
 }
 
