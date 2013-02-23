@@ -63,13 +63,13 @@ function serve (request, response) {
 	{
 		info ("Total clients: " + connectedClients.length() + ". Max clients allowed: " + maxClients + ". Kicking out!!");
 		client.emit("notification", "Too many connections, you are being kicked out");
+		client.emit("disconnect");
 		client.disconnect();
 	}
 	//disconnection event
 	client.on('disconnect', function(){
 		delete connectedClients[client.id];
 		info ("Client disconnected: " + client.id);
-		client.emit("disconnect");
 	});
 	//ping event
 	client.on("ping", function(data){
