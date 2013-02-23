@@ -2,7 +2,7 @@
  * Requirements.
  */  
 	var log = require('./util/log.js');
-	var pinger = require('./robot/pinger.js');
+	var pinger = require('./robot/pinger.js').pinger;
 	var debug = log.debug;
 	var error = log.error;
 	var info = log.info;
