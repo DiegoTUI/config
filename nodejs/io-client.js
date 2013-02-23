@@ -1,5 +1,5 @@
 (function () {
-
+//stupid change
 var sys = require('sys'),
     utils = require('./socket.io-node/lib/socket.io/utils'),
     WebSocket = require('./socket.io-node/support/node-websocket-client/lib/websocket').WebSocket,
