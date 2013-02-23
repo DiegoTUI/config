@@ -60,7 +60,7 @@ function pinger ()
 		if (self.timer === null)
 		{
 			info ("Starting high resolution timer");
-			self.timer = new highResolutionTimer(period, ping);
+			self.timer = new highResolutionTimer(period, self.ping);
 		}
 	}
 	/**
