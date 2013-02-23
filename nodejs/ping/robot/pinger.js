@@ -17,13 +17,13 @@ function pinger ()
 	// self-reference
 	var self = this;
 	//connection
-	var self.socket = null;
+	self.socket = null;
 	//timer
-	var self.timer = null;
+	self.timer = null;
 	//timestamp
-	var self.timestamp = null;
+	self.timestamp = null;
 
-	var self.id = randomId();
+	self.id = randomId();
 	/**
 	 * Ping!!
 	 */
