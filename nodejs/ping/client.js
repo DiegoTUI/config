@@ -32,12 +32,11 @@ function processArguments(args)
 		info("arg: " + arg);
 		if (arg.startsWith("-n"))
 		{
-			info("Int to be parsed " + arg.substringFrom("-n"));
-			numberOfPingers = parseInt(arg.substringFrom("-n"))
+			numberOfPingers = parseInt(arg.substringFrom("n"))
 		}
 		else if (arg.startsWith("-p"))
 		{
-			period = parseInt(arg.substringFrom("-p"))
+			period = parseInt(arg.substringFrom("p"))
 		}
 		else
 		{
