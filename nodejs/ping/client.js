@@ -59,9 +59,12 @@ function processArguments(args)
  */
 function createPingers(numberofpingers, period)
 {
-	for (var i=0; i<numberofpingers; i++)
+	/*for (var i=0; i<numberofpingers; i++)
 	{
 		debug("Creating pinger: " + i + " with period " + period);
 		new pinger().start(period);
-	}
+	}*/
+
+	var p = new pinger();
+	pinger.start(period);
 }
