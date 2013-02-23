@@ -57,7 +57,7 @@ function serve (request, response) {
 	{
 		connectedClients.clients[client.id] = client;
 		info ("New client connected: " + client.id + ". Total clients: " + connectedClients.length() + ". Max clients allowed: " + maxClients);
-		client.emit("notification", "Welcome, you are now connected");
+		client.emit("notification", "Welcome, you are client number " + connectedClients.length());
 	}
 	else	//kick him out
 	{
