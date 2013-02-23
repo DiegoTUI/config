@@ -67,6 +67,6 @@ function createPinger()
  */
 for (var i=0; i<numberOfPingers; i++)
 {
-		setTimeout(createPinger, 1500 * i);
+		setTimeout(createPinger, 5000 * i);
 }
 
