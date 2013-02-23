@@ -68,4 +68,4 @@ function pinger()
 	}
 }
 
-new pinger().start(1000);
+new pinger().start(100);
