@@ -23,7 +23,7 @@ function pinger ()
 	self.timer = null;
 	//timestamp
 	self.timestamp = null;
-
+	//auto-generated id of the pinger
 	self.id = randomId();
 	/**
 	 * Ping!!

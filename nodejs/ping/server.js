@@ -21,7 +21,7 @@ process.title = 'pinger';
  * Globals.
  */
 var port = 8080;
-var maxClients = 10;
+var maxClients = 100;
 var connectedClients = {
 	clients:[],
 	length: function(){
@@ -73,7 +73,7 @@ function serve (request, response) {
 	});
 	//ping event
 	client.on("ping", function(data){
- 	info ("Ping received from: " + data.clientId);
+ 	info ("Ping received from: " + client.id);
  	client.emit("pong", {clientId: client.id});
  	info ("Pong emmited for: " + client.id);
  	});
