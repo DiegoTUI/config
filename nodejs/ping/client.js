@@ -19,7 +19,6 @@ process.title = 'client_pinger';
  var period = 1000;
  processArguments(process.argv.slice(2));
  debug ("Arguments. numberOfPingers: " + numberOfPingers + " - period: " + period);
- createPingers(numberOfPingers, period);
 
 /**
  * Process command line arguments.
@@ -54,17 +53,20 @@ function processArguments(args)
 }
 
 /**
- * Process command line arguments.
- * Usage: client [-d] [-n][numberofpingers] [-p][period]
+ * Create one pinger with the given period
  */
-function createPingers(numberofpingers, period)
+function createPinger()
 {
-	/*for (var i=0; i<numberofpingers; i++)
-	{
-		debug("Creating pinger: " + i + " with period " + period);
-		new pinger().start(period);
-	}*/
-
 	var p = new pinger();
 	p.start(period);
 }
+
+/**
+ * Create pingers
+ */
+for (var i=0; i<numberOfPingers; i++)
+{
+		debug("Creating pinger: " + i + " with period " + period);
+		setTimeout(createPinger, 1000);
+}
+
