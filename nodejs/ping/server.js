@@ -71,4 +71,15 @@ function serve (request, response) {
 		info ("Client disconnected: " + client.id);});
  });
 
+ /**
+ *  This callback function is called every time someone
+ *   pings to the websocket server
+ */
+ wsServer.on("ping", function(client){
+ 	info ("Ping received from: " + client.id);
+ 	client.emit("pong", "ponging I am");
+ 	info ("Pong emmited for: " + client.id);
+ });
+	
+
 
