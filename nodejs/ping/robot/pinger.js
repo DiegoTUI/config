@@ -73,4 +73,4 @@ function pinger ()
 }
 
 module.exports.pinger = pinger;
-new pinger().start(1000);
+//new pinger().start(1000);
