@@ -17,18 +17,20 @@ function pinger ()
 	// self-reference
 	var self = this;
 	//connection
-	self.socket = null;
+	var self.socket = null;
 	//timer
-	self.timer = null;
+	var self.timer = null;
 	//timestamp
-	self.timestamp = null;
+	var self.timestamp = null;
+
+	var self.id = randomId();
 	/**
 	 * Ping!!
 	 */
 	 self.ping = function()
 	 {
 	 	self.timestamp = new Date().getTime();
-	 	info ("pinging at timestamp: " + self.timestamp);
+	 	info ("pinging from id: " + self.id);
 	 	self.socket.emit("ping");
 	 }
 
@@ -37,7 +39,7 @@ function pinger ()
 	 */
 	self.start = function(period)
 	{
-		info ("Start function called");
+		info ("Start function called for id: " + self.id);
 		if (self.socket === null)
 		{
 			info ("Connecting websocket");
@@ -54,7 +56,7 @@ function pinger ()
 			//pong event
 			self.socket.on("pong", function(data){
 				var delay = new Date().getTime() - self.timestamp;
-				info ("Pong received: " + data.clientId + " - delay in ms: " + delay);
+				info ("Pong received: " + self.id + " - delay in ms: " + delay);
 			});
 		}
 		if (self.timer === null)
