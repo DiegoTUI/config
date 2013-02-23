@@ -53,7 +53,7 @@ function pinger ()
 			});
 			//pong event
 			self.socket.on("pong", function(data){
-				var delay = new Date().getTime() - timestamp;
+				var delay = new Date().getTime() - self.timestamp;
 				info ("Pong received: " + data.clientId + " - delay in ms: " + delay);
 			});
 		}
