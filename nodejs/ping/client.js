@@ -22,7 +22,7 @@ process.title = 'client_pinger';
 
 /**
  * Process command line arguments.
- * Usage: client [-n][numberofpingers] [-p][period]
+ * Usage: client [-d] [-n][numberofpingers] [-p][period]
  */
 function processArguments(args)
 {
@@ -38,6 +38,11 @@ function processArguments(args)
 		else if (arg.startsWith("-p"))
 		{
 			period = parseInt(arg.substringFrom("p"))
+		}
+		else if (arg == '-d')
+		{
+			log.activateDebugMode();
+			debug('Debug mode on');
 		}
 		else
 		{
