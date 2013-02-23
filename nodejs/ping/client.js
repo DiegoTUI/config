@@ -61,6 +61,7 @@ function createPingers(numberofpingers, period)
 {
 	for (var i=0; i<numberofpingers; i++)
 	{
-		new pinger().start(period);
+		debug("Creating pinger: " + i + " with period " + period);
+		//new pinger().start(period);
 	}
 }
