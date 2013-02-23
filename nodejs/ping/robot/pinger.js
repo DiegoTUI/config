@@ -31,7 +31,7 @@ function pinger ()
 	 self.ping = function()
 	 {
 	 	self.timestamp = new Date().getTime();
-	 	info ("pinging from id: " + self.socket.id);
+	 	info ("pinging from id: " + self.id);
 	 	self.socket.emit("ping",{clientId: self.id});
 	 }
 
