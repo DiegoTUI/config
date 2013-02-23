@@ -68,7 +68,9 @@ function serve (request, response) {
 	//disconnection event
 	client.on('disconnect', function(){
 		delete connectedClients[client.id];
-		info ("Client disconnected: " + client.id);});
+		info ("Client disconnected: " + client.id);
+		client.emit("disconnect");
+	});
 	//ping event
 	client.on("ping", function(data){
  	info ("Ping received from: " + client.id);

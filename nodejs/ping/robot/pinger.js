@@ -22,9 +22,14 @@ function pinger()
 	var timer = null;
 	//timestamp
 	var timestamp = null;
-	//connected event
+	//notification event
 	socket.on("notification", function(data){
 		info ("Notification: " + data);
+	});
+	//notification event
+	socket.on("disconnect", function(data){
+		info ("I've been disconnected. Stopping timer.");
+		self.stop();
 	});
 	//pong event
 	socket.on("pong", function(data){
