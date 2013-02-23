@@ -49,6 +49,7 @@ function pinger()
 	{
 		if (timer != null)
 		{
+			info ("Starting high resolution timer");
 			timer = new highResolutionTimer(period, ping);
 		}
 	}
@@ -61,4 +62,4 @@ function pinger()
 	}
 }
 
-new pinger().start();
+new pinger().start(1000);
