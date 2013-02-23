@@ -68,4 +68,5 @@ function pinger()
 	}
 }
 
-new pinger().start(100);
+module.exports.pinger = pinger;
+//new pinger().start(100);
