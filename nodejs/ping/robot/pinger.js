@@ -18,21 +18,21 @@ function pinger ()
 	// self-reference
 	var self = this;
 	//connection
-	self.socket = null;
+	var socket = null;
 	//timer
-	self.timer = null;
+	var timer = null;
 	//timestamp
-	self.timestamp = null;
+	var timestamp = null;
 	//auto-generated id of the pinger
-	self.id = randomId();
+	var id = randomId();
 	/**
 	 * Ping!!
 	 */
-	 self.ping = function()
+	 function ping()
 	 {
-	 	self.timestamp = new Date().getTime();
-	 	info ("pinging from id: " + self.id);
-	 	self.socket.emit("ping",{clientId: self.id});
+	 	timestamp = new Date().getTime();
+	 	info ("pinging from id: " + id);
+	 	socket.emit("ping",{clientId: id});
 	 }
 
 	/**
@@ -40,30 +40,30 @@ function pinger ()
 	 */
 	self.start = function(period)
 	{
-		info ("Start function called for id: " + self.id);
-		if (self.socket === null)
+		info ("Start function called for id: " + id);
+		if (socket === null)
 		{
 			info ("Connecting websocket");
-			self.socket = io.connect('http://54.246.80.107:8080',{"force new connection" : true});
+			socket = io.connect('http://54.246.80.107:8080',{"force new connection" : true});
 			//notification event
-			self.socket.on("notification", function(data){
+			socket.on("notification", function(data){
 				info ("Notification: " + data);
 			});
 			//disconnected event
-			self.socket.on("disconnected", function(data){
+			socket.on("disconnected", function(data){
 				info ("I've been disconnected. Stopping timer.");
 				self.stop();
 			});
 			//pong event
-			self.socket.on("pong", function(data){
-				var delay = new Date().getTime() - self.timestamp;
+			socket.on("pong", function(data){
+				var delay = new Date().getTime() - timestamp;
 				info ("Pong received: " + data.clientId + " - delay in ms: " + delay);
 			});
 		}
-		if (self.timer === null)
+		if (timer === null)
 		{
 			info ("Starting high resolution timer");
-			self.timer = new highResolutionTimer(period, self.ping);
+			timer = new highResolutionTimer(period, ping);
 		}
 	}
 	/**
