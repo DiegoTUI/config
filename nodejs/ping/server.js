@@ -63,7 +63,7 @@ function serve (request, response) {
 	{
 		info ("Total clients: " + connectedClients.length() + ". Max clients allowed: " + maxClients + ". Kicking out!!");
 		client.emit("notification", "Too many connections, you are being kicked out");
-		client.emit("disconnect");
+		client.emit("disconnected");
 		client.disconnect();
 	}
 	//disconnection event

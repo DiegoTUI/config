@@ -27,7 +27,7 @@ function pinger()
 		info ("Notification: " + data);
 	});
 	//notification event
-	socket.on("disconnect", function(data){
+	socket.on("disconnected", function(data){
 		info ("I've been disconnected. Stopping timer.");
 		self.stop();
 	});
@@ -44,7 +44,7 @@ function pinger()
 	 {
 	 	timestamp = new Date().getTime();
 	 	info ("pinging at timestamp: " + timestamp);
-	 	socket.emit("ping",null);
+	 	socket.emit("ping");
 	 }
 
 	/**
@@ -64,7 +64,7 @@ function pinger()
 	 */
 	self.stop = function()
 	{
-		delete timer;
+		timer.stop();
 	}
 }
 
