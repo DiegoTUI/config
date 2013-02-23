@@ -66,5 +66,5 @@ function createPingers(numberofpingers, period)
 	}*/
 
 	var p = new pinger();
-	pinger.start(period);
+	p.start(period);
 }
