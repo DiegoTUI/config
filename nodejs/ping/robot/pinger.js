@@ -12,7 +12,7 @@
  /**
  * An annoying pinger.
  */
-function pinger()
+var pinger = function ()
 {
 	// self-reference
 	var self = this;
