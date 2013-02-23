@@ -5,6 +5,7 @@
 	var log = require('../util/log.js');
 	var util = require('../util/util.js');
 	var highResolutionTimer = util.highResolutionTimer;
+	var randomId = util.randomId;
 	var debug = log.debug;
 	var error = log.error;
 	var info = log.info;
