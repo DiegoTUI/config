@@ -39,7 +39,7 @@ function pinger()
 	 {
 	 	timestamp = new Date().getTime();
 	 	info ("pinging at timestamp: " + timestamp);
-	 	socket.emit("ping",socket);
+	 	socket.emit("ping",{clientId: socket.id});
 	 }
 
 	/**
