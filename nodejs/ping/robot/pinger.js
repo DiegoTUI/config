@@ -44,7 +44,7 @@ function pinger ()
 		if (self.socket === null)
 		{
 			info ("Connecting websocket");
-			self.socket = io.connect('http://54.246.80.107:8080');
+			self.socket = io.connect('http://54.246.80.107:8080',{"force new connection" : true});
 			//notification event
 			self.socket.on("notification", function(data){
 				info ("Notification: " + data);
