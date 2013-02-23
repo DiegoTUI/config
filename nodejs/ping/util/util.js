@@ -142,12 +142,14 @@ var highResolutionTimer = function(delay, callback)
 	// attributes
 	var counter = 0;
 	var start = new Date().getTime();
+	var stop = false;
 
 	/**
 	 * Delayed running of the callback.
 	 */
 	function delayed()
 	{
+		if (stop) return;
 		callback(delay);
 		counter ++;
 		var diff = (new Date().getTime() - start) - counter * delay;
@@ -163,6 +165,14 @@ var highResolutionTimer = function(delay, callback)
 		var drift = diff / delay - counter;
 		log.d('Seconds: ' + Math.round(diff / 1000) + ', counter: ' + counter + ', drift: ' + drift);
 	}
+
+	/**
+	 * Stop the timer.
+	 */
+	 self.stop = function()
+	 {
+	 	stop = true;
+	 }
 
 	// start timer
 	delayed();
