@@ -65,27 +65,27 @@ function serve (request, response) {
 		client.emit("notification", "Too many connections, you are being kicked out");
 		client.disconnect();
 	}
-	
+	//disconnection event
 	client.on('disconnect', function(){
 		delete connectedClients[client.id];
 		info ("Client disconnected: " + client.id);});
-
+	//ping event
 	client.on("ping", function(data){
- 	info ("Ping received from: " + data.clientId);
- 	connectedClients.clients[client.id].emit("pong", "ponging I am");
- 	info ("Pong emmited for: " + data.clientId);
+ 	info ("Ping received from: " + client.id);
+ 	client.emit("pong", {clientId: client.id});
+ 	info ("Pong emmited for: " + client.id);
  	});
  });
 
  /**
  *  This callback function is called every time someone
  *   pings to the websocket server
- */
+ *
  wsServer.on("ping", function(data){
  	info ("Ping received from: " + data.clientId);
  	connectedClients.clients[client.id].emit("pong", "ponging I am");
  	info ("Pong emmited for: " + data.clientId);
- });
+ });*/
 	
 
 

@@ -29,7 +29,7 @@ function pinger()
 	//pong event
 	socket.on("pong", function(data){
 		var delay = new Date().getTime() - timestamp;
-		info ("Pong received - delay in ms: " + delay);
+		info ("Pong received: " + data.clientId + " - delay in ms: " + delay);
 	})
 
 	/**
@@ -39,7 +39,7 @@ function pinger()
 	 {
 	 	timestamp = new Date().getTime();
 	 	info ("pinging at timestamp: " + timestamp);
-	 	socket.emit("ping",{clientId: socket.id});
+	 	socket.emit("ping",null);
 	 }
 
 	/**
