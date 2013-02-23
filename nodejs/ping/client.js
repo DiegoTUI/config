@@ -29,8 +29,10 @@ function processArguments(args)
 	while (args.length > 0)
 	{
 		var arg = args.shift();
+		info("arg: " + arg);
 		if (arg.startsWith("-n"))
 		{
+			info("Int to be parsed " + arg.substringFrom("-n"));
 			numberOfPingers = parseInt(arg.substringFrom("-n"))
 		}
 		else if (arg.startsWith("-p"))
