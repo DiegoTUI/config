@@ -25,6 +25,7 @@ process.title = 'client_pinger';
  */
 function processArguments(args)
 {
+	info ("Processing args: " args.toString());
 	while (args.length > 0)
 	{
 		var arg = args.shift();
