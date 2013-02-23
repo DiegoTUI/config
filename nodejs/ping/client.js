@@ -18,6 +18,7 @@ process.title = 'client_pinger';
  var numberOfPingers = 10;
  var period = 1000;
  processArguments(process.argv.slice(2));
+ debug ("Arguments. numberOfPingers: " + numberOfPingers + " - period: " + period);
 
 /**
  * Process command line arguments.
@@ -25,11 +26,11 @@ process.title = 'client_pinger';
  */
 function processArguments(args)
 {
-	info ("Processing args: " + args.toString());
+	debug ("Processing args: " + args.toString());
 	while (args.length > 0)
 	{
 		var arg = args.shift();
-		info("arg: " + arg);
+		debug("arg: " + arg);
 		if (arg.startsWith("-n"))
 		{
 			numberOfPingers = parseInt(arg.substringFrom("n"))
@@ -45,6 +46,4 @@ function processArguments(args)
 		}
 	}
 }
-
-info("Arguments. numberOfPingers: " + numberOfPingers + " - period: " + period);
 
