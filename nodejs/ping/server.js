@@ -69,6 +69,12 @@ function serve (request, response) {
 	client.on('disconnect', function(){
 		delete connectedClients[client.id];
 		info ("Client disconnected: " + client.id);});
+
+	client.on("ping", function(data){
+ 	info ("Ping received from: " + data.clientId);
+ 	connectedClients.clients[client.id].emit("pong", "ponging I am");
+ 	info ("Pong emmited for: " + data.clientId);
+ 	});
  });
 
  /**
