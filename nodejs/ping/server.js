@@ -21,7 +21,7 @@ process.title = 'pinger';
  * Globals.
  */
 var port = 8080;
-var maxClients = 2;
+var maxClients = 100;
 var connectedClients = {
 	clients:[],
 	length: function(){
