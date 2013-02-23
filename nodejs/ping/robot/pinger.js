@@ -28,7 +28,7 @@ function pinger ()
 	 self.ping = function()
 	 {
 	 	self.timestamp = new Date().getTime();
-	 	info ("pinging at timestamp: " + timestamp);
+	 	info ("pinging at timestamp: " + self.timestamp);
 	 	self.socket.emit("ping");
 	 }
 
