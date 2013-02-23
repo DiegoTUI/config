@@ -73,7 +73,7 @@ function serve (request, response) {
 	});
 	//ping event
 	client.on("ping", function(data){
- 	info ("Ping received from: " + client.id);
+ 	info ("Ping received from: " + data.clientId);
  	client.emit("pong", {clientId: client.id});
  	info ("Pong emmited for: " + client.id);
  	});
