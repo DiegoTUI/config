@@ -47,7 +47,8 @@ function pinger()
 	 */
 	self.start = function(period)
 	{
-		if (timer != null)
+		info ("Start function called");
+		if (timer === null)
 		{
 			info ("Starting high resolution timer");
 			timer = new highResolutionTimer(period, ping);
