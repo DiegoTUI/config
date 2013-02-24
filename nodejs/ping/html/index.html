@@ -13,7 +13,7 @@
 <script>
 $(function(){
 	$('#connect').click(function () {
-		pingerClient.setParams($('#maxPingers').value, $('#period').value, $('#delay').value);
+		pingerClient.setParams($('#maxPingers').text(), $('#period').text(), $('#delay').text());
 		pingerClient.createPingers();
 		$('#status').html('Connected and pinging!!');
 	});
