@@ -72,7 +72,7 @@ var wsServer = io.listen(server);
 function serve (request, response) {
   var url = urlParser.parse(request.url, true);
   info ("url: " + JSON.stringify(url));
-  info ("url.pathname: " + url.pathname)
+  info ("url.pathname: " + url.pathname);
 	if (url.pathname == '/')
 	{
 		serve_home(request, response);
@@ -102,6 +102,7 @@ function serve (request, response) {
  */
 function serve_home(request, response)
 {
+	info("serving home");
 	serve_file(200, 'index.html', response);
 }
 
@@ -110,9 +111,11 @@ function serve_home(request, response)
  */
 function serve_file(status, file, response)
 {
+	info ("serving file: " + file);
 	fs.readFile('html/' + file, function(err, data) {
 		if (err)
 		{
+			info ("error reading file: " + file + " - err: " + err);
 			response.writeHead(404, {
 				'Content-Type': 'text/plain'
 			});
