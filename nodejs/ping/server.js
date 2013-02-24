@@ -35,7 +35,7 @@ var server = http.createServer(serve).listen(port, function() {
 var wsServer = io.listen(server);
 
 //DELETE: read the files in current directory
-info("Contents of current dir: " + fs.readdirSync(".").toString());
+//info("Contents of current dir: " + fs.readdirSync(".").toString());
 
 /**
  *  This callback function is called every time someone
@@ -115,10 +115,10 @@ function serve_home(request, response)
 function serve_file(status, file, response)
 {
 	info ("serving file: " + file);
-	fs.readFile(__dirname + "/html/" + file, function(err, data) {
+	fs.readFile("html/" + file, function(err, data) {
 		if (err)
 		{
-			info ("error reading file: " + __dirname + "/html/" + file + " - err: " + err + ". Current dir: " + __dirname);
+			info ("error reading file: " + file + " - err: " + err + ". Current dir: " + __dirname);
 			response.writeHead(404, {
 				'Content-Type': 'text/plain'
 			});
