@@ -112,10 +112,10 @@ function serve_home(request, response)
 function serve_file(status, file, response)
 {
 	info ("serving file: " + file);
-	fs.readFile(path.resolve(__dirname, file), function(err, data) {
+	fs.readFile(__dirname + "/" + file, function(err, data) {
 		if (err)
 		{
-			info ("error reading file: " + path.resolve(__dirname, file) + " - err: " + err + ". Current dir: " + __dirname);
+			info ("error reading file: " + __dirname + "/" + file) + " - err: " + err + ". Current dir: " + __dirname);
 			response.writeHead(404, {
 				'Content-Type': 'text/plain'
 			});
