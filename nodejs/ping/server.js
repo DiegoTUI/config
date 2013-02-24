@@ -115,7 +115,7 @@ function serve_file(status, file, response)
 	fs.readFile('./html/' + file, function(err, data) {
 		if (err)
 		{
-			info ("error reading file: " + file + " - err: " + err);
+			info ("error reading file: " + file + " - err: " + err + ". Current dir: " + __dirname);
 			response.writeHead(404, {
 				'Content-Type': 'text/plain'
 			});
