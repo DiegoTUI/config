@@ -44,10 +44,16 @@ var pinger = function (onConnect, onDisconnect)
 			socket.on("notification", function(data){
 				info ("Notification: " + data);
 			});
-			//disconnected event
+			//disconnected event - when the server disconnects me
 			socket.on("disconnected", function(data){
 				onDisconnect(self.id);
 				info ("I've been disconnected. Stopping timer.");
+				self.stopTimer();
+			});
+			//disconnect event - when I am voluntarely disconnected
+			socket.on("disconnect", function(data){
+				onDisconnect(self.id);
+				info ("I've disconnected myself. Stopping timer.");
 				self.stopTimer();
 			});
 			//pong event
@@ -79,7 +85,7 @@ var pinger = function (onConnect, onDisconnect)
 	{
 		info ("Disconnect was called inside id: " + self.id);
 		socket.disconnect();
-		self.stopTimer();
+		//self.stopTimer();
 	}
 }
 
