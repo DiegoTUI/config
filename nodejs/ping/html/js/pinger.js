@@ -13,7 +13,7 @@ var pinger = function (onConnect, onDisconnect)
 	//timestamp
 	var timestamp = null;
 	//auto-generated id of the pinger
-	var id = randomId();
+	var self.id = randomId();
 
 	/**
 	 * Ping!!
@@ -21,8 +21,8 @@ var pinger = function (onConnect, onDisconnect)
 	 function ping()
 	 {
 	 	timestamp = new Date().getTime();
-	 	info ("pinging from id: " + id);
-	 	socket.emit("ping",{clientId: id});
+	 	info ("pinging from id: " + self.id);
+	 	socket.emit("ping",{clientId: self.id});
 	 }
 
 	/**
@@ -30,14 +30,14 @@ var pinger = function (onConnect, onDisconnect)
 	 */
 	self.start = function(period)
 	{
-		info ("Start function called for id: " + id);
+		info ("Start function called for id: " + self.id);
 		if (socket === null)
 		{
 			info ("Connecting websocket");
 			socket = io.connect('http://54.246.80.107:8080',{"force new connection" : true});
 			//connected event
 			socket.on("connected", function(data){
-				onConnect(id);
+				onConnect(self);
 				info ("I am connected!!");
 			});
 			//notification event
@@ -46,9 +46,9 @@ var pinger = function (onConnect, onDisconnect)
 			});
 			//disconnected event
 			socket.on("disconnected", function(data){
-				onDisconnect(id);
+				onDisconnect(self.id);
 				info ("I've been disconnected. Stopping timer.");
-				self.stop();
+				self.stopTimer();
 			});
 			//pong event
 			socket.on("pong", function(data){
@@ -68,9 +68,16 @@ var pinger = function (onConnect, onDisconnect)
 	/**
 	 * Stops pinging
 	 */
-	self.stop = function()
+	self.stopTimer = function()
 	{
 		self.timer.stop();
+	}
+	/**
+	 * Disconnects socket
+	 */
+	self.disconnect = function()
+	{
+		socket.disconect();
 	}
 }
 

@@ -48,16 +48,16 @@
 		info("Creating new pinger");
 		var p = new pinger(onConnect,onDisconnect);
 		p.start(self.period);
-		activePingers++;
-		$('#activePingers').html(activePingers);
 	}
 
 	/**
 	 * Callback when a pinger has connected
 	 */
-	function onConnect(id)
+	function onConnect(pinger)
 	{
-		$('#message').html("<p>Client " + id + "has connected</p>");
+		$('#message').html("<p>Client " + pinger.id + "has connected</p>");
+		activePingers.clients[pinger.id] = pinger; 
+		$('#activePingers').html(activePingers.length());
 	}
 
 	/**
