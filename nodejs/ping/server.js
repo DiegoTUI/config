@@ -112,7 +112,7 @@ function serve_home(request, response)
 function serve_file(status, file, response)
 {
 	info ("serving file: " + file);
-	fs.readFile('html/' + file, function(err, data) {
+	fs.readFile('./html/' + file, function(err, data) {
 		if (err)
 		{
 			info ("error reading file: " + file + " - err: " + err);
