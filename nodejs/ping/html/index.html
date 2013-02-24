@@ -13,8 +13,9 @@
 <script>
 $(function(){
 	$('#connect').click(function () {
-	pingerClient.createPingers();
-	$('#status').html('Connected and pinging!!');
+		pingerClient.setParams($('#maxPingers').value, $('#period').value, $('#delay').value);
+		pingerClient.createPingers();
+		$('#status').html('Connected and pinging!!');
 	});
 });
 </script>
