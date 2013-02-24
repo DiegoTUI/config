@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset='utf-8'>
+<title>Tui Innovation Pinger</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+<script src="http://54.246.80.107:8080/socket.io/socket.io.js"></script>
+<script src="js/pinger.js"></script>
+<script src="js/client.js"></script>
+<script src="/util/log.js"></script>
+<script src="/util/util.js"></script>
+
+<script>
+$(function () {
+	pingerClient.createPingers();
+});
+</script>
+<link media="all" rel="stylesheet" href="css/pinger.css">
+</head>
+<body>
+<p><span class="heading">Pinger Simulation</span>:
+A stress test for a simple nodejs server.
+</p>
+<p>
+<input id="connect" type="button" value="Connect" />
+Status:
+<span id="status">not started</span>
+</p>
+<p>
+Latency: <span id="latency">n/a</span>
+Keycode: <span id="keycode">n/a</span>
+</p>
+<ul class="options">
+	<li class="option" id="keymap">Keymap</li>
+	<li class="option" id="scripts">Scripts</li>
+	<li class="option" id="rivals">Rivals</li>
+	<li class="option" id="debug">Debug</li>
+</ul>
+<div id="content" class="content">
+	Keymap:
+</div>
+<div id="message" class="message">
+	no messages at this time
+</div>
+</div>
+</body>
+</html>
