@@ -17,6 +17,10 @@ $(function(){
 		pingerClient.createPingers();
 		$('#status').html('Connected and pinging!!');
 	});
+	$('#disconnect').click(function () {
+		pingerClient.disconnectAll();
+		$('#status').html('Disconnected');
+	});
 });
 </script>
 <link media="all" rel="stylesheet" href="css/pinger.css">
@@ -44,6 +48,7 @@ Delay between each pinger (milliseconds)
 <input id="connect" type="button" value="Connect"/>
 Status:
 <span id="status">not started</span>
+<input id="disconnect" type="button" value="Disconnect"/>
 </p>
 <p>
 Active Pingers: <span id="activePingers">n/a</span></br>

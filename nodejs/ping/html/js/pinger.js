@@ -78,6 +78,7 @@ var pinger = function (onConnect, onDisconnect)
 	self.disconnect = function()
 	{
 		socket.disconect();
+		self.stopTimer();
 	}
 }
 

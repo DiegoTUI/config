@@ -41,6 +41,16 @@
  	 }
 
  	 /**
+ 	  * Disconnect all pingers
+ 	  */
+ 	self.disconnectAll = function(){
+ 		for (id in activePingers.clients)
+ 		{
+ 			activePingers.clients[id].disconnect();
+ 		}
+ 	}
+
+ 	 /**
 	  * Create one pinger with the given period
 	  */
 	function createPinger()
@@ -55,7 +65,7 @@
 	 */
 	function onConnect(pinger)
 	{
-		$('#message').html("<p>Client " + pinger.id + "has connected</p>");
+		$('#message').html("<p>Client " + pinger.id + " has connected</p>");
 		activePingers.clients[pinger.id] = pinger; 
 		$('#activePingers').html(activePingers.length());
 	}
@@ -65,7 +75,7 @@
 	 */
 	function onDisconnect(id)
 	{
-		$('#message').html("<p>Client " + id + "has disconnected</p>");
+		$('#message').html("<p>Client " + id + " has disconnected</p>");
 		delete activePingers.clients[pinger.id];
 		$('#activePingers').html(activePingers.length());
 	}
