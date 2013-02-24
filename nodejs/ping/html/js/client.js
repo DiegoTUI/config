@@ -48,7 +48,8 @@
  		for (id in activePingers.clients)
  		{
  			info ("Disconnecting client: " + id);
- 			activePingers.clients[id].disconnect();
+ 			var currentPinger = activePingers.clients[id];
+ 			currentPinger.disconnect();
  		}
  	}
 

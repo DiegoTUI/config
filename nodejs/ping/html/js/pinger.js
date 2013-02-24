@@ -77,6 +77,7 @@ var pinger = function (onConnect, onDisconnect)
 	 */
 	self.disconnect = function()
 	{
+		info ("Disconnect was called inside id: " + self.id);
 		socket.disconnect();
 		self.stopTimer();
 	}
