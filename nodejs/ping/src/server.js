@@ -54,7 +54,6 @@ var wsServer = io.listen(server);
 	{
 		info ("Total clients: " + connectedClients.length() + ". Max clients allowed: " + maxClients + ". Kicking out!!");
 		client.emit("notification", "Too many connections, you are being kicked out");
-		client.emit("disconnected");
 		client.disconnect();
 	}
 	//disconnection event
