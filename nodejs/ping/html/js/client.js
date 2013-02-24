@@ -39,3 +39,11 @@
 	}
  }
 
+ /**
+  * Other UI functions
+  */
+  function showValue (title, value)
+  {
+  	$('#'+title).html(value);
+  }
+
