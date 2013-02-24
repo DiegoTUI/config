@@ -7,13 +7,13 @@
  	// self-reference
 	var self = this;
 	//number of pingers to create
-	var numberOfPingers = 10;
+	var numberOfPingers = 100;
 	//number of active pingers
 	var activePingers = 0;
 	//period for each pinger
-	var period = 1000;
+	var period = 100;
 	//delay between the creation of each pinger
-	var delay = 5000;
+	var delay = 1000;
 
 	/**
  	 * Create pingers
