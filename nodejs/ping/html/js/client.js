@@ -34,7 +34,7 @@
 		var p = new pinger();
 		p.start(period);
 		activePingers++;
-		$(#activePingers).html(activePingers);
+		$('#activePingers').html(activePingers);
 	}
  }
 
