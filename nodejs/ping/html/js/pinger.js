@@ -2,7 +2,7 @@
  /**
  * An annoying pinger.
  */
-var pinger = function ()
+var pinger = function (onConnect, onDisconnect)
 {
 	// self-reference
 	var self = this;
@@ -35,12 +35,18 @@ var pinger = function ()
 		{
 			info ("Connecting websocket");
 			socket = io.connect('http://54.246.80.107:8080',{"force new connection" : true});
+			//connected event
+			socket.on("connected", function(data){
+				onConnect(id);
+				info ("I am connected!!");
+			});
 			//notification event
 			socket.on("notification", function(data){
 				info ("Notification: " + data);
 			});
 			//disconnected event
 			socket.on("disconnected", function(data){
+				onDisconnect(id);
 				info ("I've been disconnected. Stopping timer.");
 				self.stop();
 			});

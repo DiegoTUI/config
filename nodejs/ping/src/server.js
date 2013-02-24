@@ -48,6 +48,7 @@ var wsServer = io.listen(server);
 		connectedClients.clients[client.id] = client;
 		info ("New client connected: " + client.id + ". Total clients: " + connectedClients.length() + ". Max clients allowed: " + maxClients);
 		client.emit("notification", "Welcome, you are client number " + connectedClients.length());
+		client.emit("connected");
 	}
 	else	//kick him out
 	{

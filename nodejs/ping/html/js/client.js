@@ -7,7 +7,12 @@
  	// self-reference
 	var self = this;
 	//number of active pingers
-	var activePingers = 0;
+	var activePingers = {
+		clients:[],
+		length: function(){
+			return Object.keys(this.clients).length;
+		}
+	};
 	//number of pingers to create
 	self.numberOfPingers = 100;
 	//period for each pinger
@@ -41,10 +46,26 @@
 	function createPinger()
 	{
 		info("Creating new pinger");
-		var p = new pinger();
+		var p = new pinger(onConnect,onDisconnect);
 		p.start(self.period);
 		activePingers++;
 		$('#activePingers').html(activePingers);
+	}
+
+	/**
+	 * Callback when a pinger has connected
+	 */
+	function onConnect(id)
+	{
+		$('#message').html("<p>Client " + id + "has connected</p>");
+	}
+
+	/**
+	 * Callback when a pinger has disconnected
+	 */
+	function onDisconnect(id)
+	{
+		$('#message').html("<p>Client " + id + "has disconnected</p>");
 	}
  }
 
