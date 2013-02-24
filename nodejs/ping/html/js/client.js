@@ -13,12 +13,15 @@
 			return Object.keys(this.clients).length;
 		}
 	};
+	//array of timeouts
+	var timeouts = [];
 	//number of pingers to create
 	self.numberOfPingers = 100;
 	//period for each pinger
 	self.period = 100;
 	//delay between the creation of each pinger
 	self.delay = 1000;
+
 
 	/**
  	 * Set Params
@@ -36,7 +39,7 @@
  		$('#message').html('<p>Trying to create ' + self.numberOfPingers + ' pingers with a period of ' + self.period + 'ms and a delay between pingers of ' + self.delay +  'ms</p>');
  	 	for (var i=0; i<self.numberOfPingers; i++)
 		{
-			setTimeout(createPinger, self.delay * i);
+			timeouts.push(setTimeout(createPinger, self.delay * i));
 		}
  	 }
 
@@ -45,12 +48,24 @@
  	  */
  	self.disconnectAll = function(){
  		info ("DisconnectAll");
+ 		self.clearAllTimeouts();
  		for (id in activePingers.clients)
  		{
  			info ("Disconnecting client: " + id);
  			var currentPinger = activePingers.clients[id];
  			currentPinger.disconnect();
  		}
+ 	}
+
+ 	/**
+ 	  * Clear all timeouts
+ 	  */
+ 	self.clearAllTimeouts = function(){
+ 		for (var i = 0; i < timeouts.length; i++) {
+			clearTimeout(timeouts[i]);
+		}
+		//quick reset of the timer array you just cleared
+		timeouts = [];
  	}
 
  	 /**
