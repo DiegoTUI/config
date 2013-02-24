@@ -25,6 +25,17 @@ function pinger ()
 	var timestamp = null;
 	//auto-generated id of the pinger
 	var id = randomId();
+
+	//static variable to write the delays
+	pinger.stats = {
+		delays:[],
+		average: 0,
+		addDelay: function(delay){
+			this.delays.push(delay);
+			var newlength = this.delays.length;
+			this.average = (this.average*(newlength - 1) + delay)/newlength;
+		}
+	};
 	/**
 	 * Ping!!
 	 */
@@ -58,6 +69,8 @@ function pinger ()
 			socket.on("pong", function(data){
 				var delay = new Date().getTime() - timestamp;
 				info ("Pong received: " + data.clientId + " - delay in ms: " + delay);
+				pinger.stats.addDelay(delay);
+				info ("Stats updated. Delays length: " + pinger.stats.delays.length + " - Average: " + pinger.stats.average);
 			});
 		}
 		if (timer === null)
