@@ -13,7 +13,7 @@ var pinger = function (onConnect, onDisconnect)
 	//timestamp
 	var timestamp = null;
 	//auto-generated id of the pinger
-	var self.id = randomId();
+	self.id = randomId();
 
 	/**
 	 * Ping!!
