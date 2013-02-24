@@ -70,7 +70,7 @@ var pinger = function (onConnect, onDisconnect)
 	 */
 	self.stopTimer = function()
 	{
-		self.timer.stop();
+		timer.stop();
 	}
 	/**
 	 * Disconnects socket
