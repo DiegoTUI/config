@@ -8,6 +8,8 @@
 	var self = this;
 	//number of pingers to create
 	var numberOfPingers = 10;
+	//number of active pingers
+	var activePingers = 0;
 	//period for each pinger
 	var period = 1000;
 	//delay between the creation of each pinger
@@ -31,6 +33,8 @@
 		info("Creating new pinger");
 		var p = new pinger();
 		p.start(period);
+		activePingers++;
+		$(#activePingers).html(activePingers);
 	}
  }
 
