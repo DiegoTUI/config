@@ -46,6 +46,7 @@
  	self.disconnectAll = function(){
  		for (id in activePingers.clients)
  		{
+ 			info ("Disconnecting client: " + id);
  			activePingers.clients[id].disconnect();
  		}
  	}
