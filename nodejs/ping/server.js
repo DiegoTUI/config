@@ -6,7 +6,7 @@
 var http = require('http');
 var io = require('socket.io');
 var fs = require('fs');
-var url = require('url');
+var urlParser = require('url');
 var log = require('./util/log.js');
 var debug = log.debug;
 var info = log.info;
@@ -32,20 +32,6 @@ var server = http.createServer(serve).listen(port, function() {
 	info('Server running at http://127.0.0.1:' + port + '/');
 });
 var wsServer = io.listen(server);
-
-/**
- * HTTP server
- */
-function serve (request, response) {
-  // parse URL
-  var requestURL = url.parse(req.url, true);
- 
-  //check the max number of connections allowed
-  if(requestURL.query.message){
-	message = decodeURI(requestURL.query.message);
-	sendMessage(message);
-  }
-}
 
 /**
  *  This callback function is called every time someone
@@ -79,15 +65,75 @@ function serve (request, response) {
  	});
  });
 
- /**
- *  This callback function is called every time someone
- *   pings to the websocket server
- *
- wsServer.on("ping", function(data){
- 	info ("Ping received from: " + data.clientId);
- 	connectedClients.clients[client.id].emit("pong", "ponging I am");
- 	info ("Pong emmited for: " + data.clientId);
- });*/
+/**
+ * HTTP server
+ */
+function serve (request, response) {
+  var url = urlParser.parse(request.url, true);
+	if (url.pathname == '/')
+	{
+		serve_home(request, response);
+		return;
+	};
+	if (url.pathname == '/serve')
+	{
+		// will serve websocket
+		return;
+	}
+	// avoid going out of the home dir
+	if (url.pathname.contains('..'))
+	{
+		serve_file(404, 'not_found.html', response);
+		return;
+	}
+	if (url.pathname.startsWith('/src/'))
+	{
+		serve_file(200, '..' + url.pathname, response);
+		return;
+	}
+	serve_file(200, url.pathname, response);
+}
+
+/**
+ * Serve the home page.
+ */
+function serve_home(request, response)
+{
+	serve_file(200, 'index.html', response);
+}
+
+/*
+ * Serve a file.
+ */
+function serve_file(status, file, response)
+{
+	fs.readFile('html/' + file, function(err, data) {
+		if (err)
+		{
+			response.writeHead(404, {
+				'Content-Type': 'text/plain'
+			});
+			response.end('Page not found');
+			return;
+		}
+		var type = 'text/html';
+		if (file.endsWith('.js'))
+		{
+			type = 'text/javascript';
+		}
+		if (file.endsWith('.css'))
+		{
+			type = 'text/css';
+		}
+		response.writeHead(status, {
+			'Content-Length': data.length,
+			'Content-Type': type
+		});
+		response.end(data);
+	});
+}
+
+
 	
 
 
