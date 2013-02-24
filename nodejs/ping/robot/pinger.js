@@ -26,16 +26,6 @@ function pinger ()
 	//auto-generated id of the pinger
 	var id = randomId();
 
-	//static variable to write the delays
-	pinger.stats = {
-		delays:[],
-		average: 0,
-		addDelay: function(delay){
-			this.delays.push(delay);
-			var newlength = this.delays.length;
-			this.average = (this.average*(newlength - 1) + delay)/newlength;
-		}
-	};
 	/**
 	 * Ping!!
 	 */
@@ -87,6 +77,17 @@ function pinger ()
 		self.timer.stop();
 	}
 }
+
+//static variable to write the delays
+pinger.stats = {
+	delays:[],
+	average: 0,
+	addDelay: function(delay){
+		this.delays.push(delay);
+		var newlength = this.delays.length;
+		this.average = (this.average*(newlength - 1) + delay)/newlength;
+	}
+};
 
 module.exports.pinger = pinger;
 //new pinger().start(1000);
