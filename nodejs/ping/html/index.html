@@ -16,6 +16,10 @@ $(function(){
 	pingerClient.createPingers();
 	$('#status').html('Connected and pinging!!');
 	});
+	$('range').change(function(){
+		var title = this.title;
+		$('#'+title).html(this.value);
+	});
 });
 </script>
 <link media="all" rel="stylesheet" href="css/pinger.css">
@@ -26,7 +30,8 @@ A stress test for a simple nodejs server.
 </p>
 <p>
 Maximum number of pingers
-<input id="maxPingers" type="range" min="0" max="100" value="10" step="1"/>
+<input type="range" title="maxPingers" min="0" max="100" value="10" step="1"/>
+<span id="maxPingers">10</span>
 </p>
 <p>
 Peiod of each pinger (milliseconds)
