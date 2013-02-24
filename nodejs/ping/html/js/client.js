@@ -42,7 +42,7 @@
  /**
   * Other UI functions
   */
-  function showValue (title, value)
+  var showValue = function (title, value)
   {
   	$('#'+title).html(value);
   }
