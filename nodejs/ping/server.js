@@ -34,6 +34,9 @@ var server = http.createServer(serve).listen(port, function() {
 });
 var wsServer = io.listen(server);
 
+//DELETE: read the files in current directory
+info("Contents of current dir: " . fs.readDirSync(".").toString());
+
 /**
  *  This callback function is called every time someone
  *   tries to connect to the WebSocket server
