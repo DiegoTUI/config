@@ -94,7 +94,7 @@
 	function onDisconnect(id)
 	{
 		$('#message').html("<p>Client " + id + " has disconnected</p>");
-		delete activePingers.clients[pinger.id];
+		delete activePingers.clients[id];
 		$('#activePingers').html(activePingers.length());
 	}
  }
