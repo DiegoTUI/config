@@ -8,7 +8,7 @@
 	var self = this;
 	//number of active pingers
 	var activePingers = {
-		clients:[],
+		clients:{},
 		length: function(){
 			return Object.keys(this.clients).length;
 		}
@@ -44,6 +44,7 @@
  	  * Disconnect all pingers
  	  */
  	self.disconnectAll = function(){
+ 		info ("DisconnectAll");
  		for (id in activePingers.clients)
  		{
  			info ("Disconnecting client: " + id);
