@@ -80,11 +80,6 @@ function serve (request, response) {
 	{
 		serve_home(request, response);
 		return;
-	};
-	if (url.pathname == '/serve')
-	{
-		// will serve websocket
-		return;
 	}
 	// avoid going out of the home dir
 	if (url.pathname.contains('..'))
