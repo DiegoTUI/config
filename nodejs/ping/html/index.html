@@ -11,7 +11,7 @@
 <script src="/src/util/util.js"></script>
 
 <script>
-function Connect () {
+function connect () {
 	pingerClient.createPingers();
 };
 </script>
@@ -22,7 +22,7 @@ function Connect () {
 A stress test for a simple nodejs server.
 </p>
 <p>
-<input id="connect" type="button" value="Connect" />
+<input id="connect" type="button" value="Connect" action="javascript:connect()"/>
 Status:
 <span id="status">not started</span>
 </p>
