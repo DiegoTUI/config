@@ -19,6 +19,7 @@
  	 * Create pingers
  	 */
  	self.createPingers = function(){
+ 		$('#message').html('<p>Trying to create ' + numberOfPingers + ' pingers with a period of' + period + 'ms and a delay between pingers of ' + delay +  'ms</p>');
  	 	for (var i=0; i<numberOfPingers; i++)
 		{
 			setTimeout(createPinger, delay * i);
