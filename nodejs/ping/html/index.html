@@ -11,8 +11,10 @@
 <script src="/src/util/util.js"></script>
 
 <script>
-$('#connect').click(function () {
+$(function(){
+	$('#connect').click(function () {
 	pingerClient.createPingers();
+	});
 });
 </script>
 <link media="all" rel="stylesheet" href="css/pinger.css">
