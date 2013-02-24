@@ -5,6 +5,7 @@
  */
 var http = require('http');
 var io = require('socket.io');
+var util = require('../util/util.js');
 var fs = require('fs');
 var urlParser = require('url');
 var log = require('./util/log.js');
