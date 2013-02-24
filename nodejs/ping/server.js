@@ -71,6 +71,8 @@ var wsServer = io.listen(server);
  */
 function serve (request, response) {
   var url = urlParser.parse(request.url, true);
+  info ("url: " + url.toString());
+  info ("url.pathname: " + url.pathname)
 	if (url.pathname == '/')
 	{
 		serve_home(request, response);
