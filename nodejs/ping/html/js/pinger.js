@@ -50,6 +50,7 @@ var pinger = function ()
 				info ("Pong received: " + data.clientId + " - delay in ms: " + delay);
 				pinger.stats.addDelay(delay);
 				info ("Stats updated. Delays length: " + pinger.stats.delays.length + " - Average: " + pinger.stats.average);
+				$('#averageDelay').html(pinger.stats.average);
 			});
 		}
 		if (timer === null)
