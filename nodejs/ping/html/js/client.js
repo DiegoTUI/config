@@ -55,6 +55,9 @@
  			var currentPinger = activePingers.clients[id];
  			currentPinger.disconnect();
  		}
+		//clear pinger stats
+		pinger.stats.delays = [];
+		pinger.stats.average = 0;
  	}
 
  	/**
