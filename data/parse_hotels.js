@@ -6,6 +6,7 @@ print ("Array length: " + array.length);
 
 for (var i=0; i<array.length; i++){
 	var hotel = array[i];
+	//print ("Parsing " + i + " value: " + hotel.toString())
 	var code = hotel[0] || null;
 	var name = hotel[1] || null;
 	var category = hotel[2] || null;
@@ -16,7 +17,7 @@ for (var i=0; i<array.length; i++){
 	if (code !== null)
 		db.hotels.update({code:code},{$set:{name: name,
 											category: category,
-											"location.code": destination_code,
+											"location.code": location_code,
 											chain: chain,
 											"location.latitude": location_latitude,
 											"location.longitude": location_longitude
