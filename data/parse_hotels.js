@@ -1,8 +1,9 @@
 
 var array = CSVToArray ("1|2|3|4\na||c\nr|p","|");
 
-print(array.toString());
-print("length: " + array.length);
+for (var i in array)
+	print(array[i].toString());
+
 
 // This will parse a delimited string into an array of
 // arrays. The default delimiter is the comma, but this
