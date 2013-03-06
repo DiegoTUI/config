@@ -2,7 +2,7 @@
 var fileContents = cat("../data/Hotels.csv");
 var array = CSVToArray (fileContents, "|");
 
-print ("Array length: " array.length);
+print ("Array length: " + array.length);
 
 
 // This will parse a delimited string into an array of
