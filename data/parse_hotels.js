@@ -1,5 +1,5 @@
 
-var fileContents = cat("../data/Hotels.csv");
+var fileContents = cat("../data/UTF8-Hotels.csv");
 var array = CSVToArray (fileContents, "|");
 
 print ("Array length: " + array.length);
