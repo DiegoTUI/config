@@ -4,6 +4,24 @@ var array = CSVToArray (fileContents, "|");
 
 print ("Array length: " + array.length);
 
+for (var i=0; i<array.length; i++){
+	var hotel = array[i];
+	var code = hotel[0] || null;
+	var name = hotel[1] || null;
+	var category = hotel[2] || null;
+	var location_code = hotel[3] || null;
+	var chain = hotel[5] || null;
+	var location_latitude = hotel[7] || null;
+	var location_longitude = hotel[8] || null;
+	if (code !== null)
+		db.hotels.update({code:code},{$set:{name: name,
+											category: category,
+											"location.code": destination_code,
+											chain: chain,
+											"location.latitude": location_latitude,
+											"location.longitude": location_longitude
+											}}, {upsert: true});
+}
 
 // This will parse a delimited string into an array of
 // arrays. The default delimiter is the comma, but this
