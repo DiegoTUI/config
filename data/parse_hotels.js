@@ -1,7 +1,7 @@
 
 var array = []; //CSVToArray ("1|2|3|4\na||c\nr|p","|");
 
-print ("File: " + cat("./text"));
+print ("File: " + cat("./data/text"));
 
 
 
