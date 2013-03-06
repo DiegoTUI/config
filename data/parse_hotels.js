@@ -1,8 +1,11 @@
 
-var array = CSVToArray ("1|2|3|4\na||c\nr|p","|");
-
-for (var i in array)
-	print(array[i].toString());
+var array = []; //CSVToArray ("1|2|3|4\na||c\nr|p","|");
+var reader = new FileReader();
+reader.onload = function (event){
+	var contents = event.target.result;
+	array = CSVToArray (contents);
+	print("Array: " + array.toString());
+}
 
 
 // This will parse a delimited string into an array of
