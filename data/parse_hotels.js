@@ -2,6 +2,7 @@
 var array = CSVToArray ("1|2|3|4\na||c","|");
 
 print(array.toString());
+print("length: " + array.length);
 
 // This will parse a delimited string into an array of
 // arrays. The default delimiter is the comma, but this
