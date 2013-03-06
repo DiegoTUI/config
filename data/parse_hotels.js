@@ -1,8 +1,8 @@
 
-var array = []; //CSVToArray ("1|2|3|4\na||c\nr|p","|");
+var fileContents = cat("../data/Hotels.csv");
+var array = CSVToArray (fileContents, "|");
 
-print ("File: " + cat("./data/text"));
-
+print ("Array length: " array.length);
 
 
 // This will parse a delimited string into an array of
