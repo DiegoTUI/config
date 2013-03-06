@@ -1,19 +1,8 @@
 
 var array = []; //CSVToArray ("1|2|3|4\na||c\nr|p","|");
 
-var hotelsFile = new File("text");
-var result = hotelsFile.open("r");
+print ("File: " + cat("./text"));
 
-print ("result: " + result);
-
-var reader = new FileReader();
-reader.onload = function (event){
-	var contents = event.target.result;
-	array = CSVToArray (contents);
-	print("Array: " + array.toString());
-}
-
-reader.readAsText(hotelsFile);
 
 
 // This will parse a delimited string into an array of
