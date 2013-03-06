@@ -1,5 +1,5 @@
 
-var array = CSVToArray ("1|2|3|4\na||c");
+var array = CSVToArray ("1|2|3|4\na||c","|");
 
 print(array.toString());
 
