@@ -65,3 +65,4 @@ db.users.ensureIndex({userId: 1}, {unique: true});
 db.users.ensureIndex({email: 1}, {unique: true});
 db.users.ensureIndex({userName: 1}, {unique: false});
 db.users.ensureIndex({roleId: 1}, {unique: false});
+db.hotels.ensureIndex({code: 1}, {unique: true});
