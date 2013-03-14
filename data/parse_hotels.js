@@ -20,7 +20,8 @@ for (var i=0; i<array.length; i++){
 											"location.code": location_code,
 											chain: chain,
 											"location.latitude": location_latitude,
-											"location.longitude": location_longitude
+											"location.longitude": location_longitude,
+											loc: [location_longitude, location_latitude],
 											}}, {upsert: true});
 }
 
