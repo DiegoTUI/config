@@ -21,7 +21,6 @@ for (var i=0; i<array.length; i++){
 											chain: chain,
 											"location.latitude": location_latitude,
 											"location.longitude": location_longitude,
-											loc: [location_longitude, location_latitude],
 											}}, {upsert: true});
 }
 
