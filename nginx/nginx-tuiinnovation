@@ -24,7 +24,7 @@ server
                 include /etc/tuiinnovation/config/nginx/inc/proxy-nginx;
         }
         # Proxy the ATLAS calls to http://212.170.239.71/appservices/http/FrontendService
-        location ~ ^/atlas/\w+.php$* {
+        location ~ ^/appservices/http/FrontendService {
                 include /etc/tuiinnovation/config/nginx/inc/proxy-atlas;
         }
 }
