@@ -17,7 +17,7 @@ process.title = 'atlasProxy';
  * Globals.
  */
 var host = '54.246.80.107';
-var port = 8080;
+var port = 1337;
 //The app
 var app = express();
 //Serve root GET calls
@@ -29,6 +29,7 @@ app.listen(port, host);
  * HTTP server
  */
 function serve (request, response) {
+	console.log("Entered serve");
 	var toReturn = {
 		service:request.params.service,
 		query: request.query
