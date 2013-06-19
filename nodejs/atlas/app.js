@@ -19,7 +19,7 @@ process.title = 'atlasProxy';
 var host = '54.246.80.107';
 var port = 8080;
 //The app
-var app = express.createServer();
+var app = express();
 //Serve root GET calls
 app.get("/:service", serve);
 //Listen
