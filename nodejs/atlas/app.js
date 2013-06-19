@@ -60,18 +60,18 @@ function serve (request, response) {
 /**
  * Serve the home page.
  */
-function serve_home(request, response)
+/*function serve_home(request, response)
 {
-	info("serving home");
+	console.log("serving home");
 	serve_file(200, 'index.html', response);
-}
+}*/
 
 /*
  * Serve a file.
  */
-function serve_file(status, file, response)
+/*function serve_file(status, file, response)
 {
-	info ("serving file: " + file);
+	console.log ("serving file: " + file);
 	fs.readFile("html/" + file, function(err, data) {
 		if (err)
 		{
@@ -97,7 +97,7 @@ function serve_file(status, file, response)
 		});
 		response.end(data);
 	});
-}
+}*/
 
 
 	
