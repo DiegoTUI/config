@@ -5,6 +5,8 @@
  * Copyright (C) 2013 TuiInnovation.
  */
 
+require("../core.js");
+
 var util = require("../util.js");
 
 exports.xmlToJson = function (test) {
