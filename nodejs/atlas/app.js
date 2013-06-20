@@ -34,7 +34,7 @@ function serve (request, response) {
 	console.log("Serving for " + request.params.service + " with query: " + JSON.stringify(request.query));
 	//perform request to ATLAS
 	httpRequest.post(atlas.url, {form:{xml_request:atlas.testRequest}}, function(error, httpResponse, body) {
-		console.log ("received response from ATLAS: " + JSON.stringify(httpResponse));
+		console.log ("received response from ATLAS: " + httpResponse.statusCode);
 		response.setHeader("Content-Type", "text/plain");
 		if (error) {
 			response.send("An error occurred: " + JSON.stringify(error));
