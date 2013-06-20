@@ -7,7 +7,7 @@ var http = require('http');
 var fs = require('fs');
 var url = require('url');
 var express = require('express');
-var request = require('request');
+var httpRequest = require('request');
 
 /**
  * Constants.
@@ -33,7 +33,7 @@ console.log("listening on port: " + config.port);
 function serve (request, response) {
 	console.log("Serving for " + request.params.service + " with query: " + JSON.stringify(request.query));
 	//perform request to ATLAS
-	request.post(atlas.url, {form:{xml_request:atlas.testRequest}}, function(error, response, body) {
+	httpRequest.post(atlas.url, {form:{xml_request:atlas.testRequest}}, function(error, response, body) {
 		console.log ("received response from ATLAS: " + body);
 		response.setHeader("Content-Type", "text/plain");
 		if (error) {
