@@ -33,7 +33,7 @@ console.log("listening on port: " + config.port);
 function serve (request, response) {
 	console.log("Serving for " + request.params.service + " with query: " + JSON.stringify(request.query));
 	//perform request to ATLAS
-	httpRequest.post(atlas.url, {form:{xml_request:atlas.testRequest}}, function(error, response, body) {
+	httpRequest.post(atlas.url, {form:{xml_request:atlas.testRequest}}, function(error, httpResponse, body) {
 		console.log ("received response from ATLAS: " + body);
 		response.setHeader("Content-Type", "text/plain");
 		if (error) {
