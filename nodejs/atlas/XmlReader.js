@@ -77,7 +77,7 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 		for (var i=0; i<descriptionMap.length; i++) {
 			var item = descriptionMap[i];
 			if (typeof item === 'string') {	//It's a string
-				result[item] = element[item][0];
+				result[item] = getValue(element[item][0]);
 			} 
 			else if (typeof item === 'object') {	//It's a dictionary
 				 if (Object.keys(item).length !== 1)
@@ -104,6 +104,16 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 		}
 		return result;
 	}
+
+	/**
+	 * Returns the text value of a node
+	 */
+	function getValue (node) {
+		if (typeof node === 'string')
+			return node;
+		return node['_'];
+	}
+
 
 	/**
 	 * Explores an xml jQuery object and returns the list in path
@@ -134,10 +144,10 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 		}
 		var value = null;
 		if (attribute === '') {	//No attributes
-			value = tip.text();
+			value = getValue(tip);
 		}
 		else {	//There is an attribute at the end
-			value = tip.attr(attribute);
+			value = tip['$'][attribute];
 		}
 		return value;
 	}
