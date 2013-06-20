@@ -6,8 +6,6 @@
  * Copyright (C) 2013 TuiInnovation.
  */
 
- var $ = require('jquery');
-
 /**
  * The XML reader.
  * xmlString: the xml in string format
@@ -25,23 +23,52 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 	 * Returns an array of JS objects
 	 * tag: the tag representing the objects in the xml to be read
 	 */
-	self.readObjects = function() {
+	self.readObjects = function(callback) {
 		//initialize result
 		var result =[];
-		//wrap the string in a jquery object
-		var xmlObject = $($.parseXML(xmlString));
-		var objectToBrowse = (tag && (tag.length > 0)) ? xmlObject.find(tag) : xmlObject.find(":root");
-		//parse it
-		objectToBrowse.each(function() {
-			result.push(processElement(this, descriptionMap));
+		//parse the xmlString in a JSON
+		var parser = require("xml2json").Parser();
+		parser.parseString(xmlString);
+		parser.on("end", function(xmlObject){
+			var objectToBrowse = (tag && (tag.length > 0)) ? findTag(xmlObject, tag) : xmlObject(Object.keys(xmlObject)[0]);
+			if (objectToBrowse == null) {
+				result = null;
+			} else if (objectToBrowse instanceof Array) {
+				for (var element in objectToBrowse) {
+					result.push(processElement(element, descriptionMap));	
+				}
+			} else  { //It's an object
+				result.push(processElement(objectToBrowse, descriptionMap));
+			}
+			callback(result);
 		});
-		
-		return result;
+
 	}
 
 	/**
+	 * Recursive function to find a tag in the xmlObject and return the value of it
+	 * Returns null if the tag was not found
+	 */
+	 function findTag(xmlObject, tag) {
+	 	if (xmlObject instanceof Array) {
+	 		for (var element in xmlObject) {
+	 			var result = findTag(element, tag);
+	 			if (result)
+	 				return result;
+	 		}
+	 	} else if (typeof xmlObject === "object") {
+	 		for (var key in xmlObject) {
+	 			if (tag === key) {
+	 				return xmlObject[key];
+	 			} 
+	 		}
+	 	}
+	 	return null;
+	 }
+
+	/**
 	 * Process an element of the xml according to the description Map and returns an object
-	 * element: a DOM object containing the element to be processed
+	 * element: a JSON object containing the element to be processed
 	 */
 	function processElement(element, descriptionMap) {
 		//initialize result
@@ -50,8 +77,7 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 		for (var i=0; i<descriptionMap.length; i++) {
 			var item = descriptionMap[i];
 			if (typeof item === 'string') {	//It's a string
-				result[item] = $(element).find(item).text();
-				//tui.debug("Found string in descriptionMap. Field: " + item +". Value: " + result[item]);
+				result[item] = element[item][0];
 			} 
 			else if (typeof item === 'object') {	//It's a dictionary
 				 if (Object.keys(item).length !== 1)
@@ -63,11 +89,11 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 						//initialize list
 						var listifiedKey = key.listify();
 						result[listifiedKey] = [];
-						
-						//get in the list replacing the dots by spaces
-						$(element).find(key.replace(/\./g,' ')).each(function(){
-							result[listifiedKey].push(processElement(this, value));
-						});
+						//get the array that contains the list
+						var theList = listInXml(element,key);
+						for(var innerElement in theList) {
+							result[listifiedKey].push(processElement(innerElement, value));
+						}
 					}
 					else if (typeof value === 'string') {	//It's a deep value
 						result[key] = valueInXml(element, value);
@@ -80,6 +106,20 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 	}
 
 	/**
+	 * Explores an xml jQuery object and returns the list in path
+	 * xmlObject: a JSON object containing the xml to look in
+	 * path: a string like "TicketInfo.DescriptionList.Description" containing the path to look in.
+	 */
+	function listInXml (xmlObject, path) {
+		var result = xmlObject;
+		var pathArray = path.split(".");
+		for (var i=0; i<pathArray.length; i++) {
+			result = result[pathArray[i]][0];
+		}
+		return result;
+	}
+
+	/**
 	 * Explores an xml jQuery object and returns the value in path
 	 * xmlObject: a DOM object containing the xml to look in
 	 * path: a string like "Description.@languageCode" containing the path to look in. "@" is for attributes
@@ -87,7 +127,11 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 	function valueInXml (xmlObject, path) {
 		var realPath = path.startsWith('@') ? path.substringUpTo('@') : path.substringUpTo('.@');
 		var attribute = path.substringFrom('@');
-		var tip = realPath.length == 0 ? $(xmlObject) : $(xmlObject).find(realPath.replace(/\./g,' '));
+		var realPathArray = realPath.split(".");
+		var tip = xmlObject;
+		for (var i=0; i<realPathArray.length; i++) {
+			tip = tip[realPathArray[i]][0];
+		}
 		var value = null;
 		if (attribute === '') {	//No attributes
 			value = tip.text();

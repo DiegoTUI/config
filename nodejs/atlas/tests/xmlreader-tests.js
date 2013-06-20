@@ -9,14 +9,33 @@ var XmlReader = require("../XmlReader.js");
 var eyes = require("eyes");
 var xml2js = require("xml2js");
 
-var testXml = '<root> \
-<item> \
-<value>1</value> \
-</item> \
-<item> \
-<value>1</value> \
-</item> \
-</root>';
+var testXml = '<ServiceTicket xsi-type="ServiceTicket" availToken="9ey6mENxtyujqkVKnqvpMA=="> \
+		<DateFrom date="DateFrom1"/> \
+		<DateTo date="DateTo1"/> \
+		<Currency code="EUR1">Euro1</Currency> \
+		<TicketInfo xsi-type="ProductTicket"> \
+			<Code>000200515</Code> \
+			<Name>Ticket1</Name> \
+			<DescriptionList> \
+				<Description type="generalDescription" languageCode="ENG">Description 11</Description> \
+				<Description type="generalDescription" languageCode="SPA">Description 12</Description> \
+			</DescriptionList> \
+			<ImageList> \
+				<Image> \
+					<Type>S</Type> \
+					<Order>0</Order> \
+					<VisualizationOrder>0</VisualizationOrder> \
+					<Url>Image11</Url> \
+				</Image> \
+				<Image> \
+					<Type>S</Type> \
+					<Order>0</Order> \
+					<VisualizationOrder>0</VisualizationOrder> \
+					<Url>Image12</Url> \
+				</Image> \
+			</ImageList> \
+		</TicketInfo> \
+	</ServiceTicket> ';
 
 var testDescriptionMap = ["value"];
 
@@ -171,7 +190,7 @@ exports.testXml = function (test) {
 		//	test.done();
 	});
 	//parser.parseString(ticketAvailString);
-	parser.parseString(ticketClassificationListString);
+	parser.parseString(testXml);
 	/*//Now chek some stuff about the parsed xml
 	test.ok(parsedXml instanceof Array, 'parsedXml is an array');
 	test.ok(parsedXml.length === 2, 'parsedXml has 2 elements');
