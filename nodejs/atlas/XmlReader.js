@@ -27,7 +27,7 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 		//initialize result
 		var result =[];
 		//parse the xmlString in a JSON
-		var parser = require("xml2json").Parser();
+		var parser = require("xml2js").Parser();
 		parser.parseString(xmlString);
 		parser.on("end", function(xmlObject){
 			var objectToBrowse = (tag && (tag.length > 0)) ? findTag(xmlObject, tag) : xmlObject(Object.keys(xmlObject)[0]);
