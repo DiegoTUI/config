@@ -227,6 +227,8 @@ exports.ticketAvail = function (test) {
 		eyes.inspect(result);
 		test.done();
 	});
+
+	test.done();
 	//Now chek some stuff about the parsed xml
 	/*test.ok(parsedXml instanceof Array, 'parsedXml is an array');
 	test.ok(parsedXml.length === 2, 'parsedXml has 2 elements');
