@@ -159,7 +159,7 @@ var ticketClassificationListMapAlt = [
 					{'Name':''}]}];
 
 exports.testXml = function (test) {
-	var xmlParser = xml2js.Parser();
+	var parser = xml2js.Parser();
 	
 	parser.on("end", function(parsedXml) {
 		eyes.inspect(parsedXml);
