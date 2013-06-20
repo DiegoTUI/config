@@ -16,14 +16,14 @@ process.title = 'atlasProxy';
 /**
  * Globals.
  */
-var host = '54.246.80.107';
+var host = '127.0.0.1';
 var port = 8080;
 //The app
 var app = express();
 //Serve root GET calls
 app.get("/:service", serve);
 //Listen
-app.listen(port);
+app.listen(port, host);
 
 /**
  * HTTP server
@@ -35,7 +35,7 @@ function serve (request, response) {
 		query: request.query
 	}
 	response.setHeader("Content-Type", "text/plain");
-	response.send("Response: " + toReturn);
+	response.send("Response: " + JSON.stringify(toReturn);
   /*var url = urlParser.parse(request.url, true);
   info ("url: " + JSON.stringify(url));
   info ("url.pathname: " + url.pathname);
