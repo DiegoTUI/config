@@ -162,7 +162,7 @@ exports.testXml = function (test) {
 	var parser = xml2js.Parser();
 	
 	parser.on("end", function(parsedXml) {
-		eyes.inspect(parsedXml);
+		console.log(JSON.stringify(parsedXml));
 		test.done();
 	});
 	parser.parseString(ticketAvailString);
