@@ -223,10 +223,13 @@ exports.testXml = function (test) {
 
 exports.ticketAvail = function (test) {
 	var xmlReader = new XmlReader (ticketAvailString, ticketAvailMap, 'ServiceTicket');
+	var lock = true;
 	var parsedXml = xmlReader.readObjects(function (result) {
 		eyes.inspect(result);
-		test.done();
+		lock = false;
 	});
+
+	while (lock){}
 
 	test.done();
 	//Now chek some stuff about the parsed xml
