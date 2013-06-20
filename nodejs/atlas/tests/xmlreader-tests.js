@@ -6,6 +6,8 @@
  */
 
 var XmlReader = require("../XmlReader.js");
+var eyes = require("eyes");
+var xml2js = requires("xml2js");
 
 var testXml = '<root> \
 <item> \
@@ -157,9 +159,13 @@ var ticketClassificationListMapAlt = [
 					{'Name':''}]}];
 
 exports.testXml = function (test) {
-	var xmlReader = new XmlReader (testXml, testDescriptionMap, 'item');
-	var parsedXml = xmlReader.readObjects();
-	console.log("parsedXml: " + JSON.stringify(parsedXml));
+	var xmlParser = xml2js.Parser();
+	
+	parser.on("end", function(parsedXml) {
+		eyes.inspect(parsedXml);
+		test.done();
+	});
+	parser.parseString(testXml);
 	/*//Now chek some stuff about the parsed xml
 	test.ok(parsedXml instanceof Array, 'parsedXml is an array');
 	test.ok(parsedXml.length === 2, 'parsedXml has 2 elements');
@@ -187,7 +193,7 @@ exports.testXml = function (test) {
 			test.ok(DescriptionList[j].Description === "Description "+(i+1)+""+(j+1), "wrong description text in ticket " + i + " description " + j);
 		}
 	}*/
-    test.done();
+    //test.done();
 }
 
 /*exports.ticketAvail = function (test) {
