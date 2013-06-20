@@ -7,7 +7,7 @@
 
 var XmlReader = require("../XmlReader.js");
 var eyes = require("eyes");
-var xml2js = requires("xml2js");
+var xml2js = require("xml2js");
 
 var testXml = '<root> \
 <item> \
