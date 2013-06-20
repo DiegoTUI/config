@@ -24,6 +24,7 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 	 * tag: the tag representing the objects in the xml to be read
 	 */
 	self.readObjects = function(callback) {
+		console.log("entered readObjects");
 		//initialize result
 		var result =[];
 		//parse the xmlString in a JSON
@@ -40,6 +41,7 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 			} else  { //It's an object
 				result.push(processElement(objectToBrowse, descriptionMap));
 			}
+			console.log("About to callback: " + JSON.stringify(result));
 			callback(result);
 		});
 
