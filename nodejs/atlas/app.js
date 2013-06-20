@@ -23,7 +23,7 @@ var app = express();
 //Serve root GET calls
 app.get("/:service", serve);
 //Listen
-app.listen(port, host);
+app.listen(port);
 
 /**
  * HTTP server
