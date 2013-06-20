@@ -15,7 +15,7 @@ var testXml = '<ServiceTicket xsi-type="ServiceTicket" availToken="9ey6mENxtyujq
 		<Currency code="EUR1">Euro1</Currency> \
 		<TicketInfo xsi-type="ProductTicket"> \
 			<Code>000200515</Code> \
-			<Name>Ticket1</Name> \
+			<Name type="regular">Ticket1</Name> \
 			<DescriptionList> \
 				<Description type="generalDescription" languageCode="ENG">Description 11</Description> \
 				<Description type="generalDescription" languageCode="SPA">Description 12</Description> \
