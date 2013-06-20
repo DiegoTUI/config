@@ -160,12 +160,17 @@ var ticketClassificationListMapAlt = [
 
 exports.testXml = function (test) {
 	var parser = xml2js.Parser();
+	var count = 0;
 	
 	parser.on("end", function(parsedXml) {
-		console.log(JSON.stringify(parsedXml));
-		test.done();
+		//console.log(JSON.stringify(parsedXml));
+		eyes.inspect(parsedXml);
+		count++;
+		if (count > 1)
+			test.done();
 	});
 	parser.parseString(ticketAvailString);
+	parser.parseString(ticketClassificationListString);
 	/*//Now chek some stuff about the parsed xml
 	test.ok(parsedXml instanceof Array, 'parsedXml is an array');
 	test.ok(parsedXml.length === 2, 'parsedXml has 2 elements');
