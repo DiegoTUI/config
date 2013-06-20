@@ -27,6 +27,7 @@ exports.exactMatch = function(test) {
 	test.ok(paramString.replaceAll() == 'Hallo peoples. You fuck my mother twice', 'string replaced correctly');
 	test.ok(paramString.replaceAllClean() == 'Hallo peoples. You fuck my mother twice', 'string replaced correctly');
 	test.ok(paramString.getLooseKeys().length === 0, 'exact match. No loose keys');
+	test.done();
 }
 
 exports.tooManyParams = function(test) {
@@ -42,6 +43,7 @@ exports.tooManyParams = function(test) {
 	test.ok(paramString.replaceAll() == 'Hallo peoples. You fuck my mother twice', 'string replaced correctly');
 	test.ok(paramString.replaceAllClean() == 'Hallo peoples. You fuck my mother twice', 'string replaced correctly');
 	test.ok(paramString.getLooseKeys().length === 0, 'too many params. No loose keys');
+	test.done();
 }
 
 exports.tooFewParams = function(test) {
@@ -54,4 +56,5 @@ exports.tooFewParams = function(test) {
 	test.ok(paramString.replaceAll() == 'Hallo peoples. You fuck my $relative$ $times$', 'string replaced correctly');
 	test.ok(paramString.replaceAllClean() == 'Hallo peoples. You fuck my  ', 'string replaced correctly');
 	test.ok(paramString.getLooseKeys().length === 2, 'Should have 2 loose key');
+	test.done();
 }
