@@ -39,7 +39,7 @@ exports.tooManyParams = function(test) {
 		extra1: "extra1",
 		extra2: "extra2"
 	};
-	var paramString = new tuins.ParametrizedString (baseString, params);
+	var paramString = new ParametrizedString (baseString, params);
 	test.ok(paramString.replaceAll() == 'Hallo peoples. You fuck my mother twice', 'string replaced correctly');
 	test.ok(paramString.replaceAllClean() == 'Hallo peoples. You fuck my mother twice', 'string replaced correctly');
 	test.ok(paramString.getLooseKeys().length === 0, 'too many params. No loose keys');
@@ -52,7 +52,7 @@ exports.tooFewParams = function(test) {
 		action: "fuck",
 		extra2: "extra2"
 	};
-	var paramString = new tuins.ParametrizedString (baseString, params);
+	var paramString = new ParametrizedString (baseString, params);
 	test.ok(paramString.replaceAll() == 'Hallo peoples. You fuck my $relative$ $times$', 'string replaced correctly');
 	test.ok(paramString.replaceAllClean() == 'Hallo peoples. You fuck my  ', 'string replaced correctly');
 	test.ok(paramString.getLooseKeys().length === 2, 'Should have 2 loose key');
