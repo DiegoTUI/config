@@ -166,10 +166,11 @@ exports.testXml = function (test) {
 		//console.log(JSON.stringify(parsedXml));
 		eyes.inspect(parsedXml);
 		count++;
-		if (count > 1)
-			test.done();
+		test.done();
+		//if (count > 1)
+		//	test.done();
 	});
-	parser.parseString(ticketAvailString);
+	//parser.parseString(ticketAvailString);
 	parser.parseString(ticketClassificationListString);
 	/*//Now chek some stuff about the parsed xml
 	test.ok(parsedXml instanceof Array, 'parsedXml is an array');
