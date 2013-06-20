@@ -35,7 +35,7 @@ function serve (request, response) {
 		query: request.query
 	}
 	response.setHeader("Content-Type", "text/plain");
-	response.send("Response: " + JSON.stringify(toReturn);
+	response.send("Response: " + JSON.stringify(toReturn));
   /*var url = urlParser.parse(request.url, true);
   info ("url: " + JSON.stringify(url));
   info ("url.pathname: " + url.pathname);
