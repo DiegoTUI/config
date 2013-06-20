@@ -223,15 +223,16 @@ exports.testXml = function (test) {
 
 exports.ticketAvail = function (test) {
 	var xmlReader = new XmlReader (ticketAvailString, ticketAvailMap, 'ServiceTicket');
-	var lock = true;
+	//var lock = true;
 	var parsedXml = xmlReader.readObjects(function (result) {
 		eyes.inspect(result);
 		lock = false;
+		test.done();
 	});
 
-	while (lock){}
+	//while (lock){}
 
-	test.done();
+	
 	//Now chek some stuff about the parsed xml
 	/*test.ok(parsedXml instanceof Array, 'parsedXml is an array');
 	test.ok(parsedXml.length === 2, 'parsedXml has 2 elements');
