@@ -17,7 +17,7 @@ process.title = 'atlasProxy';
  * Globals.
  */
 var host = '54.246.80.107';
-var port = 1337;
+var port = 8080;
 //The app
 var app = express();
 //Serve root GET calls
