@@ -165,7 +165,7 @@ exports.testXml = function (test) {
 		eyes.inspect(parsedXml);
 		test.done();
 	});
-	parser.parseString(testXml);
+	parser.parseString(ticketAvailString);
 	/*//Now chek some stuff about the parsed xml
 	test.ok(parsedXml instanceof Array, 'parsedXml is an array');
 	test.ok(parsedXml.length === 2, 'parsedXml has 2 elements');
