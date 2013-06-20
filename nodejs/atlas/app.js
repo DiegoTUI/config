@@ -16,24 +16,20 @@ process.title = 'atlasProxy';
 /**
  * Globals.
  */
-var host = '127.0.0.1';
-var port = 8080;
+var config = JSON.parse(fs.readFileSync("config.json"));
 //The app
 var app = express();
 //Serve root GET calls
 app.get("/:service", serve);
 //Listen
-app.listen(port);
+app.listen(config.port);
+console.log("listening on port: " + config.port);
 
 /**
  * HTTP server
  */
 function serve (request, response) {
-	console.log("Entered serve");
-	var toReturn = {
-		service:request.params.service,
-		query: request.query
-	}
+	console.log("Serving for " + request.params.service + " with query: " + JSON.stringify(request.query));
 	response.setHeader("Content-Type", "text/plain");
 	response.send("Response: " + JSON.stringify(toReturn));
   /*var url = urlParser.parse(request.url, true);
