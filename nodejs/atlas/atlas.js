@@ -11,23 +11,23 @@
  */
  var atlas = {
 	url: 'http://212.170.239.71/appservices/http/FrontendService',
-	ticketAvailRequest : '<TicketAvailRQ echoToken="DummyEchoToken" sessionId="DummySessionId" \
+	testRequest : '<TicketAvailRQ echoToken="DummyEchoToken" sessionId="DummySessionId" \
 		xmlns="http://www.hotelbeds.com/schemas/2005/06/messages" \
   		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" \
   		xsi:schemaLocation="http://www.hotelbeds.com/schemas/2005/06/messages TicketAvailRQ.xsd"> \
-  <Language>$Language$</Language> \
+  <Language>ENG</Language> \
   <Credentials> \
-    <User>$Credentials_User$</User> \
-    <Password>$Credentials_Password$</Password> \
+    <User>ISLAS</User> \
+    <Password>ISLAS</Password> \
   </Credentials> \
-  <PaginationData itemsPerPage="$PaginationData_itemsPerPage$" pageNumber="$PaginationData_pageNumber$"/> \
+  <PaginationData itemsPerPage="25" pageNumber="1"/> \
   <ServiceOccupancy> \
-    <AdultCount>$ServiceOccupancy_AdultCount$</AdultCount> \
-    <ChildCount>$ServiceOccupancy_ChildCount$</ChildCount> \
+    <AdultCount>1</AdultCount> \
+    <ChildCount>0</ChildCount> \
   </ServiceOccupancy> \
-  <Destination code="$Destination_code$" type="SIMPLE"/> \
-  <DateFrom date="$DateFrom_date$"/> \
-  <DateTo date="$DateTo_date$"/> \
+  <Destination code="PMI" type="SIMPLE"/> \
+  <DateFrom date="20130819"/> \
+  <DateTo date="20130819"/> \
 </TicketAvailRQ>'	
 };
 
