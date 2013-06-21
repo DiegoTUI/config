@@ -35,15 +35,19 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 		var parser = require("xml2js").Parser();
 		parser.on("end", function(xmlObject){
 			var objectToBrowse = (tag && (tag.length > 0)) ? findTag(xmlObject, tag) : xmlObject(Object.keys(xmlObject)[0]);
+			console.log("got objectToBrowse");
 			eyes.inspect (objectToBrowse);
 			//console.log("Object to Browse: " + JSON.stringify(objectToBrowse));
 			if (objectToBrowse == null) {
+				console.log("objectToBrowse is null");
 				result = null;
 			} else if (objectToBrowse instanceof Array) {
+				console.log("objectToBrowse is an instance of array");
 				for (var element in objectToBrowse) {
 					result.push(processElement(element, descriptionMap));	
 				}
 			} else  { //It's an object
+				console.log("objectToBrowse is an object");
 				result.push(processElement(objectToBrowse, descriptionMap));
 			}
 			console.log("About to callback: " + JSON.stringify(result));
@@ -51,7 +55,6 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 		});
 
 		parser.parseString(xmlString);
-
 	}
 
 	/**
