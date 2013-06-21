@@ -252,7 +252,7 @@ exports.ticketAvail = function (test) {
 				test.ok(DescriptionList[j].Description === "Description "+(i+1)+""+(j+1), "wrong description text in ticket " + i + " description " + j);
 			}
 		}
-		//lock = false;
+		console.log("TicketAvail test done");
 		test.done();
 	});
 }

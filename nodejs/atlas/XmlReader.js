@@ -54,7 +54,7 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 			console.log("About to callback: " + JSON.stringify(result));
 			callback(result);
 		});
-
+		console.log("about to call parseString");
 		parser.parseString(xmlString);
 	}
 
