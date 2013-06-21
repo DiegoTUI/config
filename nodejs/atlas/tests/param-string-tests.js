@@ -10,6 +10,7 @@ var ParametrizedString = require("../ParametrizedString.js");
 var baseString = 'Hallo $who$. You $action$ my $relative$ $times$';
 
 exports.undefinedParamString = function (test) {
+	test.expect(2);
 	var paramString = new ParametrizedString ();
 	test.ok(typeof (paramString.replaceAll()) === 'undefined', 'empty parametrizedString returned undefined');
 	test.ok(paramString.getLooseKeys().length === 0, 'empty parametrizedString returned empty loose keys');
@@ -17,6 +18,7 @@ exports.undefinedParamString = function (test) {
 }
 
 exports.exactMatch = function(test) {
+	test.expect(3);
 	var params = {
 			who: "peoples",
 			action: "fuck",
@@ -31,6 +33,7 @@ exports.exactMatch = function(test) {
 }
 
 exports.tooManyParams = function(test) {
+	test.expect(3);
 	var params = {
 		who: "peoples",
 		action: "fuck",
@@ -47,6 +50,7 @@ exports.tooManyParams = function(test) {
 }
 
 exports.tooFewParams = function(test) {
+	test.expect(3);
 	var params = {
 		who: "peoples",
 		action: "fuck",

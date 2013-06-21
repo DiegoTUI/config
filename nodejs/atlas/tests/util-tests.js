@@ -10,6 +10,7 @@ require("../core.js");
 var util = require("../util.js");
 
 exports.xmlToJson = function (test) {
+	test.expect(50);
 	var jsonObject = {
 	    HotelListRQ: {
 	        "@echoToken": "DummyEchoToken",
