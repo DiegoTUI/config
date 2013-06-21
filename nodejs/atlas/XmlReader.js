@@ -6,6 +6,8 @@
  * Copyright (C) 2013 TuiInnovation.
  */
 
+require("./core.js");
+
 /**
  * The XML reader.
  * xmlString: the xml in string format
