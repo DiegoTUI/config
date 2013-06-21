@@ -292,58 +292,59 @@ exports.ticketAvailAlt = function (test) {
 	});
 }
 
-/*exports.ticketClassificationList = function (test) {
+exports.ticketClassificationList = function (test) {
 	var xmlReader = new XmlReader (ticketClassificationListString, ticketClassificationListMap, 'Classification');
-	var parsedXml = xmlReader.readObjects();	//reading classification tags
-	//Now chek some stuff about the parsed xml
-	test.ok(parsedXml instanceof Array, 'parsedXml is an array');
-	test.ok(parsedXml.length === 9, 'parsedXml has 9 elements');
-	test.ok(parsedXml[0].Code === 'CULTU', 'Code in element 1 is ok');
-	test.ok(parsedXml[0].Name === 'Culture Museums', 'Code in element 1 is ok');
-	test.ok(parsedXml[1].Code === 'FD', 'Code in element 2 is ok');
-	test.ok(parsedXml[1].Name === 'Full Day', 'Code in element 2 is ok');
-	test.ok(parsedXml[2].Code === 'FOOD', 'Code in element 3 is ok');
-	test.ok(parsedXml[2].Name === 'Food Nightlife', 'Code in element 3 is ok');
-	test.ok(parsedXml[3].Code === 'HD', 'Code in element 4 is ok');
-	test.ok(parsedXml[3].Name === 'In the morning', 'Code in element 4 is ok');
-	test.ok(parsedXml[4].Code === 'MD', 'Code in element 5 is ok');
-	test.ok(parsedXml[4].Name === 'Multi Day Services', 'Code in element 5 is ok');
-	test.ok(parsedXml[5].Code === 'OUTAC', 'Code in element 6 is ok');
-	test.ok(parsedXml[5].Name === 'Outdoor Adventure', 'Code in element 6 is ok');
-	test.ok(parsedXml[6].Code === 'PARTE', 'Code in element 7 is ok');
-	test.ok(parsedXml[6].Name === 'Theme Aquatic Parks', 'Code in element 7 is ok');
-	test.ok(parsedXml[7].Code === 'SHOW', 'Code in element 8 is ok');
-	test.ok(parsedXml[7].Name === 'Shows and Events', 'Code in element 8 is ok');
-	test.ok(parsedXml[8].Code === 'SIGHT', 'Code in element 9 is ok');
-	test.ok(parsedXml[8].Name === 'Sightseeing Tours', 'Code in element 9 is ok');
-	test.done();
+	xmlReader.readObjects(function (parsedXml) {
+		test.ok(parsedXml instanceof Array, 'parsedXml is an array');
+		test.ok(parsedXml.length === 9, 'parsedXml has 9 elements');
+		test.ok(parsedXml[0].Code === 'CULTU', 'Code in element 1 is ok');
+		test.ok(parsedXml[0].Name === 'Culture Museums', 'Code in element 1 is ok');
+		test.ok(parsedXml[1].Code === 'FD', 'Code in element 2 is ok');
+		test.ok(parsedXml[1].Name === 'Full Day', 'Code in element 2 is ok');
+		test.ok(parsedXml[2].Code === 'FOOD', 'Code in element 3 is ok');
+		test.ok(parsedXml[2].Name === 'Food Nightlife', 'Code in element 3 is ok');
+		test.ok(parsedXml[3].Code === 'HD', 'Code in element 4 is ok');
+		test.ok(parsedXml[3].Name === 'In the morning', 'Code in element 4 is ok');
+		test.ok(parsedXml[4].Code === 'MD', 'Code in element 5 is ok');
+		test.ok(parsedXml[4].Name === 'Multi Day Services', 'Code in element 5 is ok');
+		test.ok(parsedXml[5].Code === 'OUTAC', 'Code in element 6 is ok');
+		test.ok(parsedXml[5].Name === 'Outdoor Adventure', 'Code in element 6 is ok');
+		test.ok(parsedXml[6].Code === 'PARTE', 'Code in element 7 is ok');
+		test.ok(parsedXml[6].Name === 'Theme Aquatic Parks', 'Code in element 7 is ok');
+		test.ok(parsedXml[7].Code === 'SHOW', 'Code in element 8 is ok');
+		test.ok(parsedXml[7].Name === 'Shows and Events', 'Code in element 8 is ok');
+		test.ok(parsedXml[8].Code === 'SIGHT', 'Code in element 9 is ok');
+		test.ok(parsedXml[8].Name === 'Sightseeing Tours', 'Code in element 9 is ok');
+		test.done();
+	});
+	
 }
 
 exports.ticketClassificationListAlt = function (test) {
 	var xmlReader = new tuins.XmlReader (ticketClassificationListString, ticketClassificationListMapAlt);
-	var parsedXml = xmlReader.readObjects();	//Trying to read the base object
-	//Now chek some stuff about the parsed xml
-	test.ok(parsedXml instanceof Array, 'parsedXml is an array');
-	test.ok(parsedXml.length === 1, 'parsedXml has 1 elements');
-	test.ok(parsedXml[0].TotalItems === '9', 'TotalItems retrieved is correct');
-	test.ok(parsedXml[0].ClassificationList.length === 9, 'ClassificationList has 9 elements');
-	test.ok(parsedXml[0].ClassificationList[0].Code === 'CULTU', 'Code in element 1 is ok');
-	test.ok(parsedXml[0].ClassificationList[0].Name === 'Culture Museums', 'Code in element 1 is ok');
-	test.ok(parsedXml[0].ClassificationList[1].Code === 'FD', 'Code in element 2 is ok');
-	test.ok(parsedXml[0].ClassificationList[1].Name === 'Full Day', 'Code in element 2 is ok');
-	test.ok(parsedXml[0].ClassificationList[2].Code === 'FOOD', 'Code in element 3 is ok');
-	test.ok(parsedXml[0].ClassificationList[2].Name === 'Food Nightlife', 'Code in element 3 is ok');
-	test.ok(parsedXml[0].ClassificationList[3].Code === 'HD', 'Code in element 4 is ok');
-	test.ok(parsedXml[0].ClassificationList[3].Name === 'In the morning', 'Code in element 4 is ok');
-	test.ok(parsedXml[0].ClassificationList[4].Code === 'MD', 'Code in element 5 is ok');
-	test.ok(parsedXml[0].ClassificationList[4].Name === 'Multi Day Services', 'Code in element 5 is ok');
-	test.ok(parsedXml[0].ClassificationList[5].Code === 'OUTAC', 'Code in element 6 is ok');
-	test.ok(parsedXml[0].ClassificationList[5].Name === 'Outdoor Adventure', 'Code in element 6 is ok');
-	test.ok(parsedXml[0].ClassificationList[6].Code === 'PARTE', 'Code in element 7 is ok');
-	test.ok(parsedXml[0].ClassificationList[6].Name === 'Theme Aquatic Parks', 'Code in element 7 is ok');
-	test.ok(parsedXml[0].ClassificationList[7].Code === 'SHOW', 'Code in element 8 is ok');
-	test.ok(parsedXml[0].ClassificationList[7].Name === 'Shows and Events', 'Code in element 8 is ok');
-	test.ok(parsedXml[0].ClassificationList[8].Code === 'SIGHT', 'Code in element 9 is ok');
-	test.ok(parsedXml[0].ClassificationList[8].Name === 'Sightseeing Tours', 'Code in element 9 is ok');
-	test.done();
-}*/
+	xmlReader.readObjects(function (parsedXml) {
+		test.ok(parsedXml instanceof Array, 'parsedXml is an array');
+		test.ok(parsedXml.length === 1, 'parsedXml has 1 elements');
+		test.ok(parsedXml[0].TotalItems === '9', 'TotalItems retrieved is correct');
+		test.ok(parsedXml[0].ClassificationList.length === 9, 'ClassificationList has 9 elements');
+		test.ok(parsedXml[0].ClassificationList[0].Code === 'CULTU', 'Code in element 1 is ok');
+		test.ok(parsedXml[0].ClassificationList[0].Name === 'Culture Museums', 'Code in element 1 is ok');
+		test.ok(parsedXml[0].ClassificationList[1].Code === 'FD', 'Code in element 2 is ok');
+		test.ok(parsedXml[0].ClassificationList[1].Name === 'Full Day', 'Code in element 2 is ok');
+		test.ok(parsedXml[0].ClassificationList[2].Code === 'FOOD', 'Code in element 3 is ok');
+		test.ok(parsedXml[0].ClassificationList[2].Name === 'Food Nightlife', 'Code in element 3 is ok');
+		test.ok(parsedXml[0].ClassificationList[3].Code === 'HD', 'Code in element 4 is ok');
+		test.ok(parsedXml[0].ClassificationList[3].Name === 'In the morning', 'Code in element 4 is ok');
+		test.ok(parsedXml[0].ClassificationList[4].Code === 'MD', 'Code in element 5 is ok');
+		test.ok(parsedXml[0].ClassificationList[4].Name === 'Multi Day Services', 'Code in element 5 is ok');
+		test.ok(parsedXml[0].ClassificationList[5].Code === 'OUTAC', 'Code in element 6 is ok');
+		test.ok(parsedXml[0].ClassificationList[5].Name === 'Outdoor Adventure', 'Code in element 6 is ok');
+		test.ok(parsedXml[0].ClassificationList[6].Code === 'PARTE', 'Code in element 7 is ok');
+		test.ok(parsedXml[0].ClassificationList[6].Name === 'Theme Aquatic Parks', 'Code in element 7 is ok');
+		test.ok(parsedXml[0].ClassificationList[7].Code === 'SHOW', 'Code in element 8 is ok');
+		test.ok(parsedXml[0].ClassificationList[7].Name === 'Shows and Events', 'Code in element 8 is ok');
+		test.ok(parsedXml[0].ClassificationList[8].Code === 'SIGHT', 'Code in element 9 is ok');
+		test.ok(parsedXml[0].ClassificationList[8].Name === 'Sightseeing Tours', 'Code in element 9 is ok');
+		test.done();
+	});	
+}
