@@ -20,42 +20,29 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 	// self-reference
 	var self = this;
 
-	var eyes = require("eyes");
-
 	/**
 	 * Reads the objects from the xmlString using the descriptionMap
 	 * Returns an array of JS objects
 	 * tag: the tag representing the objects in the xml to be read
 	 */
 	self.readObjects = function(callback) {
-		console.log("entered readObjects");
 		//initialize result
 		var result =[];
 		//parse the xmlString in a JSON
 		var parser = require("xml2js").Parser();
 		parser.on("end", function(xmlObject){
-			//eyes.inspect (xmlObject);
 			var objectToBrowse = (tag && (tag.length > 0)) ? findTag(xmlObject, tag) : xmlObject[Object.keys(xmlObject)[0]];
-			console.log("got objectToBrowse");
-			//eyes.inspect (objectToBrowse);
-			//console.log("Object to Browse: " + JSON.stringify(objectToBrowse));
 			if (objectToBrowse == null) {
-				console.log("objectToBrowse is null");
 				result = null;
 			} else if (objectToBrowse instanceof Array) {
-				console.log("objectToBrowse is an instance of array");
 				for (var i=0; i<objectToBrowse.length; i++) {
-					console.log("Calling processElement for index " + i);
 					result.push(processElement(objectToBrowse[i], descriptionMap));	
 				}
 			} else  { //It's an object
-				console.log("objectToBrowse is an object");
 				result.push(processElement(objectToBrowse, descriptionMap));
 			}
-			console.log("About to callback: " + JSON.stringify(result));
 			callback(result);
 		});
-		console.log("about to call parseString");
 		parser.parseString(xmlString);
 	}
 
@@ -64,8 +51,6 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 	 * Returns null if the tag was not found
 	 */
 	 function findTag(xmlObject, tag) {
-	 	console.log ("Entered findTag: " + tag);
-	 	//console.log ("With xmlObject: " + JSON.stringify(xmlObject));
 	 	if (xmlObject instanceof Array) {
 	 		for (var i=0; i<xmlObject.length; i++) {
 	 			var result = findTag(xmlObject[i], tag);
@@ -91,8 +76,6 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 	 * element: a JSON object containing the element to be processed
 	 */
 	function processElement(element, descriptionMap) {
-		console.log("processing element");
-		//eyes.inspect (element);
 		//initialize result
 		var result = {};
 		//iterate descriptionMap
@@ -114,11 +97,9 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 						//get the array that contains the list
 						var theList = listInXml(element,key);
 						if (!(theList instanceof Array)) {
-							eyes.inspect(theList)
 							console.error("listInXml returned a non array for key " + key);
 						}
 						for(var j=0; j<theList.length; j++) {
-							console.log("Calling processElement (innerList) for index " + j);
 							result[listifiedKey].push(processElement(theList[j], value));
 						}
 					}
@@ -148,7 +129,6 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 	 * path: a string like "TicketInfo.DescriptionList.Description" containing the path to look in.
 	 */
 	function listInXml (xmlObject, path) {
-		console.log("entered listInXml: " + path);
 		var result = xmlObject;
 		var pathArray = path.split(".");
 		for (var i=0; i<(pathArray.length-1); i++) {
@@ -163,17 +143,11 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 	 * path: a string like "Description.@languageCode" containing the path to look in. "@" is for attributes
 	 */
 	function valueInXml (xmlObject, path) {
-		console.log("Entered valueInXml: " + path);
-		//eyes.inspect(xmlObject);
 		var realPath = path.startsWith('@') ? path.substringUpTo('@') : path.substringUpTo('.@');
-		console.log("RealPath: " + realPath);
 		var attribute = path.substringFrom('@');
 		var realPathArray = realPath.length==0 ? [] : realPath.split(".");
-		console.log("realPathArray length: " + realPathArray.length);
-		//eyes.inspect(realPathArray);
 		var tip = xmlObject;
 		for (var i=0; i<realPathArray.length; i++) {
-			console.log("Hey tip!!: " + i);
 			tip = tip[realPathArray[i]][0];
 		}
 		var value = null;

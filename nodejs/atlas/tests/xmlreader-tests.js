@@ -6,38 +6,8 @@
  */
 
 var XmlReader = require("../XmlReader.js");
-var eyes = require("eyes");
+//var eyes = require("eyes");
 var xml2js = require("xml2js");
-
-var testXml = '<ServiceTicket xsi-type="ServiceTicket" availToken="9ey6mENxtyujqkVKnqvpMA=="> \
-		<DateFrom date="DateFrom1"/> \
-		<DateTo date="DateTo1"/> \
-		<Currency code="EUR1">Euro1</Currency> \
-		<TicketInfo xsi-type="ProductTicket"> \
-			<Code>000200515</Code> \
-			<Name type="regular">Ticket1</Name> \
-			<DescriptionList> \
-				<Description type="generalDescription" languageCode="ENG">Description 11</Description> \
-				<Description type="generalDescription" languageCode="SPA">Description 12</Description> \
-			</DescriptionList> \
-			<ImageList> \
-				<Image> \
-					<Type>S</Type> \
-					<Order>0</Order> \
-					<VisualizationOrder>0</VisualizationOrder> \
-					<Url>Image11</Url> \
-				</Image> \
-				<Image> \
-					<Type>S</Type> \
-					<Order>0</Order> \
-					<VisualizationOrder>0</VisualizationOrder> \
-					<Url>Image12</Url> \
-				</Image> \
-			</ImageList> \
-		</TicketInfo> \
-	</ServiceTicket> ';
-
-var testDescriptionMap = ["value"];
 
 var ticketAvailString = '<TicketAvailRS xsi-schemaLocation="http://www.hotelbeds.com/schemas/2005/06/messages TicketAvailRS.xsd" totalItems="27" echoToken="DummyEchoToken"> \
 	<AuditData> \
@@ -177,55 +147,10 @@ var ticketClassificationListMapAlt = [
 {'Classification':[{'Code':'@code'},
 					{'Name':''}]}];
 
-/*exports.testXml = function (test) {
-	var parser = xml2js.Parser();
-	var count = 0;
-	
-	parser.on("end", function(parsedXml) {
-		//console.log(JSON.stringify(parsedXml));
-		eyes.inspect(parsedXml);
-		count++;
-		test.done();
-		//if (count > 1)
-		//	test.done();
-	});
-	//parser.parseString(ticketAvailString);
-	parser.parseString(testXml);
-	//Now chek some stuff about the parsed xml
-	test.ok(parsedXml instanceof Array, 'parsedXml is an array');
-	test.ok(parsedXml.length === 2, 'parsedXml has 2 elements');
-	test.ok(parsedXml[0].DateFrom === 'DateFrom1', 'dateFrom is correct in 1');
-	test.ok(parsedXml[0].DateTo === 'DateTo1', 'dateTo is correct in 1');
-	test.ok(parsedXml[1].DateFrom === 'DateFrom2', 'dateFrom is correct in 2');
-	test.ok(parsedXml[1].DateTo === 'DateTo2', 'dateTo is correct in 2');
-	test.ok(parsedXml[0].Currency === 'Euro1', 'Currency is correct in 1');
-	test.ok(parsedXml[0].CurrencyCode === 'EUR1', 'CurrencyCode is correct in 1');
-	test.ok(parsedXml[1].Currency === 'Euro2', 'Currency is correct in 2');
-	test.ok(parsedXml[1].CurrencyCode === 'EUR2', 'CurrencyCode is correct in 2');
-	test.ok(parsedXml[0].Name === 'Ticket1', 'Ticket name is correct in 1');
-	test.ok(parsedXml[1].Name === 'Ticket2', 'Ticket name is correct in 2');
-	for (var i=0; i<parsedXml.length; i++) {
-		var ImageList = parsedXml[i]['TicketInfo.ImageList.Image'.listify()];
-		var DescriptionList = parsedXml[i]['TicketInfo.DescriptionList.Description'.listify()];
-		test.ok(ImageList.length === 3, 'Only 3 images in the list: ' + ImageList.length);
-		for (var j=0; j<3; j++) {
-			test.ok(ImageList[j].Type === "S", "wrong image type in ticket " + i + " image " + j);
-			test.ok(ImageList[j].Url === "Image"+(i+1)+""+(j+1), "wrong image url in ticket " + i + " image " + j);
-		}
-		test.ok(DescriptionList.length === 2, 'Only 2 descriptions in the list: ' + DescriptionList.length);
-		for (var j=0; j<2; j++) {
-			test.ok(DescriptionList[j].Type === "generalDescription", "wrong description type in ticket " + i + " description " + j);
-			test.ok(DescriptionList[j].Description === "Description "+(i+1)+""+(j+1), "wrong description text in ticket " + i + " description " + j);
-		}
-	}
-    //test.done();
-}*/
-
 exports.ticketAvail = function (test) {
 	var xmlReader = new XmlReader (ticketAvailString, ticketAvailMap, 'ServiceTicket');
 	xmlReader.readObjects(function (parsedXml) {
-		eyes.inspect(parsedXml);
-
+		//eyes.inspect(parsedXml);
 		test.ok(parsedXml instanceof Array, 'parsedXml is an array');
 		test.ok(parsedXml.length === 2, 'parsedXml has 2 elements');
 		test.ok(parsedXml[0].DateFrom === 'DateFrom1', 'dateFrom is correct in 1');
