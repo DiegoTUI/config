@@ -148,7 +148,7 @@ var ticketClassificationListMapAlt = [
 					{'Name':''}]}];
 
 exports.ticketAvail = function (test) {
-	test.expect(35);
+	test.expect(36);
 	var xmlReader = new XmlReader (ticketAvailString, ticketAvailMap, 'ServiceTicket');
 	xmlReader.readObjects(function (parsedXml) {
 		//eyes.inspect(parsedXml);
@@ -184,7 +184,7 @@ exports.ticketAvail = function (test) {
 }
 
 exports.ticketAvailAlt = function (test) {
-	test.expect(37);
+	test.expect(38);
 	var xmlReader = new XmlReader (ticketAvailString, ticketAvailMapAlt);
 	xmlReader.readObjects(function (parsedXml) {
 		test.ok(parsedXml instanceof Array, 'parsedXml is an array');
@@ -220,7 +220,7 @@ exports.ticketAvailAlt = function (test) {
 }
 
 exports.ticketClassificationList = function (test) {
-	test.expect(21);
+	test.expect(20);
 	var xmlReader = new XmlReader (ticketClassificationListString, ticketClassificationListMap, 'Classification');
 	xmlReader.readObjects(function (parsedXml) {
 		test.ok(parsedXml instanceof Array, 'parsedXml is an array');
@@ -249,7 +249,7 @@ exports.ticketClassificationList = function (test) {
 }
 
 exports.ticketClassificationListAlt = function (test) {
-	test.expect(23);
+	test.expect(22);
 	var xmlReader = new XmlReader (ticketClassificationListString, ticketClassificationListMapAlt);
 	xmlReader.readObjects(function (parsedXml) {
 		test.ok(parsedXml instanceof Array, 'parsedXml is an array');
