@@ -86,6 +86,8 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 	 * element: a JSON object containing the element to be processed
 	 */
 	function processElement(element, descriptionMap) {
+		console.log("processing element");
+		eyes.inspect (element);
 		//initialize result
 		var result = {};
 		//iterate descriptionMap
