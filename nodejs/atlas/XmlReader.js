@@ -167,8 +167,10 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 		var realPath = path.startsWith('@') ? path.substringUpTo('@') : path.substringUpTo('.@');
 		var attribute = path.substringFrom('@');
 		var realPathArray = realPath.split(".");
+		console.log("realPathArray length: " + realPathArray.length);
 		var tip = xmlObject;
 		for (var i=0; i<realPathArray.length; i++) {
+			console.log("Hey tip!!: " + i);
 			tip = tip[realPathArray[i]][0];
 		}
 		var value = null;
