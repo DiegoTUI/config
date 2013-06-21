@@ -55,7 +55,7 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 	 */
 	 function findTag(xmlObject, tag) {
 	 	console.log ("Entered findTag: " + tag);
-	 	console.log ("With xmlObject: " + JSON.stringify(xmlObject));
+	 	//console.log ("With xmlObject: " + JSON.stringify(xmlObject));
 	 	if (xmlObject instanceof Array) {
 	 		for (var element in xmlObject) {
 	 			var result = findTag(element, tag);
@@ -66,7 +66,11 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 	 		for (var key in xmlObject) {
 	 			if (tag === key) {
 	 				return xmlObject[key];
-	 			} 
+	 			} else {
+	 				var result = findTag(xmlObject[key], tag);
+	 				if (result)
+	 					return result;
+	 			}
 	 		}
 	 	}
 	 	return null;
