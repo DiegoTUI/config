@@ -36,7 +36,7 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 		parser.on("end", function(xmlObject){
 			var objectToBrowse = (tag && (tag.length > 0)) ? findTag(xmlObject, tag) : xmlObject(Object.keys(xmlObject)[0]);
 			console.log("got objectToBrowse");
-			eyes.inspect (objectToBrowse);
+			//eyes.inspect (objectToBrowse);
 			//console.log("Object to Browse: " + JSON.stringify(objectToBrowse));
 			if (objectToBrowse == null) {
 				console.log("objectToBrowse is null");
@@ -91,7 +91,7 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 	 */
 	function processElement(element, descriptionMap) {
 		console.log("processing element");
-		eyes.inspect (element);
+		//eyes.inspect (element);
 		//initialize result
 		var result = {};
 		//iterate descriptionMap
@@ -117,7 +117,7 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 							console.error("listInXml returned a non array for key " + key);
 						}
 						for(var j=0; j<theList.length; j++) {
-							console.log("Calling processElement (innerElement) for index " + j);
+							console.log("Calling processElement (innerList) for index " + j);
 							result[listifiedKey].push(processElement(theList[j], value));
 						}
 					}
@@ -150,10 +150,10 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 		console.log("entered listInXml: " + path);
 		var result = xmlObject;
 		var pathArray = path.split(".");
-		for (var i=0; i<pathArray.length; i++) {
+		for (var i=0; i<(pathArray.length-1); i++) {
 			result = result[pathArray[i]][0];
 		}
-		return result;
+		return result[pathArray[pathArray.length-1]];
 	}
 
 	/**
@@ -163,7 +163,7 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 	 */
 	function valueInXml (xmlObject, path) {
 		console.log("Entered valueInXml: " + path);
-		eyes.inspect(xmlObject);
+		//eyes.inspect(xmlObject);
 		var realPath = path.startsWith('@') ? path.substringUpTo('@') : path.substringUpTo('.@');
 		var attribute = path.substringFrom('@');
 		var realPathArray = realPath.split(".");

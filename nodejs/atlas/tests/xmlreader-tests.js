@@ -226,7 +226,7 @@ exports.ticketAvail = function (test) {
 	//var lock = true;
 	var parsedXml = xmlReader.readObjects(function (result) {
 		eyes.inspect(result);
-		lock = false;
+		//lock = false;
 		test.done();
 	});
 
