@@ -20,6 +20,8 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 	// self-reference
 	var self = this;
 
+	var eyes = require("eyes");
+
 	/**
 	 * Reads the objects from the xmlString using the descriptionMap
 	 * Returns an array of JS objects
@@ -33,7 +35,8 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 		var parser = require("xml2js").Parser();
 		parser.on("end", function(xmlObject){
 			var objectToBrowse = (tag && (tag.length > 0)) ? findTag(xmlObject, tag) : xmlObject(Object.keys(xmlObject)[0]);
-			console.log("Object to Browse: " + JSON.stringify(objectToBrowse));
+			eyes.inspect (objectToBrowse);
+			//console.log("Object to Browse: " + JSON.stringify(objectToBrowse));
 			if (objectToBrowse == null) {
 				result = null;
 			} else if (objectToBrowse instanceof Array) {
