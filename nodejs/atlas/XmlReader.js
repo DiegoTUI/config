@@ -44,6 +44,7 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 			} else if (objectToBrowse instanceof Array) {
 				console.log("objectToBrowse is an instance of array");
 				for (var i=0; i<objectToBrowse.length; i++) {
+					console.log("Calling processElement for index " + i);
 					result.push(processElement(objectToBrowse[i], descriptionMap));	
 				}
 			} else  { //It's an object
@@ -111,8 +112,13 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 						result[listifiedKey] = [];
 						//get the array that contains the list
 						var theList = listInXml(element,key);
-						for(var innerElement in theList) {
-							result[listifiedKey].push(processElement(innerElement, value));
+						if (!(theList instanceof Array)) {
+							eyes.inspect(theList)
+							console.error("listInXml returned a non array for key " + key);
+						}
+						for(var j=0; j<theList.length; j++) {
+							console.log("Calling processElement (innerElement) for index " + j);
+							result[listifiedKey].push(processElement(theList[j], value));
 						}
 					}
 					else if (typeof value === 'string') {	//It's a deep value
@@ -141,6 +147,7 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 	 * path: a string like "TicketInfo.DescriptionList.Description" containing the path to look in.
 	 */
 	function listInXml (xmlObject, path) {
+		console.log("entered listInXml: " + path);
 		var result = xmlObject;
 		var pathArray = path.split(".");
 		for (var i=0; i<pathArray.length; i++) {
