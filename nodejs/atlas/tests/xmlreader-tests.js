@@ -321,7 +321,7 @@ exports.ticketClassificationList = function (test) {
 }
 
 exports.ticketClassificationListAlt = function (test) {
-	var xmlReader = new tuins.XmlReader (ticketClassificationListString, ticketClassificationListMapAlt);
+	var xmlReader = new XmlReader (ticketClassificationListString, ticketClassificationListMapAlt);
 	xmlReader.readObjects(function (parsedXml) {
 		test.ok(parsedXml instanceof Array, 'parsedXml is an array');
 		test.ok(parsedXml.length === 1, 'parsedXml has 1 elements');
