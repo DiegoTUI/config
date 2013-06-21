@@ -31,6 +31,7 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 		var parser = require("xml2js").Parser();
 		parser.on("end", function(xmlObject){
 			var objectToBrowse = (tag && (tag.length > 0)) ? findTag(xmlObject, tag) : xmlObject(Object.keys(xmlObject)[0]);
+			console.log("Object to Browse: " + JSON.stringify(objectToBrowse));
 			if (objectToBrowse == null) {
 				result = null;
 			} else if (objectToBrowse instanceof Array) {
@@ -53,6 +54,7 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 	 * Returns null if the tag was not found
 	 */
 	 function findTag(xmlObject, tag) {
+	 	console.log ("Entered findTag: " + tag);
 	 	if (xmlObject instanceof Array) {
 	 		for (var element in xmlObject) {
 	 			var result = findTag(element, tag);
