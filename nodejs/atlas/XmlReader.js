@@ -34,8 +34,8 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 		//parse the xmlString in a JSON
 		var parser = require("xml2js").Parser();
 		parser.on("end", function(xmlObject){
-			eyes.inspect (xmlObject);
-			var objectToBrowse = (tag && (tag.length > 0)) ? findTag(xmlObject, tag) : xmlObject(Object.keys(xmlObject)[0]);
+			//eyes.inspect (xmlObject);
+			var objectToBrowse = (tag && (tag.length > 0)) ? findTag(xmlObject, tag) : xmlObject[Object.keys(xmlObject)[0]];
 			console.log("got objectToBrowse");
 			//eyes.inspect (objectToBrowse);
 			//console.log("Object to Browse: " + JSON.stringify(objectToBrowse));
