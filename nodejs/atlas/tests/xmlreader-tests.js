@@ -177,7 +177,7 @@ var ticketClassificationListMapAlt = [
 {'Classification':[{'Code':'@code'},
 					{'Name':''}]}];
 
-exports.testXml = function (test) {
+/*exports.testXml = function (test) {
 	var parser = xml2js.Parser();
 	var count = 0;
 	
@@ -191,7 +191,7 @@ exports.testXml = function (test) {
 	});
 	//parser.parseString(ticketAvailString);
 	parser.parseString(testXml);
-	/*//Now chek some stuff about the parsed xml
+	//Now chek some stuff about the parsed xml
 	test.ok(parsedXml instanceof Array, 'parsedXml is an array');
 	test.ok(parsedXml.length === 2, 'parsedXml has 2 elements');
 	test.ok(parsedXml[0].DateFrom === 'DateFrom1', 'dateFrom is correct in 1');
@@ -217,9 +217,9 @@ exports.testXml = function (test) {
 			test.ok(DescriptionList[j].Type === "generalDescription", "wrong description type in ticket " + i + " description " + j);
 			test.ok(DescriptionList[j].Description === "Description "+(i+1)+""+(j+1), "wrong description text in ticket " + i + " description " + j);
 		}
-	}*/
+	}
     //test.done();
-}
+}*/
 
 exports.ticketAvail = function (test) {
 	var xmlReader = new XmlReader (ticketAvailString, ticketAvailMap, 'ServiceTicket');
