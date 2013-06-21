@@ -43,8 +43,8 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 				result = null;
 			} else if (objectToBrowse instanceof Array) {
 				console.log("objectToBrowse is an instance of array");
-				for (var element in objectToBrowse) {
-					result.push(processElement(element, descriptionMap));	
+				for (var i=0; i<objectToBrowse.length; i++) {
+					result.push(processElement(objectToBrowse[i], descriptionMap));	
 				}
 			} else  { //It's an object
 				console.log("objectToBrowse is an object");
@@ -65,8 +65,8 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 	 	console.log ("Entered findTag: " + tag);
 	 	//console.log ("With xmlObject: " + JSON.stringify(xmlObject));
 	 	if (xmlObject instanceof Array) {
-	 		for (var element in xmlObject) {
-	 			var result = findTag(element, tag);
+	 		for (var i=0; i<xmlObject.length; i++) {
+	 			var result = findTag(xmlObject[i], tag);
 	 			if (result)
 	 				return result;
 	 		}
