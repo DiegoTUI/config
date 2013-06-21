@@ -224,8 +224,8 @@ var ticketClassificationListMapAlt = [
 exports.ticketAvail = function (test) {
 	var xmlReader = new XmlReader (ticketAvailString, ticketAvailMap, 'ServiceTicket');
 	//var lock = true;
-	var parsedXml = xmlReader.readObjects(function (result) {
-		eyes.inspect(result);
+	var parsedXml = xmlReader.readObjects(function (parsedXml) {
+		eyes.inspect(parsedXml);
 
 		test.ok(parsedXml instanceof Array, 'parsedXml is an array');
 		test.ok(parsedXml.length === 2, 'parsedXml has 2 elements');
