@@ -150,6 +150,8 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 	 * path: a string like "Description.@languageCode" containing the path to look in. "@" is for attributes
 	 */
 	function valueInXml (xmlObject, path) {
+		console.log("Entered valueInXml: " + path);
+		eyes.inspect(xmlObject);
 		var realPath = path.startsWith('@') ? path.substringUpTo('@') : path.substringUpTo('.@');
 		var attribute = path.substringFrom('@');
 		var realPathArray = realPath.split(".");
