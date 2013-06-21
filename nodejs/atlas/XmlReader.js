@@ -163,7 +163,7 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 	 */
 	function valueInXml (xmlObject, path) {
 		console.log("Entered valueInXml: " + path);
-		//eyes.inspect(xmlObject);
+		eyes.inspect(xmlObject);
 		var realPath = path.startsWith('@') ? path.substringUpTo('@') : path.substringUpTo('.@');
 		var attribute = path.substringFrom('@');
 		var realPathArray = realPath.split(".");
