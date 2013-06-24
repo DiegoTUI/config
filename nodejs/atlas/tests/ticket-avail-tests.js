@@ -4,6 +4,9 @@
  *
  * Copyright (C) 2013 TuiInnovation.
  */
+
+var TicketAvailRequest = require('../TicketAvailRequest.js');
+
 var ticketAvailMap = [
 {'DateFrom':'DateFrom.@date'},
 {'DateTo':'DateTo.@date'},
@@ -55,6 +58,6 @@ exports.ticketAvailRequest = function (test) {
 		ServiceOccupancy_AdultCount: "1"
 	};
 
-	var ticketAvailRQ = new tuins.TicketAvailRequest(parameters, ticketAvailMapAlt);
+	var ticketAvailRQ = new TicketAvailRequest(parameters, ticketAvailMapAlt);
 	ticketAvailRQ.sendRequest(ok, nok);
 }
