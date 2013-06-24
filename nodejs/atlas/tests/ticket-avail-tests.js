@@ -94,7 +94,7 @@ exports.ticketAvailRequestErrors = function (test) {
 	{
 		console.log("number of objects in the reply: " + result.length);
 		console.log("number of errors in the reply: " + result[0].ErrorList.length);
-		test.ok(result[0].ServiceTicketList.length == 1, "Wrong number of errors retrieved.");
+		test.ok(result[0].ErrorList.length == 1, "Wrong number of errors retrieved.");
 		test.done();
 	}
 
