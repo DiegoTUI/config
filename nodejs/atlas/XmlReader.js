@@ -19,6 +19,8 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 {
 	// self-reference
 	var self = this;
+	//Requires
+	var util = require('./util.js');
 
 	/**
 	 * Reads the objects from the xmlString using the descriptionMap
@@ -36,10 +38,14 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 				result = null;
 			} else if (objectToBrowse instanceof Array) {
 				for (var i=0; i<objectToBrowse.length; i++) {
-					result.push(processElement(objectToBrowse[i], descriptionMap));	
+					var elementToPush = processElement(objectToBrowse[i], descriptionMap); 
+					if (!util.isEmpty(elementToPush))
+						result.push(elementToPush);	
 				}
 			} else  { //It's an object
-				result.push(processElement(objectToBrowse, descriptionMap));
+				var elementToPush = processElement(objectToBrowse, descriptionMap); 
+				if (!util.isEmpty(elementToPush))
+					result.push(elementToPush);
 			}
 			callback(result);
 		});

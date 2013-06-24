@@ -28,6 +28,13 @@ var util = new function()
 		return typeof argument == 'string';
 	}
 
+    /**
+     * Find out if an object is empty.
+     */
+     self.isEmpty = function(object) {
+        return Object.keys(object).length === 0;
+     }
+
 	/**
 	 * Clone an object, including functions.
 	 */

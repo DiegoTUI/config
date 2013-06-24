@@ -12,6 +12,10 @@ var util = require("./util.js");
  */
 var atlasDefaults = {};
 
+//error description map
+atlasDefaults["errorDescriptionMap"] = [
+	{'ErrorList.Error': ["Code", "Timestamp", "Message", "DetailedMessage"]}];
+
 //ticketAvailRequest
 atlasDefaults["ticketAvailRequest"] = {
 		echoToken: function(){return util.randomString(util.echoTokenLength)},

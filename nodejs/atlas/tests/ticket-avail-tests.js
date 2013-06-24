@@ -87,3 +87,30 @@ exports.ticketAvailRequestNoDescriptionMap = function (test) {
 	var ticketAvailRQ = new TicketAvailRequest(parameters);
 	ticketAvailRQ.sendRequest(ok, nok);
 }
+
+exports.ticketAvailRequestErrors = function (test) {
+	test.expect(1);
+	function ok(result)
+	{
+		console.log("number of objects in the reply: " + result.length);
+		console.log("number of errors in the reply: " + result[0].ErrorList.length);
+		test.ok(result[0].ServiceTicketList.length == 1, "Wrong number of errors retrieved.");
+		test.done();
+	}
+
+	function nok(error, statusCode)
+	{
+		var message = error ? 'test failed with status code ' + statusCode + ' and error: ' + JSON.stringify(error) : 
+								'test failed with status code ' + statusCode;
+		test.ok(false, message);
+		test.done();
+	}
+	var parameters = {
+		Language: "SPA",	//UNEXISTING LANGUAGE!!!
+		Credentials_User: "ISLAS",
+		ServiceOccupancy_AdultCount: "1"
+	};
+
+	var ticketAvailRQ = new TicketAvailRequest(parameters);
+	ticketAvailRQ.sendRequest(ok, nok);
+}

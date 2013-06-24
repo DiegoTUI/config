@@ -31,6 +31,7 @@ var ajax = new function()
 					console.log ("sending NOK response");
 					nok(error, httpResponse.statusCode);
 				} else {
+					//Check if the error is coded in the response
 					console.log ("sending OK response");
 					ok(body);
 				}
