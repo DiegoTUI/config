@@ -102,6 +102,7 @@ var util = new function()
             {
                 continue;
             }
+            console.log('Calling pipeline function');
             var result = callback(data);
             if (result)
             {
