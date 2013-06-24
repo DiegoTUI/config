@@ -45,6 +45,7 @@ function serve (request, response) {
 		var theRequest = new requests[request.params.service](request.query);
 		theRequest.send(ok, nok);
 	} else {
-		nok();
+		console.log("service " + request.params.service + " not found");
+		nok({error:"service not found"}, 404);
 	}
 }
