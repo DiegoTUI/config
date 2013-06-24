@@ -91,11 +91,9 @@ var util = new function()
      */
     self.runPipeline = function(pipeline, data)
     {
-        console.log("Running pipeline of length: " + pipeline.length);
         while (pipeline.length > 0)
         {
             var callback = pipeline.shift();
-            console.log('Processing callback: ' + callback);
             if (!callback)
             {
                 continue;
@@ -104,7 +102,6 @@ var util = new function()
             {
                 continue;
             }
-            console.log('Calling pipeline function');
             var result = callback(data);
             if (result)
             {
