@@ -59,13 +59,13 @@ var TicketAvailRequest = function(queryParameters, descriptionMap, tag)
 	 */
 	function parseResponse(data) {
 		var result = null;
-		console.log("parsing response for: " + data);
+		console.log("parsing response ...");
 		var xmlReader = new XmlReader (data, descriptionMap, tag);
 		xmlReader.readObjects(function(parsedResponse){
 			result = parsedResponse;
 		});
 		while (result === null){}
-		console.log("about to return response: " + JSON.stringify(result));
+		console.log("about to return parsed response");
 		return result;
 	}
 

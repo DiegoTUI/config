@@ -32,26 +32,24 @@ var ticketAvailMapAlt = [
 	]}
 ];
 
-function ok(result)
-{
-	console.log("number of objects in the reply: " + result.length);
-	console.log("number of serviceTickets in the reply: " + result[0].ServiceTicketList.length);
-	test.ok(result[0].ServiceTicketList.length == parseInt(result[0].TotalItems), "Wrong number of items retrieved. Should have retrieved " + data[0].TotalItems + " but the parsed array only has " + data[0].ServiceTicketList.length);
-	test.done();
-}
-
-function nok(error, statusCode)
-{
-	console.log("Entering nok callback");
-	var message = error ? 'test failed with status code ' + statusCode + ' and error: ' + JSON.stringify(error) : 
-							'test failed with status code ' + statusCode;
-	test.ok(false, message);
-	test.done();
-}
-
-
 /* run tests */
 exports.ticketAvailRequest = function (test) {
+	function ok(result)
+	{
+		console.log("number of objects in the reply: " + result.length);
+		console.log("number of serviceTickets in the reply: " + result[0].ServiceTicketList.length);
+		test.ok(result[0].ServiceTicketList.length == parseInt(result[0].TotalItems), "Wrong number of items retrieved. Should have retrieved " + data[0].TotalItems + " but the parsed array only has " + data[0].ServiceTicketList.length);
+		test.done();
+	}
+
+	function nok(error, statusCode)
+	{
+		console.log("Entering nok callback");
+		var message = error ? 'test failed with status code ' + statusCode + ' and error: ' + JSON.stringify(error) : 
+								'test failed with status code ' + statusCode;
+		test.ok(false, message);
+		test.done();
+	}
 	var parameters = {
 		Language: "ENG",
 		Credentials_User: "ISLAS",
