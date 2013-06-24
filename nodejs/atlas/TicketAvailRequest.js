@@ -58,6 +58,7 @@ var TicketAvailRequest = function(queryParameters, descriptionMap, tag)
 	 * data: the xml received
 	 */
 	function parseResponse(data) {
+		console.log("parsing response...");
 		var xmlReader = new XmlReader (data, descriptionMap, tag);
 		return xmlReader.readObjects();
 	}

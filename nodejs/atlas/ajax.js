@@ -28,8 +28,10 @@ var ajax = new function()
 			httpRequest.post(url, {form:data}, function(error, httpResponse, body) {
 				console.log ("received response from ATLAS: " + httpResponse.statusCode);
 				if (error || (httpResponse.statusCode!=="200")) {
+					console.log ("sending NOK response");
 					nok(error, httpResponse.statusCode);
 				} else {
+					console.log ("sending OK response");
 					ok(body);
 				}
 			});	
