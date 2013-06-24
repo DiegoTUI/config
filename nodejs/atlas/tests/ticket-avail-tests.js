@@ -39,16 +39,12 @@ exports.ticketAvailRequest = function (test) {
 	{
 		console.log("number of objects in the reply: " + result.length);
 		console.log("number of serviceTickets in the reply: " + result[0].ServiceTicketList.length);
-		console.log("TotalItems: " + result[0].TotalItems);
-		//test.ok(result[0].ServiceTicketList.length == parseInt(result[0].TotalItems), "Wrong number of items retrieved. Should have retrieved ");
 		test.ok(result[0].ServiceTicketList.length == parseInt(result[0].TotalItems), "Wrong number of items retrieved. Should have retrieved " + result[0].TotalItems + " but the parsed array only has " + result[0].ServiceTicketList.length);
-		console.log("About to call test.done()");
 		test.done();
 	}
 
 	function nok(error, statusCode)
 	{
-		console.log("Entering nok callback");
 		var message = error ? 'test failed with status code ' + statusCode + ' and error: ' + JSON.stringify(error) : 
 								'test failed with status code ' + statusCode;
 		test.ok(false, message);
@@ -61,5 +57,31 @@ exports.ticketAvailRequest = function (test) {
 	};
 
 	var ticketAvailRQ = new TicketAvailRequest(parameters, ticketAvailMapAlt);
+	ticketAvailRQ.sendRequest(ok, nok);
+}
+
+exports.ticketAvailRequestNoDescriptionMap = function (test) {
+	function ok(result)
+	{
+		console.log("number of objects in the reply: " + result.length);
+		console.log("number of serviceTickets in the reply: " + result[0].ServiceTicketList.length);
+		test.ok(result[0].ServiceTicketList.length == parseInt(result[0].TotalItems), "Wrong number of items retrieved. Should have retrieved " + result[0].TotalItems + " but the parsed array only has " + result[0].ServiceTicketList.length);
+		test.done();
+	}
+
+	function nok(error, statusCode)
+	{
+		var message = error ? 'test failed with status code ' + statusCode + ' and error: ' + JSON.stringify(error) : 
+								'test failed with status code ' + statusCode;
+		test.ok(false, message);
+		test.done();
+	}
+	var parameters = {
+		Language: "ENG",
+		Credentials_User: "ISLAS",
+		ServiceOccupancy_AdultCount: "1"
+	};
+
+	var ticketAvailRQ = new TicketAvailRequest(parameters);
 	ticketAvailRQ.sendRequest(ok, nok);
 }
