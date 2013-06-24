@@ -95,6 +95,7 @@ var util = new function()
         while (pipeline.length > 0)
         {
             var callback = pipeline.shift();
+            console.log('Processing callback: ' + callback);
             if (!callback)
             {
                 continue;
