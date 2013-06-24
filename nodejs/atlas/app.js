@@ -5,7 +5,7 @@
  */
 var fs = require('fs');
 var express = require('express');
-var httpRequest = require('request');
+//var httpRequest = require('request');
 var requests = require('./requests.js');
 
 /**

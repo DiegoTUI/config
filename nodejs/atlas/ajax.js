@@ -14,6 +14,9 @@ var ajax = new function()
 	// self-reference
 	var self = this;
 
+	//requires
+	var httpRequest = require('request');
+
 	/**
 	 * Function to submit data using Ajax, with instrumentation.
 	 * ok: function to call with data after a success.
