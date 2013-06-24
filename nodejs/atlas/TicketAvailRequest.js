@@ -66,6 +66,7 @@ var TicketAvailRequest = function(queryParameters, descriptionMap, tag)
 			errors = parsedErrors;
 		});
 		while (errors === null){}
+		console.log("Errors parsed: " + JSON.stringify(errors));
 		if (errors.length > 0)
 			return errors;
 		console.log("No errors. Parsing response ...");
