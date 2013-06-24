@@ -60,7 +60,7 @@ var TicketAvailRequest = function(queryParameters, descriptionMap, tag)
 	function parseResponse(data) {
 		var result = null;
 		var errors = null;
-		console.log("parsing errors ...");
+		console.log("parsing errors with descriptionMap: " + JSON.stringify(atlasDefaults.errorDescriptionMap));
 		var errorReader = new XmlReader (data, atlasDefaults.errorDescriptionMap);
 		errorReader.readObjects(function(parsedErrors){
 			errors = parsedErrors;
