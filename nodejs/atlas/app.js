@@ -6,6 +6,7 @@
 var fs = require('fs');
 var express = require('express');
 var httpRequest = require('request');
+var requests = require('./requests.js');
 
 /**
  * Constants.
@@ -30,14 +31,20 @@ console.log("listening on port: " + config.port);
  */
 function serve (request, response) {
 	console.log("Serving for " + request.params.service + " with query: " + JSON.stringify(request.query));
+	//ok and nok callbacks
+	function ok(result) {
+		response.set("Content-Type", "text/plain");
+		response.send(JSON.stringify(result));
+
+	}
+	function nok(error, statusCode) {
+		response.status(statusCode).send(JSON.stringify(error));
+	}
 	//perform request to ATLAS
-	httpRequest.post(atlas.url, {form:{xml_request:atlas.testRequest}}, function(error, httpResponse, body) {
-		console.log ("received response from ATLAS: " + httpResponse.statusCode);
-		response.setHeader("Content-Type", "text/plain");
-		if (error) {
-			response.send("An error occurred: " + JSON.stringify(error));
-		} else {
-			response.send("Response: " + body);
-		}
-	});
+	if (typeof requests[request.params.service] === 'function') {
+		var theRequest = new requests[request.params.service](request.query);
+		theRequest.send(ok, nok);
+	} else {
+		nok();
+	}
 }

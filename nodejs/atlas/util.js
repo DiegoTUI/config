@@ -72,6 +72,63 @@ var util = new function()
 		 return Math.random().toString(36).substr(2, length);
 	}
 
+    /**
+     * Process one result through a pipeline.
+     * Each function is called in order; if it returns a value it replaces the original.
+     */
+    self.process = function(pipeline)
+    {
+        return function(data)
+        {
+            self.runPipeline(pipeline, data);
+        };
+    }
+
+    /**
+     * Run a value through a pipeline of functions.
+     * Each function in the pipeline has its turn to use or modify the data.
+     * If a function returns a value, it substitutes the original data.
+     */
+    self.runPipeline = function(pipeline, data)
+    {
+        while (pipeline.length > 0)
+        {
+            var callback = pipeline.shift();
+            if (!callback)
+            {
+                continue;
+            }
+            if (!self.checkCallback(callback, 'Wrong callback in pipeline'))
+            {
+                continue;
+            }
+            var result = callback(data);
+            if (result)
+            {
+                data = result;
+            }
+        }
+        return data;
+    }
+
+    /**
+     * Check that the callback is null, or a function.
+     * Returns true, or shows an error and returns false.
+     */
+    self.checkCallback = function(callback, message)
+    {
+        if (!callback)
+        {
+            return true;
+        }
+        if (typeof callback != 'function')
+        {
+            console.error(message);
+            return false;
+        }
+        return true;
+    }
+
 	/**
      * Produce an XML string from a properly formatted JSON.
      * Uses "@" for attributes, "#value" for values and "#list" for lists

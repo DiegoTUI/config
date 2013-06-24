@@ -11,23 +11,23 @@
  */
  var atlas = {
 	url: 'http://212.170.239.71/appservices/http/FrontendService',
-	testRequest : '<TicketAvailRQ echoToken="DummyEchoToken" sessionId="DummySessionId" \
-		xmlns="http://www.hotelbeds.com/schemas/2005/06/messages" \
-  		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" \
-  		xsi:schemaLocation="http://www.hotelbeds.com/schemas/2005/06/messages TicketAvailRQ.xsd"> \
-  <Language>ENG</Language> \
+	ticketAvailRequest : '<TicketAvailRQ echoToken="$echoToken$" sessionId="$sessionId$" \
+    xmlns="http://www.hotelbeds.com/schemas/2005/06/messages" \
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" \
+      xsi:schemaLocation="http://www.hotelbeds.com/schemas/2005/06/messages TicketAvailRQ.xsd"> \
+  <Language>$Language$</Language> \
   <Credentials> \
-    <User>ISLAS</User> \
-    <Password>ISLAS</Password> \
+    <User>$Credentials_User$</User> \
+    <Password>$Credentials_Password$</Password> \
   </Credentials> \
-  <PaginationData itemsPerPage="25" pageNumber="1"/> \
+  <PaginationData itemsPerPage="$PaginationData_itemsPerPage$" pageNumber="$PaginationData_pageNumber$"/> \
   <ServiceOccupancy> \
-    <AdultCount>1</AdultCount> \
-    <ChildCount>0</ChildCount> \
+    <AdultCount>$ServiceOccupancy_AdultCount$</AdultCount> \
+    <ChildCount>$ServiceOccupancy_ChildCount$</ChildCount> \
   </ServiceOccupancy> \
-  <Destination code="PMI" type="SIMPLE"/> \
-  <DateFrom date="20130819"/> \
-  <DateTo date="20130819"/> \
+  <Destination code="$Destination_code$" type="SIMPLE"/> \
+  <DateFrom date="$DateFrom_date$"/> \
+  <DateTo date="$DateTo_date$"/> \
 </TicketAvailRQ>'	
 };
 

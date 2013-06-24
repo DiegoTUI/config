@@ -34,6 +34,20 @@ atlasDefaults["ticketAvailRequest"] = {
 			return util.atlasDate (date);
 		}
 	};
+atlasDefaults["TicketAvailDescriptionMap"] = [
+	{'TotalItems':'@totalItems'},
+	{'ServiceTicket':[{'DateFrom':'DateFrom.@date'},
+		{'DateTo':'DateTo.@date'},
+		'Currency',
+		{'CurrencyCode': 'Currency.@code'},
+		{'Name': 'TicketInfo.Name'},
+		{'TicketInfo.DescriptionList.Description':[{'Type': '@type'},
+						 			{'Description': ''}]},
+		{'TicketInfo.ImageList.Image': [{'Type': 'Type'},
+								{'Url': 'Url'}]}
+		]}
+	];
+atlasDefaults["TicketAvailTag"] = '';
 
 //export module
 module.exports = atlasDefaults;
