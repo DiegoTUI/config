@@ -91,6 +91,7 @@ var util = new function()
      */
     self.runPipeline = function(pipeline, data)
     {
+        console.log("Running pipeline of length: " + pipeline.length);
         while (pipeline.length > 0)
         {
             var callback = pipeline.shift();
