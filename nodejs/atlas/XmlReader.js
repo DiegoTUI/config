@@ -45,7 +45,7 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 			} else  { //It's an object
 				console.log("An object it is");
 				var elementToPush = processElement(objectToBrowse, descriptionMap); 
-				console.log("Habemus element: " + JSON.stringify(elementToPush));
+				//console.log("Habemus element: " + JSON.stringify(elementToPush));
 				if (!util.isEmpty(elementToPush))
 					result.push(elementToPush);
 			}
