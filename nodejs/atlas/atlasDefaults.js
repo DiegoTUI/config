@@ -34,7 +34,7 @@ atlasDefaults["ticketAvailRequest"] = {
 			return util.atlasDate (date);
 		}
 	};
-atlasDefaults["TicketAvailDescriptionMap"] = [
+atlasDefaults["ticketAvailDescriptionMap"] = [
 	{'TotalItems':'@totalItems'},
 	{'ServiceTicket':[{'DateFrom':'DateFrom.@date'},
 		{'DateTo':'DateTo.@date'},
@@ -47,7 +47,7 @@ atlasDefaults["TicketAvailDescriptionMap"] = [
 								{'Url': 'Url'}]}
 		]}
 	];
-atlasDefaults["TicketAvailTag"] = '';
+atlasDefaults["ticketAvailTag"] = '';
 
 //export module
 module.exports = atlasDefaults;
