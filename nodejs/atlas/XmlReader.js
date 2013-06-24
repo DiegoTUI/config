@@ -43,7 +43,9 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 						result.push(elementToPush);	
 				}
 			} else  { //It's an object
+				console.log("An object it is");
 				var elementToPush = processElement(objectToBrowse, descriptionMap); 
+				console.log("Habemus element: " + JSON.stringify(elementToPush));
 				if (!util.isEmpty(elementToPush))
 					result.push(elementToPush);
 			}
