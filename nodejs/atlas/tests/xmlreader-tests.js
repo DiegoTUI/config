@@ -1,3 +1,4 @@
+'use strict';
 /**
  * TuiInnovation.
  * Fake unit tests.
