@@ -31,6 +31,7 @@ var TicketAvailRequest = function(queryParameters, descriptionMap, tag)
 	tag = tag ? tag : atlasDefaults.ticketAvailTag;
 
 	console.log ('Using descriptionMap: ' + JSON.stringify(descriptionMap));
+	console.log ('Atlas descriptionMap: ' + JSON.stringify(atlasDefaults.ticketAvailDescriptionMap));
 
 	/**
 	 * Sends the ajax request to the apropriate url with the right xml and query parameters
