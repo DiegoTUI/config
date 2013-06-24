@@ -82,6 +82,6 @@ exports.ticketAvailRequestNoDescriptionMap = function (test) {
 		ServiceOccupancy_AdultCount: "1"
 	};
 
-	var ticketAvailRQ = new TicketAvailRequest(parameters, ticketAvailMapAlt);
+	var ticketAvailRQ = new TicketAvailRequest(parameters);
 	ticketAvailRQ.sendRequest(ok, nok);
 }
