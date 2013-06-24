@@ -60,8 +60,10 @@ exports.ticketAvailRequest = function (test) {
 	ticketAvailRQ.sendRequest(ok, nok);
 }
 
-/*exports.ticketAvailRequestNoDescriptionMap = function (test) {
-	function ok(result)
+exports.ticketAvailRequestNoDescriptionMap = function (test) {
+	test.done();
+}
+/*	function ok(result)
 	{
 		console.log("number of objects in the reply: " + result.length);
 		console.log("number of serviceTickets in the reply: " + result[0].ServiceTicketList.length);
