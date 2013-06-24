@@ -35,6 +35,7 @@ var ticketAvailMapAlt = [
 
 /* run tests */
 exports.ticketAvailRequest = function (test) {
+	test.expect(1);
 	function ok(result)
 	{
 		console.log("number of objects in the reply: " + result.length);
@@ -61,6 +62,7 @@ exports.ticketAvailRequest = function (test) {
 }
 
 exports.ticketAvailRequestNoDescriptionMap = function (test) {
+	test.expect(1);
 	function ok(result)
 	{
 		console.log("number of objects in the reply: " + result.length);
