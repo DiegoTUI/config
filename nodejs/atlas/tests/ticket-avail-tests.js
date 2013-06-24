@@ -60,7 +60,7 @@ exports.ticketAvailRequest = function (test) {
 	ticketAvailRQ.sendRequest(ok, nok);
 }
 
-exports.ticketAvailRequestNoDescriptionMap = function (test) {
+/*exports.ticketAvailRequestNoDescriptionMap = function (test) {
 	function ok(result)
 	{
 		console.log("number of objects in the reply: " + result.length);
@@ -84,4 +84,4 @@ exports.ticketAvailRequestNoDescriptionMap = function (test) {
 
 	var ticketAvailRQ = new TicketAvailRequest(parameters);
 	ticketAvailRQ.sendRequest(ok, nok);
-}
+}*/
