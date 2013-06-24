@@ -61,9 +61,7 @@ exports.ticketAvailRequest = function (test) {
 }
 
 exports.ticketAvailRequestNoDescriptionMap = function (test) {
-	test.done();
-}
-/*	function ok(result)
+	function ok(result)
 	{
 		console.log("number of objects in the reply: " + result.length);
 		console.log("number of serviceTickets in the reply: " + result[0].ServiceTicketList.length);
@@ -84,6 +82,6 @@ exports.ticketAvailRequestNoDescriptionMap = function (test) {
 		ServiceOccupancy_AdultCount: "1"
 	};
 
-	var ticketAvailRQ = new TicketAvailRequest(parameters);
+	var ticketAvailRQ = new TicketAvailRequest(parameters, ticketAvailMapAlt);
 	ticketAvailRQ.sendRequest(ok, nok);
 }*/
