@@ -23,7 +23,7 @@ var TicketAvailRequest = function(queryParameters, descriptionMap, tag)
 	var util = require('./util.js');
 	var ajax = require('./ajax.js');
 	var atlas = require('./atlas.js');
-	var atlasDefaults('./atlasDefaults.js');
+	var atlasDefaults = require('./atlasDefaults.js');
 
 	//Initialize query parameters
 	initQueryParams();
