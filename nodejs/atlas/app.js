@@ -43,7 +43,7 @@ function serve (request, response) {
 	//perform request to ATLAS
 	if (typeof requests[request.params.service] === 'function') {
 		var theRequest = new requests[request.params.service](request.query);
-		theRequest.send(ok, nok);
+		theRequest.sendRequest(ok, nok);
 	} else {
 		console.log("service " + request.params.service + " not found");
 		nok({error:"service not found"}, 404);
