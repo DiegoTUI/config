@@ -42,7 +42,7 @@ function ok(result)
 
 function nok(error, statusCode)
 {
-	tui.debug("Entering nok callback");
+	console.log("Entering nok callback");
 	var message = error ? 'test failed with status code ' + statusCode + ' and error: ' + JSON.stringify(error) : 
 							'test failed with status code ' + statusCode;
 	test.ok(false, message);

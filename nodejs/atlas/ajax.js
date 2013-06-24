@@ -27,7 +27,7 @@ var ajax = new function()
 		if (method === 'POST') {
 			httpRequest.post(url, {form:data}, function(error, httpResponse, body) {
 				console.log ("received response from ATLAS: " + httpResponse.statusCode);
-				if (error || (httpResponse.statusCode!=="200")) {
+				if (error || (httpResponse.statusCode != 200)) {
 					console.log ("sending NOK response");
 					nok(error, httpResponse.statusCode);
 				} else {
@@ -38,7 +38,7 @@ var ajax = new function()
 		} else {
 			httpRequest.get(url, {form:data}, function(error, httpResponse, body) {
 				console.log ("received response from ATLAS: " + httpResponse.statusCode);
-				if (error || (httpResponse.statusCode!=="200")) {
+				if (error || (httpResponse.statusCode != 200)) {
 					nok(error, httpResponse.statusCode);
 				} else {
 					ok(body);
