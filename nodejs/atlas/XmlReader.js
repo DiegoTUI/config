@@ -90,7 +90,8 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 		for (var i=0; i<descriptionMap.length; i++) {
 			var item = descriptionMap[i];
 			if (typeof item === 'string') {	//It's a string
-				result[item] = getValue(element[item][0]);
+				if (item in element)
+					result[item] = getValue(element[item][0]);
 			} 
 			else if (typeof item === 'object') {	//It's a dictionary
 				 if (Object.keys(item).length !== 1)
@@ -99,20 +100,25 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 				for (var key in item) {
 					var value = item[key];
 					if (value instanceof Array) {	//It's a list
-						//initialize list
-						var listifiedKey = key.listify();
-						result[listifiedKey] = [];
 						//get the array that contains the list
 						var theList = listInXml(element,key);
-						if (!(theList instanceof Array)) {
-							console.error("listInXml returned a non array for key " + key);
-						}
-						for(var j=0; j<theList.length; j++) {
-							result[listifiedKey].push(processElement(theList[j], value));
+						if (theList != null) {
+							//initialize list
+							var listifiedKey = key.listify();
+							result[listifiedKey] = [];
+							
+							if (!(theList instanceof Array)) {
+								console.error("listInXml returned a non array for key " + key);
+							}
+							for(var j=0; j<theList.length; j++) {
+								result[listifiedKey].push(processElement(theList[j], value));
+							}
 						}
 					}
 					else if (typeof value === 'string') {	//It's a deep value
-						result[key] = valueInXml(element, value);
+						var potentialValue = valueInXml(element, value);
+						if (potentialValue != null)
+							result[key] = potentialValue;
 					}
 					break;	//we only consider the first key
 				}
@@ -127,7 +133,9 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 	function getValue (node) {
 		if (typeof node === 'string')
 			return node;
-		return node['_'];
+		if ('_' in node)
+			return node['_'];
+		return null;
 	}
 
 
@@ -140,9 +148,14 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 		var result = xmlObject;
 		var pathArray = path.split(".");
 		for (var i=0; i<(pathArray.length-1); i++) {
-			result = result[pathArray[i]][0];
+			if (pathArray[i] in result)
+				result = result[pathArray[i]][0];
+			else
+				return null;
 		}
-		return result[pathArray[pathArray.length-1]];
+		if (pathArray[pathArray.length-1] in result)
+			return result[pathArray[pathArray.length-1]];
+		return null;
 	}
 
 	/**
@@ -156,13 +169,17 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 		var realPathArray = realPath.length==0 ? [] : realPath.split(".");
 		var tip = xmlObject;
 		for (var i=0; i<realPathArray.length; i++) {
-			tip = tip[realPathArray[i]][0];
+			if (realPathArray[i] in tip)
+				tip = tip[realPathArray[i]][0];
+			else
+				return null;
 		}
 		var value = null;
 		if (attribute === '') {	//No attributes
 			value = getValue(tip);
 		}
 		else {	//There is an attribute at the end
+			if (('$' in tip) && (attribute in tip['$']))
 			value = tip['$'][attribute];
 		}
 		return value;
