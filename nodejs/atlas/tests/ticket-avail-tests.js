@@ -84,4 +84,4 @@ exports.ticketAvailRequestNoDescriptionMap = function (test) {
 
 	var ticketAvailRQ = new TicketAvailRequest(parameters, ticketAvailMapAlt);
 	ticketAvailRQ.sendRequest(ok, nok);
-}*/
+}
