@@ -37,9 +37,9 @@ function serve (request, response) {
 		response.send(JSON.stringify(body));
 
 	}
-	function nok(body, error, statusCode) {
+	function nok(error, statusCode) {
 		//response.set("Content-Type", "text/html");
-		response.status(statusCode).send(body);
+		response.status(statusCode).send(error.error);
 	}
 	//perform request to ATLAS
 	if (typeof requests[request.params.service] === 'function') {
@@ -47,6 +47,6 @@ function serve (request, response) {
 		theRequest.sendRequest(ok, nok);
 	} else {
 		console.log("service " + request.params.service + " not found");
-		nok("SERVICE NOT FOUND",{error:"service not found"}, 404);
+		nok({error:"service not found"}, 404);
 	}
 }

@@ -38,7 +38,7 @@ var TicketAvailRequest = function(queryParameters, descriptionMap, tag)
 	self.sendRequest = function(ok, nok) {
 		var parametrizedRequest = new ParametrizedString(atlas.ticketAvailRequest, queryParameters);
 		var data = {xml_request: parametrizedRequest.replaceAllClean()};
-		ajax.send(data, atlas.url, util.process([parseResponse, ok]), nok, 'GET');
+		ajax.send(data, atlas.url, util.process([parseResponse, ok]), nok, 'POST');
 	}
 
 	/**

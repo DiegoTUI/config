@@ -29,7 +29,7 @@ var ajax = new function()
 				console.log ("received response from ATLAS: " + httpResponse.statusCode);
 				if (error || (httpResponse.statusCode != 200)) {
 					console.log ("sending NOK response");
-					nok(error, httpResponse.statusCode);
+					nok({error:body}, httpResponse.statusCode);
 				} else {
 					//Check if the error is coded in the response
 					console.log ("sending OK response");
@@ -41,7 +41,7 @@ var ajax = new function()
 				console.log ("received response from ATLAS: " + httpResponse.statusCode);
 				if (error || (httpResponse.statusCode != 200)) {
 					console.log ("sending NOK response");
-					nok(body, error, httpResponse.statusCode);
+					nok({error:body}, httpResponse.statusCode);
 				} else {
 					console.log ("sending OK response");
 					ok(body);
