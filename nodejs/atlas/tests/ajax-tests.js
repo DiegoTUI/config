@@ -17,8 +17,7 @@ exports.offlineTest = function (test) {
 
 	function nok(error, statusCode)
 	{
-		console.log("error: " + JSON.stringify(error));
-		test.ok(true, "kk");
+		test.ok(error.code === "EHOSTUNREACH", "wrong error returned: " + JSON.stringify(error));
 		test.done();
 	}
 
