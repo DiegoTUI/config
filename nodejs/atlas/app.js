@@ -39,7 +39,7 @@ function serve (request, response) {
 	}
 	function nok(error, statusCode) {
 		//response.set("Content-Type", "text/html");
-		response.status(statusCode).send(error.error);
+		response.status(statusCode).send(JSON.stringify(error));
 	}
 	//perform request to ATLAS
 	if (typeof requests[request.params.service] === 'function') {

@@ -24,6 +24,23 @@ var ajax = new function()
 	 */
 	self.send = function(data, url, ok, nok, method)
 	{
+		var requestMethod = method === 'POST' ? httpRequest.post : httpRequest.get;
+		requestMethod (url, {form:data}, function(error, httpResponse, body) {
+			if (error) { //there was an error
+				console.log("Error for url " + url + ": " + JSON.stringify(error));
+				nok(error, 500);
+			} else { //No error, let's look at the statusCode
+				console.log ("received response from ATLAS: " + httpResponse.statusCode);
+				if (httpResponse.statusCode != 200) {
+					nok({error:body}, httpResponse.statusCode);
+				} else {
+					//Check if the error is coded in the response
+					console.log ("sending OK response");
+					ok(body);
+				}
+			}
+		});
+		/*
 		if (method === 'POST') {
 			httpRequest.post(url, {form:data}, function(error, httpResponse, body) {
 				if (httpResponse === undefined) { //timeout, url non existing
@@ -51,8 +68,9 @@ var ajax = new function()
 					ok(body);
 				}
 			});
-		}
+		}*/
 	}
+
 }
 
 module.exports = ajax;
