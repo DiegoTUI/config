@@ -47,6 +47,6 @@ function serve (request, response) {
 		theRequest.sendRequest(ok, nok);
 	} else {
 		console.log("service " + request.params.service + " not found");
-		nok({error:"service not found"}, 404);
+		nok("SERVICE NOT FOUND",{error:"service not found"}, 404);
 	}
 }
