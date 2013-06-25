@@ -32,13 +32,14 @@ console.log("listening on port: " + config.port);
 function serve (request, response) {
 	console.log("Serving for " + request.params.service + " with query: " + JSON.stringify(request.query));
 	//ok and nok callbacks
-	function ok(result) {
+	function ok(body) {
 		response.set("Content-Type", "text/plain");
-		response.send(JSON.stringify(result));
+		response.send(JSON.stringify(body));
 
 	}
-	function nok(error, statusCode) {
-		response.status(statusCode).send(JSON.stringify(error));
+	function nok(body, error, statusCode) {
+		response.set("Content-Type", "text/html");
+		response.status(statusCode).send(body);
 	}
 	//perform request to ATLAS
 	if (typeof requests[request.params.service] === 'function') {
