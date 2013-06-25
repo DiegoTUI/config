@@ -23,6 +23,6 @@ exports.offlineTest = function (test) {
 	}
 
 	var ajax = require('../ajax.js');
-	ajax.send({},'http://212.170.239.71/appservices/http/FrontendService', ok, nok);
+	ajax.send({},'http://212.170.239.72/appservices/http/FrontendService', ok, nok);
 }
 
