@@ -26,6 +26,10 @@ var ajax = new function()
 	{
 		if (method === 'POST') {
 			httpRequest.post(url, {form:data}, function(error, httpResponse, body) {
+				if (httpResponse === undefined) { //timeout, url non existing
+					console.log("Timeout for url " + url + ". Returned: " + JSON.stringify(error) + " and " + body);
+					nok({error: "Request timeout for url " + url}, 504);
+				}
 				console.log ("received response from ATLAS: " + httpResponse.statusCode);
 				if (error || (httpResponse.statusCode != 200)) {
 					console.log ("sending NOK response");
