@@ -27,7 +27,6 @@ var ajax = new function()
 		var requestMethod = method === 'POST' ? httpRequest.post : httpRequest.get;
 		requestMethod (url, {form:data}, processResponse);
 		function processResponse(error, httpResponse, body) {
-			console.log("processing response: " + body);
 			if (error) { //there was an error
 				console.log("Error for url " + url + ": " + JSON.stringify(error));
 				nok(error, 500);

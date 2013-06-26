@@ -41,6 +41,6 @@ exports.dumbGetRequest = function (test) {
 	}
 
 	var ajax = require('../ajax.js');
-	ajax.send({field1:"holy", field2:"crap"},'http://localhost/api/test_get.php', ok, nok, 'GET');
+	ajax.send({},'http://localhost/api/test_get.php?field1=holy&field2=crap', ok, nok, 'GET');
 }
 
