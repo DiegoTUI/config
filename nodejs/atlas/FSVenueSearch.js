@@ -20,6 +20,7 @@ var FSVenueSearch = function(queryParameters)
 	var util = require('./util.js');
 	var ajax = require('./ajax.js');
 	var fourSquare = require('./fourSquare.js');
+	var querystring = require('querystring');
 
 	/**
 	 * Sends the ajax request to the apropriate url with the right xml and query parameters
@@ -32,7 +33,8 @@ var FSVenueSearch = function(queryParameters)
 		queryParameters["client_secret"] = fourSquare.clientSecret;
 		queryParameters["v"] = util.atlasDate(new Date());
 		//make the call
-		ajax.send(queryParameters, fourSquare.venueSearchUrl, util.process([parseResponse, ok]), nok, 'GET');
+		var url = fourSquare.venueSearchUrl + "?" + querystring.stringify(queryParameters);
+		ajax.send({}, url, util.process([parseResponse, ok]), nok, 'GET');
 	}
 
 	/**
