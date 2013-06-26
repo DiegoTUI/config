@@ -41,6 +41,7 @@ var ajax = new function()
 			}
 		});*/
 		function processResponse(error, httpResponse, body) {
+			console.log("processing response: " + body);
 			if (error) { //there was an error
 				console.log("Error for url " + url + ": " + JSON.stringify(error));
 				nok(error, 500);
@@ -59,6 +60,7 @@ var ajax = new function()
 		if (method === 'POST') {
 			httpRequest.post(url, {form:data}, processResponse);	
 		} else {  //GET method
+			console.log("calling GET: " + url);
 			httpRequest.get(url, processResponse);
 		}
 	}
