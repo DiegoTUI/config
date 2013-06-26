@@ -30,7 +30,7 @@ var FSVenueSearch = function(queryParameters)
 	self.sendRequest = function(ok, nok) {
 		//fill in default parameters
 		queryParameters["client_id"] = fourSquare.clientId;
-		//queryParameters["client_secret"] = fourSquare.clientSecret;
+		queryParameters["client_secret"] = fourSquare.clientSecret;
 		queryParameters["v"] = util.atlasDate(new Date());
 		//make the call
 		var url = fourSquare.venueSearchUrl + "?" + querystring.stringify(queryParameters);
