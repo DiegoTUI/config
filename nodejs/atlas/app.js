@@ -16,7 +16,7 @@ process.title = 'atlasProxy';
 /**
  * Globals.
  */
-var config = JSON.parse(fs.readFileSync("config.json"));
+var config = JSON.parse(fs.readFileSync("./config.json"));
 var atlas = require("./atlas.js");
 //The app
 var app = express();
