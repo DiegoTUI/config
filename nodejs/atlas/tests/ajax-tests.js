@@ -26,7 +26,7 @@ exports.offlineTest = function (test) {
 }
 
 exports.dumbGetRequest = function (test) {
-	test.expect(1);
+	test.expect(2);
 	function ok(result) {
 		test.ok(result.rf1 === "holy", "Field 1 returned invalid value: " + result.rf1);
 		test.ok(result.rf2 === "crap", "Field 2 returned invalid value: " + result.rf2);
@@ -40,6 +40,6 @@ exports.dumbGetRequest = function (test) {
 	}
 
 	var ajax = require('../ajax.js');
-	ajax.send({field1:"holy", field2:"crap"},'http://54.246.80.107/api/test_get.php', ok, nok, 'GET');
+	ajax.send({field1:"holy", field2:"crap"},'http://54.246.80.107/api/test_get.php?field1=holy&field2=crap', ok, nok, 'GET');
 }
 
