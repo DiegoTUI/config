@@ -23,7 +23,7 @@ atlasDefaults["ticketAvailRequest"] = {
 		Language: "ENG",
 		Credentials_User: "ISLAS",
 		Credentials_Password: "ISLAS",
-		PaginationData_itemsPerPage: "25",
+		PaginationData_itemsPerPage: "50",
 		PaginationData_pageNumber: "1",
 		ServiceOccupancy_AdultCount: "1",
 		ServiceOccupancy_ChildCount: "0",
