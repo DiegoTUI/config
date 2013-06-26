@@ -28,8 +28,8 @@ exports.offlineTest = function (test) {
 exports.dumbGetRequest = function (test) {
 	test.expect(1);
 	function ok(result) {
-		test.ok(result.rf1 === "holy", "Field 1 returned invalid value: " result.rf1);
-		test.ok(result.rf2 === "crap", "Field 2 returned invalid value: " result.rf2);
+		test.ok(result.rf1 === "holy", "Field 1 returned invalid value: " + result.rf1);
+		test.ok(result.rf2 === "crap", "Field 2 returned invalid value: " + result.rf2);
 		test.done();
 	}
 
