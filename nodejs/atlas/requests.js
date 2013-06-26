@@ -12,5 +12,6 @@ var util = require('./util.js');
  var requests = {};
 
  requests.TicketAvailRequest = require('./TicketAvailRequest.js');
+ requests.FSVenueSearch = require('./FSVenueSearch.js');
 
  module.exports = requests;
