@@ -61,7 +61,7 @@ var ajax = new function()
 			httpRequest.post(url, {form:data}, processResponse);	
 		} else {  //GET method
 			console.log("calling GET: " + url);
-			httpRequest.get(url, processResponse);
+			httpRequest.get(url, {form:data}, processResponse);
 		}
 	}
 
