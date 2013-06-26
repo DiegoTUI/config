@@ -17,4 +17,4 @@
 };
 
 //export module
-module.exports = atlas;
+module.exports = fourSquare;
