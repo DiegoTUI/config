@@ -24,22 +24,8 @@ var ajax = new function()
 	 */
 	self.send = function(data, url, ok, nok, method)
 	{
-		/*var requestMethod = method === 'POST' ? httpRequest.post : httpRequest.get;
-		requestMethod (url, {form:data}, function(error, httpResponse, body) {
-			if (error) { //there was an error
-				console.log("Error for url " + url + ": " + JSON.stringify(error));
-				nok(error, 500);
-			} else { //No error, let's look at the statusCode
-				console.log ("received response from server: " + httpResponse.statusCode);
-				if (httpResponse.statusCode != 200) {
-					nok({error:body}, httpResponse.statusCode);
-				} else {
-					//Check if the error is coded in the response
-					console.log ("sending OK response");
-					ok(body);
-				}
-			}
-		});*/
+		var requestMethod = method === 'POST' ? httpRequest.post : httpRequest.get;
+		requestMethod (url, {form:data}, processResponse);
 		function processResponse(error, httpResponse, body) {
 			console.log("processing response: " + body);
 			if (error) { //there was an error
@@ -57,12 +43,12 @@ var ajax = new function()
 			}
 		}
 
-		if (method === 'POST') {
+		/*if (method === 'POST') {
 			httpRequest.post(url, {form:data}, processResponse);	
 		} else {  //GET method
 			console.log("calling GET: " + url);
 			httpRequest.get(url, {form:data}, processResponse);
-		}
+		}*/
 	}
 
 }
