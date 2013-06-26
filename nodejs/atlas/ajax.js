@@ -30,7 +30,7 @@ var ajax = new function()
 				console.log("Error for url " + url + ": " + JSON.stringify(error));
 				nok(error, 500);
 			} else { //No error, let's look at the statusCode
-				console.log ("received response from ATLAS: " + httpResponse.statusCode);
+				console.log ("received response from server: " + httpResponse.statusCode);
 				if (httpResponse.statusCode != 200) {
 					nok({error:body}, httpResponse.statusCode);
 				} else {

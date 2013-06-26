@@ -25,3 +25,21 @@ exports.offlineTest = function (test) {
 	ajax.send({},'http://212.170.239.72/appservices/http/FrontendService', ok, nok);
 }
 
+exports.dumbGetRequest = function (test) {
+	test.expect(1);
+	function ok(result) {
+		test.ok(result.rf1 === "holy", "Field 1 returned invalid value: " result.rf1);
+		test.ok(result.rf2 === "crap", "Field 2 returned invalid value: " result.rf2);
+		test.done();
+	}
+
+	function nok(error, statusCode)
+	{
+		test.ok(false, "valid call to test_get returned an error");
+		test.done();
+	}
+
+	var ajax = require('../ajax.js');
+	ajax.send({field1:"holy", field2:"crap"},'http://54.246.80.107/api/test_get.php', ok, nok, 'GET');
+}
+
