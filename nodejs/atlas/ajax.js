@@ -24,7 +24,7 @@ var ajax = new function()
 	 */
 	self.send = function(data, url, ok, nok, method)
 	{
-		/*var requestMethod = method === 'POST' ? httpRequest.post : httpRequest.get;
+		var requestMethod = method === 'POST' ? httpRequest.post : httpRequest.get;
 		requestMethod (url, {form:data}, function(error, httpResponse, body) {
 			if (error) { //there was an error
 				console.log("Error for url " + url + ": " + JSON.stringify(error));
@@ -39,7 +39,7 @@ var ajax = new function()
 					ok(body);
 				}
 			}
-		});*/
+		});
 		function processResponse(error, httpResponse, body) {
 			if (error) { //there was an error
 				console.log("Error for url " + url + ": " + JSON.stringify(error));
@@ -56,11 +56,11 @@ var ajax = new function()
 			}
 		}
 
-		if (method === 'POST') {
+		/*if (method === 'POST') {
 			httpRequest.post(url, {form:data}, processResponse);	
 		} else {  //GET method
 			httpRequest.get(url, processResponse);
-		}
+		}*/
 	}
 
 }
