@@ -94,33 +94,36 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 					result[item] = getValue(element[item][0]);
 			} 
 			else if (typeof item === 'object') {	//It's a dictionary
-				 if (Object.keys(item).length !== 1)
+				 if (Object.keys(item).length !== 1) {
                     log.error ("Malformed descriptionMap. More than 1 element in object: " + JSON.stringify(item));
-				//get the first (and only) key of the dictionary
-				for (var key in item) {
-					var value = item[key];
-					if (value instanceof Array) {	//It's a list
-						//get the array that contains the list
-						var theList = listInXml(element,key);
-						if (theList != null) {
-							//initialize list
-							var listifiedKey = key.listify();
-							result[listifiedKey] = [];
-							
-							if (!(theList instanceof Array)) {
-								log.error("listInXml returned a non array for key " + key);
-							}
-							for(var j=0; j<theList.length; j++) {
-								result[listifiedKey].push(processElement(theList[j], value));
+                } else {
+					//get the first (and only) key of the dictionary
+					for (var key in item) {
+						var value = item[key];
+						if (value instanceof Array) {	//It's a list
+							//get the array that contains the list
+							var theList = listInXml(element,key);
+							if (theList != null) {
+								//initialize list
+								var listifiedKey = key.listify();
+								result[listifiedKey] = [];
+								
+								if (!(theList instanceof Array)) {
+									log.error("listInXml returned a non array for key " + key);
+								} else {
+									for(var j=0; j<theList.length; j++) {
+										result[listifiedKey].push(processElement(theList[j], value));
+									}
+								}
 							}
 						}
+						else if (typeof value === 'string') {	//It's a deep value
+							var potentialValue = valueInXml(element, value);
+							if (potentialValue != null)
+								result[key] = potentialValue;
+						}
+						break;	//we only consider the first key
 					}
-					else if (typeof value === 'string') {	//It's a deep value
-						var potentialValue = valueInXml(element, value);
-						if (potentialValue != null)
-							result[key] = potentialValue;
-					}
-					break;	//we only consider the first key
 				}
 			} 
 		}
