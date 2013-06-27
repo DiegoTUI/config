@@ -39,7 +39,6 @@ var TicketAvailRequest = function(queryParameters, descriptionMap, tag)
 	self.sendRequest = function(ok, nok) {
 		var parametrizedRequest = new ParametrizedString(atlas.ticketAvailRequest, queryParameters);
 		var data = {xml_request: parametrizedRequest.replaceAllClean()};
-		//ajax.send(data, atlas.url, util.process([parseResponse, ok]), nok, 'POST');
 		ajax.send(data, atlas.url, checkForErrors, nok, 'POST');
 		/**
 		 * Checks for errors in the body of the response
@@ -79,33 +78,7 @@ var TicketAvailRequest = function(queryParameters, descriptionMap, tag)
 		}
 	}
 
-	/**
-	 * Parses the xml received according to the provided descriptionMap and returns the result
-	 * data: the xml received
-	 */
-	function parseResponse(data) {
-		var result = null;
-		var errors = null;
-		log.info("parsing errors ...");
-		var errorReader = new XmlReader (data, atlasDefaults.errorDescriptionMap);
-		errorReader.readObjects(function(parsedErrors){
-			errors = parsedErrors;
-		});
-		while (errors === null){}
-		if (errors.length > 0)
-			return errors;
-		log.info("No errors. Parsing response ...");
-		var xmlReader = new XmlReader (data, descriptionMap, tag);
-		xmlReader.readObjects(function(parsedResponse){
-			result = parsedResponse;
-		});
-		while (result === null){}
-		log.info("about to return parsed response"); //+ JSON.stringify(result));
-		return result;
-	}
-
 	return self;
 }
 
 module.exports = TicketAvailRequest;
-
