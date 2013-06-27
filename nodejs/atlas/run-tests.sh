@@ -3,3 +3,4 @@
 ../node_modules/nodeunit/bin/nodeunit ./tests/xmlreader-tests.js
 ../node_modules/nodeunit/bin/nodeunit ./tests/ticket-avail-tests.js
 ../node_modules/nodeunit/bin/nodeunit ./tests/ajax-tests.js
+../node_modules/nodeunit/bin/nodeunit ./tests/fs-venue-search-tests.js
