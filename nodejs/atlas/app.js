@@ -44,9 +44,9 @@ function serve (request, response) {
 		body = typeof body === "string" ? body : JSON.stringify(body);
 		response.send(body);
 	}
-	function nok(response) {
+	function nok(result) {
 		//response.set("Content-Type", "text/html");
-		response.status(response.statusCode).send(JSON.stringify(response.error));
+		response.status(result.statusCode).send(JSON.stringify(result.error));
 	}
 	//perform request to the required service
 	if (typeof requests[request.params.service] === 'function') {
