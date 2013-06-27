@@ -56,8 +56,8 @@ var FSVenueSearch = function(queryParameters)
 	 function parseError(data) {
 	 	data = JSON.parse(data.error);
 	 	console.log("parseError: " + JSON.stringify(data));
-	 	if (("error" in data)&&("meta" in data["error"])) {
-			return data.error.meta;
+	 	if ("meta" in data) {
+			return data.meta;
 		}
 		return {};
 	 }
