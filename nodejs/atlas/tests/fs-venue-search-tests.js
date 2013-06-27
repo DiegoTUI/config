@@ -33,5 +33,5 @@ exports.validVenueSearch = function (test) {
 	};
 
 	var fsVenueSearch = new FSVenueSearch(parameters);
-	ticketAvailRQ.sendRequest(ok, nok);
+	fsVenueSearch.sendRequest(ok, nok);
 }
