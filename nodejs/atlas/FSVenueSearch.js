@@ -34,7 +34,7 @@ var FSVenueSearch = function(queryParameters)
 		queryParameters["v"] = util.atlasDate(new Date());
 		//make the call
 		var url = fourSquare.venueSearchUrl + "?" + querystring.stringify(queryParameters);
-		ajax.send({}, url, util.process([parseResponse, ok]), util.process([parseResponse, nok]), 'GET');
+		ajax.send({}, url, util.process([parseResponse, ok]), util.process([parseError, nok]), 'GET');
 	}
 
 	/**
@@ -42,16 +42,24 @@ var FSVenueSearch = function(queryParameters)
 	 * data: the json response received
 	 */
 	function parseResponse(data) {
-		//data = "error" in data ? JSON.parse(data.error) : JSON.parse(data);
 		data = JSON.parse(data);
-		if (("meta" in data)&&("code" in data["meta"])&&(data.meta.code != 200)) { //there is an error
-			return data.meta;
-		}
 		if ("response" in data) {
 			return data.response;
 		}
 		return {};
 	}
+
+	/**
+	 * Parses the json received when it's an error
+	 * data: the json response received
+	 */
+	 function parseError(data) {
+	 	data = JSON.parse(data.error);
+	 	if (("error" in data)&&("meta" in data["error"])) {
+			return data.error.meta;
+		}
+		return {};
+	 }
 
 	return self;
 }
