@@ -185,6 +185,41 @@ exports.ticketAvail = function (test) {
 }
 
 exports.ticketAvailAlt = function (test) {
+	test.expect(37);
+	var xmlReader = new XmlReader (ticketAvailString, ticketAvailMapAlt);
+	xmlReader.readObjects(function (parsedXml) {
+		test.ok(parsedXml instanceof Object, 'parsedXml is an object');
+		test.ok(parsedXml.TotalItems === '27', 'TotalItems retrieved is correct');
+		test.ok(parsedXml.ServiceTicketList.length === 2, 'ServiceTicketList has 2 elements');
+		test.ok(parsedXml.ServiceTicketList[0].DateFrom === 'DateFrom1', 'dateFrom is correct in 1');
+		test.ok(parsedXml.ServiceTicketList[0].DateTo === 'DateTo1', 'dateTo is correct in 1');
+		test.ok(parsedXml.ServiceTicketList[1].DateFrom === 'DateFrom2', 'dateFrom is correct in 2');
+		test.ok(parsedXml.ServiceTicketList[1].DateTo === 'DateTo2', 'dateTo is correct in 2');
+		test.ok(parsedXml.ServiceTicketList[0].Currency === 'Euro1', 'Currency is correct in 1');
+		test.ok(parsedXml.ServiceTicketList[0].CurrencyCode === 'EUR1', 'CurrencyCode is correct in 1');
+		test.ok(parsedXml.ServiceTicketList[1].Currency === 'Euro2', 'Currency is correct in 2');
+		test.ok(parsedXml.ServiceTicketList[1].CurrencyCode === 'EUR2', 'CurrencyCode is correct in 2');
+		test.ok(parsedXml.ServiceTicketList[0].Name === 'Ticket1', 'Ticket name is correct in 1');
+		test.ok(parsedXml.ServiceTicketList[1].Name === 'Ticket2', 'Ticket name is correct in 2');
+		for (var i=0; i<parsedXml.ServiceTicketList.length; i++) {
+			var ImageList = parsedXml.ServiceTicketList[i]['TicketInfo.ImageList.Image'.listify()];
+			var DescriptionList = parsedXml.ServiceTicketList[i]['TicketInfo.DescriptionList.Description'.listify()];
+			test.ok(ImageList.length === 3, 'Only 3 images in the list: ' + ImageList.length);
+			for (var j=0; j<3; j++) {
+				test.ok(ImageList[j].Type === "S", "wrong image type in ticket " + i + " image " + j);
+				test.ok(ImageList[j].Url === "Image"+(i+1)+""+(j+1), "wrong image url in ticket " + i + " image " + j);
+			}
+			test.ok(DescriptionList.length === 2, 'Only 2 descriptions in the list: ' + DescriptionList.length);
+			for (var j=0; j<2; j++) {
+				test.ok(DescriptionList[j].Type === "generalDescription", "wrong description type in ticket " + i + " description " + j);
+				test.ok(DescriptionList[j].Description === "Description "+(i+1)+""+(j+1), "wrong description text in ticket " + i + " description " + j);
+			}
+		}
+		test.done();
+	});
+}
+
+/*exports.ticketAvailAlt = function (test) {
 	test.expect(38);
 	var xmlReader = new XmlReader (ticketAvailString, ticketAvailMapAlt);
 	xmlReader.readObjects(function (parsedXml) {
@@ -218,7 +253,7 @@ exports.ticketAvailAlt = function (test) {
 		}
 		test.done();
 	});
-}
+}*/
 
 exports.ticketClassificationList = function (test) {
 	test.expect(20);
@@ -250,6 +285,35 @@ exports.ticketClassificationList = function (test) {
 }
 
 exports.ticketClassificationListAlt = function (test) {
+	test.expect(21);
+	var xmlReader = new XmlReader (ticketClassificationListString, ticketClassificationListMapAlt);
+	xmlReader.readObjects(function (parsedXml) {
+		test.ok(parsedXml instanceof Object, 'parsedXml is an object');
+		test.ok(parsedXml.TotalItems === '9', 'TotalItems retrieved is correct');
+		test.ok(parsedXml.ClassificationList.length === 9, 'ClassificationList has 9 elements');
+		test.ok(parsedXml.ClassificationList[0].Code === 'CULTU', 'Code in element 1 is ok');
+		test.ok(parsedXml.ClassificationList[0].Name === 'Culture Museums', 'Code in element 1 is ok');
+		test.ok(parsedXml.ClassificationList[1].Code === 'FD', 'Code in element 2 is ok');
+		test.ok(parsedXml.ClassificationList[1].Name === 'Full Day', 'Code in element 2 is ok');
+		test.ok(parsedXml.ClassificationList[2].Code === 'FOOD', 'Code in element 3 is ok');
+		test.ok(parsedXml.ClassificationList[2].Name === 'Food Nightlife', 'Code in element 3 is ok');
+		test.ok(parsedXml.ClassificationList[3].Code === 'HD', 'Code in element 4 is ok');
+		test.ok(parsedXml.ClassificationList[3].Name === 'In the morning', 'Code in element 4 is ok');
+		test.ok(parsedXml.ClassificationList[4].Code === 'MD', 'Code in element 5 is ok');
+		test.ok(parsedXml.ClassificationList[4].Name === 'Multi Day Services', 'Code in element 5 is ok');
+		test.ok(parsedXml.ClassificationList[5].Code === 'OUTAC', 'Code in element 6 is ok');
+		test.ok(parsedXml.ClassificationList[5].Name === 'Outdoor Adventure', 'Code in element 6 is ok');
+		test.ok(parsedXml.ClassificationList[6].Code === 'PARTE', 'Code in element 7 is ok');
+		test.ok(parsedXml.ClassificationList[6].Name === 'Theme Aquatic Parks', 'Code in element 7 is ok');
+		test.ok(parsedXml.ClassificationList[7].Code === 'SHOW', 'Code in element 8 is ok');
+		test.ok(parsedXml.ClassificationList[7].Name === 'Shows and Events', 'Code in element 8 is ok');
+		test.ok(parsedXml.ClassificationList[8].Code === 'SIGHT', 'Code in element 9 is ok');
+		test.ok(parsedXml.ClassificationList[8].Name === 'Sightseeing Tours', 'Code in element 9 is ok');
+		test.done();
+	});	
+}
+
+/*exports.ticketClassificationListAlt = function (test) {
 	test.expect(22);
 	var xmlReader = new XmlReader (ticketClassificationListString, ticketClassificationListMapAlt);
 	xmlReader.readObjects(function (parsedXml) {
@@ -277,4 +341,4 @@ exports.ticketClassificationListAlt = function (test) {
 		test.ok(parsedXml[0].ClassificationList[8].Name === 'Sightseeing Tours', 'Code in element 9 is ok');
 		test.done();
 	});	
-}
+}*/
