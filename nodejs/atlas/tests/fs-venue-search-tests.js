@@ -46,9 +46,8 @@ exports.invalidVenueSearch = function (test) {
 
 	function nok(error, statusCode)
 	{
-		var errorObject = JSON.parse(error.error);
-		test.ok(errorObject.code == 400, "wrong error code returned");
-		test.ok(errorObject.errorType == "param_error", "wrong error type returned");
+		test.ok(error.code == 400, "wrong error code returned");
+		test.ok(error.errorType == "param_error", "wrong error type returned");
 		test.done();
 	}
 	var parameters = {
