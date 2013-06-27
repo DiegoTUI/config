@@ -44,16 +44,16 @@ function serve (request, response) {
 		body = typeof body === "string" ? body : JSON.stringify(body);
 		response.send(body);
 	}
-	function nok(error, statusCode) {
+	function nok(response) {
 		//response.set("Content-Type", "text/html");
-		response.status(statusCode).send(JSON.stringify(error));
+		response.status(response.statusCode).send(JSON.stringify(response.error));
 	}
-	//perform request to ATLAS
+	//perform request to the required service
 	if (typeof requests[request.params.service] === 'function') {
 		var theRequest = new requests[request.params.service](request.query);
 		theRequest.sendRequest(ok, nok);
 	} else {
 		log.info("service " + request.params.service + " not found");
-		nok({error:"service not found"}, 404);
+		nok({error:"service not found", statusCode:404});
 	}
 }

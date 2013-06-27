@@ -30,11 +30,11 @@ var ajax = new function()
 		function processResponse(error, httpResponse, body) {
 			if (error) { //there was an error
 				log.info("Error for url " + url + ": " + JSON.stringify(error));
-				nok(error, 500);
+				nok({error:error, statusCode:500});
 			} else { //No error, let's look at the statusCode
 				log.info ("received response from server: " + httpResponse.statusCode);
 				if (httpResponse.statusCode != 200) {
-					nok({error:body}, httpResponse.statusCode);
+					nok({error:body, statusCode:httpResponse.statusCode});
 				} else {
 					//Check if the error is coded in the response
 					log.info ("sending OK response");
