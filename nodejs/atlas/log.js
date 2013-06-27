@@ -33,7 +33,7 @@ var log = new function()
             message = 'Error';
         }
         // on node show in red with date and ERROR
-        console.error('\u001b[31m' + '[ERROR][' + isoDate() + '] ' + message + '\u001b[0m');
+        console.error('\u001b[31m' + '[ERROR][' + util.isoDate(new Date()) + '] ' + message + '\u001b[0m');
     }
 	
     return self;
