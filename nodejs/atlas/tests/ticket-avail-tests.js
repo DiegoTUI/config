@@ -89,20 +89,20 @@ exports.ticketAvailRequestNoDescriptionMap = function (test) {
 }
 
 exports.ticketAvailRequestErrors = function (test) {
-	test.expect(1);
+	test.expect(2);
 	function ok(result)
 	{
-		console.log("number of objects in the reply: " + result.length);
-		console.log("number of errors in the reply: " + result[0].ErrorList.length);
-		test.ok(result[0].ErrorList.length == 1, "Wrong number of errors retrieved.");
+		test.ok(false, "Should not end up in ok when there are errors in the response");
 		test.done();
 	}
 
 	function nok(result)
 	{
-		var message = error ? 'test failed with status code ' + result.statusCode + ' and error: ' + JSON.stringify(result.error) : 
-								'test failed with status code ' + result.statusCode;
-		test.ok(false, message);
+		test.ok(result.statusCode == 400, "wrong status code returned");
+		var errors = result.error;
+		console.log("number of objects in the reply: " + errors.length);
+		console.log("number of errors in the reply: " + errors[0].ErrorList.length);
+		test.ok(errors[0].ErrorList.length == 1, "Wrong number of errors retrieved.");
 		test.done();
 	}
 	var parameters = {
