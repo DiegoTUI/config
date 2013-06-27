@@ -52,7 +52,7 @@ var TicketAvailRequest = function(queryParameters, descriptionMap, tag)
 			});
 			while (errors === null){}
 			log.info("Ppparsed errors: " + JSON.stringify(errors));
-			if ("errorList" in errors) {	//There were errors coded in the response
+			if ("ErrorList" in errors) {	//There were errors coded in the response
 				nok({error:errors.errorList, statusCode:400});
 			} else {
 				var result = null;
