@@ -41,8 +41,8 @@ function serve (request, response) {
 	//ok and nok callbacks
 	function ok(body) {
 		response.set("Content-Type", "text/plain");
-		response.send(JSON.stringify(body));
-
+		body = typeof body === "string" ? body : JSON.stringify(body);
+		response.send(body);
 	}
 	function nok(error, statusCode) {
 		//response.set("Content-Type", "text/html");
