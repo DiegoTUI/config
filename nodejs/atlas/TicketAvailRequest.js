@@ -75,7 +75,7 @@ var TicketAvailRequest = function(queryParameters, descriptionMap, tag)
 			result = parsedResponse;
 		});
 		while (result === null){}
-		log.info("about to return parsed response: " + JSON.stringify(result));
+		log.info("about to return parsed response"); //+ JSON.stringify(result));
 		return result;
 	}
 
