@@ -39,7 +39,7 @@ exports.ticketAvailRequest = function (test) {
 	function ok(result)
 	{
 		console.log("number of serviceTickets in the reply: " + result.ServiceTicketList.length);
-		test.ok(result.ServiceTicketList.length == parseInt(result.TotalItems), "Wrong number of items retrieved. Should have retrieved " + result[0].TotalItems + " but the parsed array only has " + result[0].ServiceTicketList.length);
+		test.ok(result.ServiceTicketList.length == parseInt(result.TotalItems), "Wrong number of items retrieved. Should have retrieved " + result.TotalItems + " but the parsed array only has " + result.ServiceTicketList.length);
 		test.done();
 	}
 
@@ -65,7 +65,7 @@ exports.ticketAvailRequestNoDescriptionMap = function (test) {
 	function ok(result)
 	{
 		console.log("number of serviceTickets in the reply: " + result.ServiceTicketList.length);
-		test.ok(result.ServiceTicketList.length == parseInt(result.TotalItems), "Wrong number of items retrieved. Should have retrieved " + result[0].TotalItems + " but the parsed array only has " + result[0].ServiceTicketList.length);
+		test.ok(result.ServiceTicketList.length == parseInt(result.TotalItems), "Wrong number of items retrieved. Should have retrieved " + result.TotalItems + " but the parsed array only has " + result.ServiceTicketList.length);
 		test.done();
 	}
 
