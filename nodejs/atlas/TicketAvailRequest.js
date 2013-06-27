@@ -60,7 +60,7 @@ var TicketAvailRequest = function(queryParameters, descriptionMap, tag)
 	function parseResponse(data) {
 		var result = null;
 		var errors = null;
-		console.log("parsing errors ...");
+		log.info("parsing errors ...");
 		var errorReader = new XmlReader (data, atlasDefaults.errorDescriptionMap);
 		errorReader.readObjects(function(parsedErrors){
 			errors = parsedErrors;
@@ -68,13 +68,13 @@ var TicketAvailRequest = function(queryParameters, descriptionMap, tag)
 		while (errors === null){}
 		if (errors.length > 0)
 			return errors;
-		console.log("No errors. Parsing response ...");
+		log.info("No errors. Parsing response ...");
 		var xmlReader = new XmlReader (data, descriptionMap, tag);
 		xmlReader.readObjects(function(parsedResponse){
 			result = parsedResponse;
 		});
 		while (result === null){}
-		console.log("about to return parsed response");
+		log.info("about to return parsed response");
 		return result;
 	}
 

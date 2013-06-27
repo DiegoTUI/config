@@ -44,7 +44,7 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 				}
 			} else  { //It's an object
 				var elementToPush = processElement(objectToBrowse, descriptionMap); 
-				//console.log("Habemus element: " + JSON.stringify(elementToPush));
+				//log.info("Habemus element: " + JSON.stringify(elementToPush));
 				if (!util.isEmpty(elementToPush))
 					result.push(elementToPush);
 			}
@@ -94,7 +94,7 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 			} 
 			else if (typeof item === 'object') {	//It's a dictionary
 				 if (Object.keys(item).length !== 1)
-                    console.error ("Malformed descriptionMap. More than 1 element in object: " + JSON.stringify(item));
+                    log.error ("Malformed descriptionMap. More than 1 element in object: " + JSON.stringify(item));
 				//get the first (and only) key of the dictionary
 				for (var key in item) {
 					var value = item[key];
@@ -107,7 +107,7 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 							result[listifiedKey] = [];
 							
 							if (!(theList instanceof Array)) {
-								console.error("listInXml returned a non array for key " + key);
+								log.error("listInXml returned a non array for key " + key);
 							}
 							for(var j=0; j<theList.length; j++) {
 								result[listifiedKey].push(processElement(theList[j], value));

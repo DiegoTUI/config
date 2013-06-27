@@ -16,6 +16,7 @@ var ajax = new function()
 
 	//requires
 	var httpRequest = require('request');
+	var log = require('./log.js');
 
 	/**
 	 * Function to submit data using Ajax, with instrumentation.
@@ -28,15 +29,15 @@ var ajax = new function()
 		requestMethod (url, {form:data}, processResponse);
 		function processResponse(error, httpResponse, body) {
 			if (error) { //there was an error
-				console.log("Error for url " + url + ": " + JSON.stringify(error));
+				log.info("Error for url " + url + ": " + JSON.stringify(error));
 				nok(error, 500);
 			} else { //No error, let's look at the statusCode
-				console.log ("received response from server: " + httpResponse.statusCode);
+				log.info ("received response from server: " + httpResponse.statusCode);
 				if (httpResponse.statusCode != 200) {
 					nok({error:body}, httpResponse.statusCode);
 				} else {
 					//Check if the error is coded in the response
-					console.log ("sending OK response");
+					log.info ("sending OK response");
 					ok(body);
 				}
 			}
@@ -45,7 +46,7 @@ var ajax = new function()
 		/*if (method === 'POST') {
 			httpRequest.post(url, {form:data}, processResponse);	
 		} else {  //GET method
-			console.log("calling GET: " + url);
+			log.info("calling GET: " + url);
 			httpRequest.get(url, {form:data}, processResponse);
 		}*/
 	}
