@@ -21,6 +21,7 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 	var self = this;
 	//Requires
 	var util = require('./util.js');
+	var log = require('./log.js');
 
 	/**
 	 * Reads the objects from the xmlString using the descriptionMap

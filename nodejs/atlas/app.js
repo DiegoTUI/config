@@ -12,6 +12,13 @@ var log = require('./log.js');
  * Constants.
  */
 process.title = 'tuiMashup';
+/**
+ * Process uncaught exceptions.
+ */
+ process.on('uncaughtException', function(err) {
+	log.error("We found an uncaught exception.");
+	log.error(err.stack);
+});
 
 /**
  * Globals.
