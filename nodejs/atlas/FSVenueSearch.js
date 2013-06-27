@@ -18,6 +18,7 @@ var FSVenueSearch = function(queryParameters)
 
 	//requires
 	var util = require('./util.js');
+	var log = require('./log.js');
 	var ajax = require('./ajax.js');
 	var fourSquare = require('./fourSquare.js');
 	var querystring = require('querystring');
@@ -55,6 +56,7 @@ var FSVenueSearch = function(queryParameters)
 	 */
 	 function parseError(data) {
 	 	data = JSON.parse(data.error);
+	 	log.info("Parsing error: " + JSON.stringify(data));
 	 	if ("meta" in data) {
 			return data.meta;
 		}
