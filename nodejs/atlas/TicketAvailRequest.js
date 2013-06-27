@@ -48,10 +48,10 @@ var TicketAvailRequest = function(queryParameters, descriptionMap, tag)
 			log.info("parsing errors ...");
 			var errorReader = new XmlReader (data, atlasDefaults.errorDescriptionMap);
 			errorReader.readObjects(function(parsedErrors){
-				log.info("Parsed errors: " + JSON.stringify(parsedErrors));
 				errors = parsedErrors;
 			});
 			while (errors === null){}
+			log.info("Ppparsed errors: " + JSON.stringify(parsedErrors));
 			if ("errorList" in errors) {	//There were errors coded in the response
 				nok({error:errors.errorList, statusCode:400});
 			} else {
