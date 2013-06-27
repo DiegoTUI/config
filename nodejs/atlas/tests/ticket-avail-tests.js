@@ -98,8 +98,8 @@ exports.ticketAvailRequestErrors = function (test) {
 	{
 		test.ok(result.statusCode == 400, "wrong status code returned");
 		var errors = result.error;
-		console.log("number of errors in the reply: " + errors.ErrorList.length);
-		test.ok(errors.ErrorList.length == 1, "Wrong number of errors retrieved.");
+		console.log("number of errors in the reply: " + errors.length);
+		test.ok(errors.length == 1, "Wrong number of errors retrieved.");
 		test.done();
 	}
 	var parameters = {
