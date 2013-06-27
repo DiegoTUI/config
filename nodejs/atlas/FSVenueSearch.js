@@ -42,7 +42,8 @@ var FSVenueSearch = function(queryParameters)
 	 * data: the json response received
 	 */
 	function parseResponse(data) {
-		data = "error" in data ? JSON.parse(data.error) : JSON.parse(data);
+		//data = "error" in data ? JSON.parse(data.error) : JSON.parse(data);
+		data = JSON.parse(data);
 		if (("meta" in data)&&("code" in data["meta"])&&(data.meta.code != 200)) { //there is an error
 			return data.meta;
 		}
