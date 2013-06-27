@@ -35,3 +35,27 @@ exports.validVenueSearch = function (test) {
 	var fsVenueSearch = new FSVenueSearch(parameters);
 	fsVenueSearch.sendRequest(ok, nok);
 }
+
+exports.invalidVenueSearch = function (test) {
+	test.expect(2);
+	function ok(result)
+	{
+		test.ok(false, "Should not return ok when performing an invalid request");
+		test.done();
+	}
+
+	function nok(error, statusCode)
+	{
+		var errorObject = JSON.parse(error.error);
+		test.ok(errorObject.code == 400, "wrong error code returned");
+		test.ok(errorObject.errorType == "param_error", "wrong error type returned");
+		test.done();
+	}
+	var parameters = {
+		intent: "browse",
+		radius: "500"
+	};
+
+	var fsVenueSearch = new FSVenueSearch(parameters);
+	fsVenueSearch.sendRequest(ok, nok);
+}

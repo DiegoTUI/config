@@ -34,7 +34,7 @@ var FSVenueSearch = function(queryParameters)
 		queryParameters["v"] = util.atlasDate(new Date());
 		//make the call
 		var url = fourSquare.venueSearchUrl + "?" + querystring.stringify(queryParameters);
-		ajax.send({}, url, util.process([parseResponse, ok]), nok, 'GET');
+		ajax.send({}, url, util.process([parseResponse, ok]), util.process([parseResponse, nok]), 'GET');
 	}
 
 	/**
