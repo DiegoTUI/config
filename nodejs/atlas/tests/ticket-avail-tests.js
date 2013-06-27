@@ -38,9 +38,8 @@ exports.ticketAvailRequest = function (test) {
 	test.expect(1);
 	function ok(result)
 	{
-		console.log("number of objects in the reply: " + result.length);
-		console.log("number of serviceTickets in the reply: " + result[0].ServiceTicketList.length);
-		test.ok(result[0].ServiceTicketList.length == parseInt(result[0].TotalItems), "Wrong number of items retrieved. Should have retrieved " + result[0].TotalItems + " but the parsed array only has " + result[0].ServiceTicketList.length);
+		console.log("number of serviceTickets in the reply: " + result.ServiceTicketList.length);
+		test.ok(result.ServiceTicketList.length == parseInt(result.TotalItems), "Wrong number of items retrieved. Should have retrieved " + result[0].TotalItems + " but the parsed array only has " + result[0].ServiceTicketList.length);
 		test.done();
 	}
 
@@ -65,9 +64,8 @@ exports.ticketAvailRequestNoDescriptionMap = function (test) {
 	test.expect(1);
 	function ok(result)
 	{
-		console.log("number of objects in the reply: " + result.length);
-		console.log("number of serviceTickets in the reply: " + result[0].ServiceTicketList.length);
-		test.ok(result[0].ServiceTicketList.length == parseInt(result[0].TotalItems), "Wrong number of items retrieved. Should have retrieved " + result[0].TotalItems + " but the parsed array only has " + result[0].ServiceTicketList.length);
+		console.log("number of serviceTickets in the reply: " + result.ServiceTicketList.length);
+		test.ok(result.ServiceTicketList.length == parseInt(result.TotalItems), "Wrong number of items retrieved. Should have retrieved " + result[0].TotalItems + " but the parsed array only has " + result[0].ServiceTicketList.length);
 		test.done();
 	}
 
@@ -100,9 +98,8 @@ exports.ticketAvailRequestErrors = function (test) {
 	{
 		test.ok(result.statusCode == 400, "wrong status code returned");
 		var errors = result.error;
-		console.log("number of objects in the reply: " + errors.length);
-		console.log("number of errors in the reply: " + errors[0].ErrorList.length);
-		test.ok(errors[0].ErrorList.length == 1, "Wrong number of errors retrieved.");
+		console.log("number of errors in the reply: " + errors.ErrorList.length);
+		test.ok(errors.ErrorList.length == 1, "Wrong number of errors retrieved.");
 		test.done();
 	}
 	var parameters = {
