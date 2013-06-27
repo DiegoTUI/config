@@ -44,10 +44,10 @@ exports.ticketAvailRequest = function (test) {
 		test.done();
 	}
 
-	function nok(error, statusCode)
+	function nok(result)
 	{
-		var message = error ? 'test failed with status code ' + statusCode + ' and error: ' + JSON.stringify(error) : 
-								'test failed with status code ' + statusCode;
+		var message = error ? 'test failed with status code ' + result.statusCode + ' and error: ' + JSON.stringify(result.error) : 
+								'test failed with status code ' + result.statusCode;
 		test.ok(false, message);
 		test.done();
 	}
@@ -71,10 +71,10 @@ exports.ticketAvailRequestNoDescriptionMap = function (test) {
 		test.done();
 	}
 
-	function nok(error, statusCode)
+	function nok(result)
 	{
-		var message = error ? 'test failed with status code ' + statusCode + ' and error: ' + JSON.stringify(error) : 
-								'test failed with status code ' + statusCode;
+		var message = error ? 'test failed with status code ' + result.statusCode + ' and error: ' + JSON.stringify(result.error) : 
+								'test failed with status code ' + result.statusCode;
 		test.ok(false, message);
 		test.done();
 	}
@@ -98,10 +98,10 @@ exports.ticketAvailRequestErrors = function (test) {
 		test.done();
 	}
 
-	function nok(error, statusCode)
+	function nok(result)
 	{
-		var message = error ? 'test failed with status code ' + statusCode + ' and error: ' + JSON.stringify(error) : 
-								'test failed with status code ' + statusCode;
+		var message = error ? 'test failed with status code ' + result.statusCode + ' and error: ' + JSON.stringify(result.error) : 
+								'test failed with status code ' + result.statusCode;
 		test.ok(false, message);
 		test.done();
 	}

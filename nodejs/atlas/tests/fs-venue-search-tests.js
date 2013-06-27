@@ -19,10 +19,9 @@ exports.validVenueSearch = function (test) {
 		test.done();
 	}
 
-	function nok(error, statusCode)
+	function nok(result)
 	{
-		var message = error ? 'test failed with status code ' + statusCode + ' and error: ' + JSON.stringify(error) : 
-								'test failed with status code ' + statusCode;
+		var message = result.error ? 'test failed with status code ' + result.statusCode + ' and error: ' + JSON.stringify(result.error) : 'test failed with status code ' + result.statusCode;
 		test.ok(false, message);
 		test.done();
 	}
@@ -44,8 +43,9 @@ exports.invalidVenueSearch = function (test) {
 		test.done();
 	}
 
-	function nok(error, statusCode)
+	function nok(result)
 	{
+		var error = result.error;
 		test.ok(error.code == 400, "wrong error code returned");
 		test.ok(error.errorType == "param_error", "wrong error type returned");
 		test.done();
