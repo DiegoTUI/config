@@ -53,7 +53,7 @@ var TicketAvailRequest = function(queryParameters, descriptionMap, tag)
 			while (errors === null){}
 			log.info("Ppparsed errors: " + JSON.stringify(errors));
 			if ("ErrorList" in errors) {	//There were errors coded in the response
-				nok({error:errors.errorList, statusCode:400});
+				nok({error:errors.ErrorList, statusCode:400});
 			} else {
 				var result = null;
 				log.info("No errors. Parsing response ...");
