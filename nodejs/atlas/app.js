@@ -5,13 +5,13 @@
  */
 var fs = require('fs');
 var express = require('express');
-//var httpRequest = require('request');
 var requests = require('./requests.js');
+var log = require('./log.js');
 
 /**
  * Constants.
  */
-process.title = 'atlasProxy';
+process.title = 'tuiMashup';
 
 /**
  * Globals.
@@ -24,13 +24,13 @@ var app = express();
 app.get("/:service", serve);
 //Listen
 app.listen(config.port);
-console.log("listening on port: " + config.port);
+log.info("listening on port: " + config.port);
 
 /**
  * HTTP server
  */
 function serve (request, response) {
-	console.log("Serving for " + request.params.service + " with query: " + JSON.stringify(request.query));
+	log.info("Serving for " + request.params.service + " with query: " + JSON.stringify(request.query));
 	//ok and nok callbacks
 	function ok(body) {
 		response.set("Content-Type", "text/plain");
@@ -46,7 +46,7 @@ function serve (request, response) {
 		var theRequest = new requests[request.params.service](request.query);
 		theRequest.sendRequest(ok, nok);
 	} else {
-		console.log("service " + request.params.service + " not found");
+		log.info("service " + request.params.service + " not found");
 		nok({error:"service not found"}, 404);
 	}
 }

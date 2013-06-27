@@ -23,8 +23,7 @@ var util = new function()
 	/**
 	 * Find out if the argument is a string.
 	 */
-	self.isString = function(argument)
-	{
+	self.isString = function(argument) {
 		return typeof argument == 'string';
 	}
 
@@ -38,8 +37,7 @@ var util = new function()
 	/**
 	 * Clone an object, including functions.
 	 */
-	self.cloneObject = function(object)
-	{
+	self.cloneObject = function(object) {
 		var cloned = (object instanceof Array) ? [] : {};
 		for (var i in object)
 		{
@@ -58,24 +56,35 @@ var util = new function()
 	/**
 	 * Converts numeric degrees to radians.
 	 */
-	self.toRad = function(number)
-	{
+	self.toRad = function(number) {
 		return number * Math.PI / 180;
 	}
 
 	/**
 	 * Return the date object in ATLAS format: yyyymmdd.
 	 */
-	self.atlasDate = function(date)
-	{
+	self.atlasDate = function(date) {
 		 return (date.getFullYear()*10000 + (date.getMonth()+1)*100 + date.getDate()).toString();
 	}
+
+    /**
+     * Return an ISO8601 formatted date for now.
+     * From https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Objects/Date#Example.3a_ISO_8601_formatted_dates
+     */
+    self.isoDate = function(date) {
+        return date.getUTCFullYear() + '-'
+            + pad(date.getUTCMonth() + 1, 2) + '-'
+            + pad(date.getUTCDate(), 2) + 'T'
+            + pad(date.getUTCHours(), 2) + ':'
+            + pad(date.getUTCMinutes(), 2) + ':'
+            + pad(date.getUTCSeconds(), 2) + '.'
+            + pad(date.getUTCMilliseconds(), 3) + 'Z'
+    }
 
 	/**
 	 * Return a random string of length
 	 */
-	self.randomString = function(length)
-	{
+	self.randomString = function(length) {
 		 return Math.random().toString(36).substr(2, length);
 	}
 
@@ -83,8 +92,7 @@ var util = new function()
      * Process one result through a pipeline.
      * Each function is called in order; if it returns a value it replaces the original.
      */
-    self.process = function(pipeline)
-    {
+    self.process = function(pipeline) {
         return function(data)
         {
             self.runPipeline(pipeline, data);
@@ -96,8 +104,7 @@ var util = new function()
      * Each function in the pipeline has its turn to use or modify the data.
      * If a function returns a value, it substitutes the original data.
      */
-    self.runPipeline = function(pipeline, data)
-    {
+    self.runPipeline = function(pipeline, data) {
         while (pipeline.length > 0)
         {
             var callback = pipeline.shift();
@@ -122,8 +129,7 @@ var util = new function()
      * Check that the callback is null, or a function.
      * Returns true, or shows an error and returns false.
      */
-    self.checkCallback = function(callback, message)
-    {
+    self.checkCallback = function(callback, message) {
         if (!callback)
         {
             return true;
@@ -209,6 +215,18 @@ var util = new function()
             result += '</' + key + '>\n';
         }
         return result;
+    }
+
+    /**
+     * Pad a number to the given digits.
+     */
+    function pad(n, digits) {
+        var padded = n.toString();
+        while (padded.length < digits)
+        {
+            padded = '0' + padded;
+        }
+        return padded;
     }
 }
 
