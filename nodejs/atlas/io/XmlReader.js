@@ -6,7 +6,7 @@
  * Copyright (C) 2013 TuiInnovation.
  */
 
-require("./util/core.js");
+require("../util/core.js");
 
 /**
  * The XML reader.
@@ -20,8 +20,8 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 	// self-reference
 	var self = this;
 	//Requires
-	var util = require('./util/util.js');
-	var log = require('./util/log.js');
+	var util = require('../util/util.js');
+	var log = require('../util/log.js');
 
 	/**
 	 * Reads the objects from the xmlString using the descriptionMap
