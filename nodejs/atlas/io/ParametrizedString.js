@@ -6,7 +6,7 @@
  * Copyright (C) 2013 TuiInnovation.
  */
 
- require("./util/core.js");
+ require("../util/core.js");
 
 /**
  * The parametrized string.
