@@ -6,7 +6,7 @@
  * Copyright (C) 2013 TuiInnovation.
  */
 
-var TicketAvailRequest = require('../TicketAvailRequest.js');
+var TicketAvailRequest = require('../ATTicketAvail.js');
 
 var ticketAvailMap = [
 {'DateFrom':'DateFrom.@date'},
