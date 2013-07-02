@@ -22,7 +22,7 @@ exports.offlineTest = function (test) {
 		test.done();
 	}
 
-	var ajax = require('../ajax.js');
+	var ajax = require('../io/ajax.js');
 	ajax.send({},'http://212.170.239.72/appservices/http/FrontendService', ok, nok);
 }
 
@@ -41,7 +41,7 @@ exports.dumbGetRequest = function (test) {
 		test.done();
 	}
 
-	var ajax = require('../ajax.js');
+	var ajax = require('../io/ajax.js');
 	ajax.send({},'http://localhost/api/test_get.php?field1=holy&field2=crap', ok, nok, 'GET');
 }
 

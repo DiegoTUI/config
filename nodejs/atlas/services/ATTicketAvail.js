@@ -1,30 +1,30 @@
 'use strict';
 /*
  * TuiInnovation nodejs.
- * TicketAvailRequest: performs a TicketAvail request to ATLAS and resturns the results
+ * ATTicketAvail: performs a TicketAvail request to ATLAS and resturns the results
  *
  * Copyright (C) 2013 TuiInnovation.
  */
 
 /**
- * The TicketAvail request.
+ * The TicketAvail request in Atlas.
  * queryParameters: the parameters to build the xml and perform the call
  * descriptionMap: the json describing wich fields you want to read from the xml
  * tag: the tag to indicate which objects in the xml should we look for. Root if undefined or null
  */
-var TicketAvailRequest = function(queryParameters, descriptionMap, tag)
+var ATTicketAvail = function(queryParameters, descriptionMap, tag)
 {
 	// self-reference
 	var self = this;
 
 	//requires
-	var ParametrizedString = require('./ParametrizedString.js');
-	var XmlReader = require('./XmlReader.js');
-	var util = require('./util.js');
-	var ajax = require('./ajax.js');
-	var atlas = require('./atlas.js');
-	var log = require('./log.js');
-	var atlasDefaults = require('./atlasDefaults.js');
+	var ParametrizedString = require('../io/ParametrizedString.js');
+	var XmlReader = require('../io/XmlReader.js');
+	var ajax = require('../io/ajax.js');
+	var util = require('../util/util.js');
+	var log = require('../util/log.js');
+	var atlas = require('./config/atlas.js');
+	var atlasDefaults = require('./config/atlasDefaults.js');
 
 	//Initialize query parameters
 	initQueryParams();
@@ -81,4 +81,4 @@ var TicketAvailRequest = function(queryParameters, descriptionMap, tag)
 	return self;
 }
 
-module.exports = TicketAvailRequest;
+module.exports = ATTicketAvail;

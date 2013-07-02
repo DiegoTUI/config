@@ -6,7 +6,7 @@
  * Copyright (C) 2013 TuiInnovation.
  */
 
-require("./core.js");
+require("./util/core.js");
 
 /**
  * The XML reader.
@@ -20,8 +20,8 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 	// self-reference
 	var self = this;
 	//Requires
-	var util = require('./util.js');
-	var log = require('./log.js');
+	var util = require('./util/util.js');
+	var log = require('./util/log.js');
 
 	/**
 	 * Reads the objects from the xmlString using the descriptionMap
@@ -32,7 +32,7 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 		//initialize result
 		var result =[];
 		//parse the xmlString in a JSON
-		var parser = require("xml2js").Parser();
+		var parser = require('xml2js').Parser();
 		parser.on("end", function(xmlObject){
 			var objectToBrowse = (tag && (tag.length > 0)) ? findTag(xmlObject, tag) : xmlObject[Object.keys(xmlObject)[0]];
 			if (objectToBrowse == null) {

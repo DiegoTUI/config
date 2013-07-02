@@ -17,11 +17,11 @@ var FSVenueSearch = function(queryParameters)
 	var self = this;
 
 	//requires
-	var util = require('./util.js');
-	var log = require('./log.js');
-	var ajax = require('./ajax.js');
-	var fourSquare = require('./fourSquare.js');
 	var querystring = require('querystring');
+	var util = require('../util/util.js');
+	var log = require('../util/log.js');
+	var ajax = require('../io/ajax.js');
+	var fourSquare = require('./config/fourSquare.js');
 
 	/**
 	 * Sends the ajax request to the apropriate url with the right xml and query parameters

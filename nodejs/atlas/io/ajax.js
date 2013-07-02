@@ -16,7 +16,7 @@ var ajax = new function()
 
 	//requires
 	var httpRequest = require('request');
-	var log = require('./log.js');
+	var log = require('./util/log.js');
 
 	/**
 	 * Function to submit data using Ajax, with instrumentation.

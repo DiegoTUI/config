@@ -6,7 +6,7 @@
  * Copyright (C) 2013 TuiInnovation.
  */
 
-var FSVenueSearch = require('../FSVenueSearch.js');
+var FSVenueSearch = require('../services/FSVenueSearch.js');
 
 /* run tests */
 exports.validVenueSearch = function (test) {

@@ -5,8 +5,8 @@
  */
 var fs = require('fs');
 var express = require('express');
-var requests = require('./requests.js');
-var log = require('./log.js');
+var services = require('./services/services.js');
+var log = require('./util/log.js');
 
 /**
  * Constants.
@@ -49,8 +49,8 @@ function serve (request, response) {
 		response.status(result.statusCode).send(JSON.stringify(result.error));
 	}
 	//perform request to the required service
-	if (typeof requests[request.params.service] === 'function') {
-		var theRequest = new requests[request.params.service](request.query);
+	if (typeof services[request.params.service] === 'function') {
+		var theRequest = new services[request.params.service](request.query);
 		theRequest.sendRequest(ok, nok);
 	} else {
 		log.info("service " + request.params.service + " not found");
