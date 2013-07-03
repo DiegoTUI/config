@@ -59,8 +59,6 @@ var ticketAvailMap = [
  function parseTickets (parameters) {
  	function ok(result)
 	{
-		var destinationCode = parameters.Destination_code;
-		var language = parameters.Language;
 		log.info("Received " + result.length + " tickets for " + destinationCode + " in " + language);
 		//get to the collection
 		db.collection("tickets", function(error,collection) {
@@ -104,6 +102,8 @@ var ticketAvailMap = [
 			message += '. Error: ' + JSON.stringify(result.error);
 		log.error(message)
 	}
+	var destinationCode = parameters.Destination_code;
+	var language = parameters.Language;
  	var ticketAvailRQ = new ATTicketAvail(parameters, ticketAvailMap, "ServiceTickets");
  	log.info("Calling ATLAS for " + destinationCode + " in " + language);
  	ticketAvailRQ.sendRequest(ok,nok);
