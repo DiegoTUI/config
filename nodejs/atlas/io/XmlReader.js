@@ -34,6 +34,7 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 		//parse the xmlString in a JSON
 		var parser = require('xml2js').Parser();
 		parser.on("end", function(xmlObject){
+			log.info("Finished parsing. Producing now appropriate JSON.");
 			var objectToBrowse = (tag && (tag.length > 0)) ? findTag(xmlObject, tag) : xmlObject[Object.keys(xmlObject)[0]];
 			if (objectToBrowse == null) {
 				result = null;
@@ -52,6 +53,7 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 			}
 			callback(result);
 		});
+		log.info("Starting to parse xml response...");
 		parser.parseString(xmlString);
 	}
 
