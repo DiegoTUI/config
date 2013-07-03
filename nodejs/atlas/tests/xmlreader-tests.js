@@ -150,7 +150,7 @@ var ticketClassificationListMapAlt = [
 
 exports.ticketAvailWrongTag = function (test) {
 	test.expect(1);
-	var xmlReader = new XmlReader (ticketAvailString, ticketAvailMap, 'ServiceTickets');
+	var xmlReader = new XmlReader (ticketAvailString, ticketAvailMap, 'WrongTag');
 	xmlReader.readObjects(function (parsedXml) {
 		//eyes.inspect(parsedXml);
 		test.ok(parsedXml === null, 'parsedXml is null')

@@ -55,13 +55,19 @@ var ATTicketAvail = function(queryParameters, descriptionMap, tag)
 				nok({error:errors.ErrorList, statusCode:400});
 			} else {
 				var result = null;
+				var callback = ok;
 				log.info("No errors. Parsing response ...");
 				var xmlReader = new XmlReader (data, descriptionMap, tag);
 				xmlReader.readObjects(function(parsedResponse){
-					result = parsedResponse;
+					if (parsedResponse === null) { //something went wrong when parsing
+						result = {error:"Parsing error. XmlReader returned null", statusCode:500};
+						callback = nok;
+					} else {
+						result = parsedResponse;
+					}
 				});
 				while (result === null){}
-				ok(result);
+				callback(result);
 			}
 		}
 	}

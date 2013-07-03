@@ -111,3 +111,27 @@ exports.ticketAvailRequestErrors = function (test) {
 	var ticketAvailRQ = new TicketAvailRequest(parameters);
 	ticketAvailRQ.sendRequest(ok, nok);
 }
+
+exports.ticketAvailRequestWrongTag = function (test) {
+	test.expect(2);
+	function ok(result)
+	{
+		test.ok(false, "Should not end up in ok when a wrong tag is passed");
+		test.done();
+	}
+
+	function nok(result)
+	{
+		test.ok(result.statusCode == 500, "wrong status code returned");
+		test.ok(typeof result.error === "string", "wrong error returned");
+		test.done();
+	}
+	var parameters = {
+		Language: "ENG",
+		Credentials_User: "ISLAS",
+		ServiceOccupancy_AdultCount: "1"
+	};
+
+	var ticketAvailRQ = new TicketAvailRequest(parameters, ticketAvailMap, "WrongTag");
+	ticketAvailRQ.sendRequest(ok, nok);
+}
