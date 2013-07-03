@@ -39,6 +39,7 @@ var XmlReader = function(xmlString, descriptionMap, tag)
 				result = null;
 			} else if (objectToBrowse instanceof Array) {
 				for (var i=0; i<objectToBrowse.length; i++) {
+					log.info("XMLReader: parsing element " + (i+1) + " of " + objectToBrowse.length);
 					var elementToPush = processElement(objectToBrowse[i], descriptionMap); 
 					if (!util.isEmpty(elementToPush))
 						result.push(elementToPush);	
