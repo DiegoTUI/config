@@ -93,7 +93,7 @@ var ticketAvailMap = [
 				collection.update({code: ticket['code']},
 					{'$push': pushItem},
 					{upsert: true});
-			};
+			});
 		});
 	}
 
