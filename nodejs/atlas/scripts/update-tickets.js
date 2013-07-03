@@ -82,15 +82,27 @@ var ticketAvailMap = [
 				unsetItem["DescriptionList."+language] = 1;
 				collection.update({code: ticket['code']},
 					{'$set': setItem, '$unset': unsetItem},
-					{upsert: true});
-				//Now push the new arrays
-				var pushItem = {};
-				pushItem["ImageList"] = {'$each': ticket["ImageList"]};
-				pushItem["AvailableModalityList"] = {'$each': ticket["AvailableModalityList"]};
-				pushItem["DescriptionList."+language] = {'$each': ticket["DescriptionList"]};
-				collection.update({code: ticket['code']},
-					{'$push': pushItem},
-					{upsert: true});
+					{upsert: true}, function(error, count){
+						if (error) {
+							log.error ("Error while updating set and unset");
+							throw error;
+						}
+						log.info("Set and unset " + count + " elements. Pushing items now.");
+						//Now push the new arrays
+						var pushItem = {};
+						pushItem["ImageList"] = {'$each': ticket["ImageList"]};
+						pushItem["AvailableModalityList"] = {'$each': ticket["AvailableModalityList"]};
+						pushItem["DescriptionList."+language] = {'$each': ticket["DescriptionList"]};
+						collection.update({code: ticket['code']},
+							{'$push': pushItem},
+							{upsert: true}, function (error, count){
+								if (error) {
+									log.error ("Error while updating push");
+									throw error;
+								}
+								log.info("Push " + count + " elements. Pushing items now.");
+						});
+				});
 			});
 		});
 	}
