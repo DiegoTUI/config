@@ -148,6 +148,17 @@ var ticketClassificationListMapAlt = [
 {'Classification':[{'Code':'@code'},
 					{'Name':''}]}];
 
+exports.ticketAvailWrongTag = function (test) {
+	test.expect(1);
+	var xmlReader = new XmlReader (ticketAvailString, ticketAvailMap, 'ServiceTickets');
+	xmlReader.readObjects(function (parsedXml) {
+		//eyes.inspect(parsedXml);
+		test.ok(parsedXml === null, 'parsedXml is null')
+		console.log("TicketAvailWrongTag test done");
+		test.done();
+	});
+}
+
 exports.ticketAvail = function (test) {
 	test.expect(36);
 	var xmlReader = new XmlReader (ticketAvailString, ticketAvailMap, 'ServiceTicket');

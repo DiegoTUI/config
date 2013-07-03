@@ -104,7 +104,7 @@ var ticketAvailMap = [
 	}
 	var destinationCode = parameters.Destination_code;
 	var language = parameters.Language;
- 	var ticketAvailRQ = new ATTicketAvail(parameters, ticketAvailMap, "ServiceTickets");
+ 	var ticketAvailRQ = new ATTicketAvail(parameters, ticketAvailMap, "ServiceTicket");
  	log.info("Calling ATLAS for " + destinationCode + " in " + language);
  	ticketAvailRQ.sendRequest(ok,nok);
  }
