@@ -104,7 +104,7 @@ var ticketAvailMap = [
 			message += '. Error: ' + JSON.stringify(result.error);
 		log.error(message)
 	}
- 	var ticketAvailRQ = new TicketAvailRequest(parameters, ticketAvailMap, "ServiceTickets");
+ 	var ticketAvailRQ = new ATTicketAvail(parameters, ticketAvailMap, "ServiceTickets");
  	log.info("Calling ATLAS for " + destinationCode + " in " + language);
  	ticketAvailRQ.sendRequest(ok,nok);
  }
