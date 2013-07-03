@@ -32,7 +32,7 @@ process.on('uncaughtException', function(err) {
  */
 var languages = JSON.parse(fs.readFileSync("./languages.json"));
 var destinations = JSON.parse(fs.readFileSync("./destinations.json"));
-var server = new mongo.Server("127.0.0.1", mongo.Connection.DEFAULT_PORT, {journal:false});
+var server = new mongo.Server("127.0.0.1", mongo.Connection.DEFAULT_PORT, {safe:false});
 log.info("db listening on port: " + mongo.Connection.DEFAULT_PORT);
 var db = new mongo.Db("tuiinnovation", server, {});
 var ticketAvailMap = [
