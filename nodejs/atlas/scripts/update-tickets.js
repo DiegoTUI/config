@@ -54,70 +54,55 @@ var ticketAvailMap = [
 /**
  * Connect and parse
  */
- function parseTickets (parameters, finished) {
+ function parseTickets (parameters, collection, finished) {
  	function ok(result)
 	{
 		var totalTickets = result.length;
 		log.info("Received " + totalTickets + " tickets for " + destinationCode + " in " + language);
-		//open db
-		db.open(function(error,db){
-			if (error) {
-				log.error("error returned while trying to open the database: " + JSON.stringify(error));
-				throw error;
-			}
-			//log.info("Database opened correctly.");
-			//get to the collection
-			db.collection("tickets", function(error,collection) {
-				if (error) {
-					log.error("error returned while trying to open tickets collection: " + JSON.stringify(error));
-					throw error;
-				}
-				//log.info("Collection opened correctly. Removing...");
-				//browse the tickets, update the db
-				var countParsedTickets = 0;
-				result.forEach(function(ticket, index) {
-					log.info("parsing ticket " + index);
-					//First update the "simple" fields and remove the arrays
-					var setItem = {
-						code: ticket['code'],
-						currencyCode: ticket['currencyCode'],
-						destinationCode: destinationCode 
-					};
-					setItem["name."+language] = ticket.name;
-					var unsetItem ={
-						ImageList: 1,
-						AvailableModalityList: 1
-					};
-					unsetItem["DescriptionList."+language] = 1;
+		
+		//browse the tickets, update the db
+		var countParsedTickets = 0;
+		result.forEach(function(ticket, index) {
+			log.info("parsing ticket " + index);
+			//First update the "simple" fields and remove the arrays
+			var setItem = {
+				code: ticket['code'],
+				currencyCode: ticket['currencyCode'],
+				destinationCode: destinationCode 
+			};
+			setItem["name."+language] = ticket.name;
+			var unsetItem ={
+				ImageList: 1,
+				AvailableModalityList: 1
+			};
+			unsetItem["DescriptionList."+language] = 1;
+			collection.update({code: ticket['code']},
+				{'$set': setItem, '$unset': unsetItem},
+				{upsert: true}, function(error, count){
+					if (error) {
+						log.error ("Error while updating set and unset");
+						throw error;
+					}
+					//log.info("Set and unset " + count + " elements for index " + index);
+					//Now push the new arrays
+					var pushItem = {};
+					pushItem["ImageList"] = {'$each': ticket["ImageList"]};
+					pushItem["AvailableModalityList"] = {'$each': ticket["AvailableModalityList"]};
+					pushItem["DescriptionList."+language] = {'$each': ticket["DescriptionList"]};
 					collection.update({code: ticket['code']},
-						{'$set': setItem, '$unset': unsetItem},
-						{upsert: true}, function(error, count){
+						{'$push': pushItem},
+						{upsert: true}, function (error, count){
 							if (error) {
-								log.error ("Error while updating set and unset");
+								log.error ("Error while updating push");
 								throw error;
 							}
-							//log.info("Set and unset " + count + " elements for index " + index);
-							//Now push the new arrays
-							var pushItem = {};
-							pushItem["ImageList"] = {'$each': ticket["ImageList"]};
-							pushItem["AvailableModalityList"] = {'$each': ticket["AvailableModalityList"]};
-							pushItem["DescriptionList."+language] = {'$each': ticket["DescriptionList"]};
-							collection.update({code: ticket['code']},
-								{'$push': pushItem},
-								{upsert: true}, function (error, count){
-									if (error) {
-										log.error ("Error while updating push");
-										throw error;
-									}
-									//log.info("Push " + count + " elements for index" + index);
-									//log.info("Finished parsing ticket " + index);
-									countParsedTickets++;
-									if (countParsedTickets == totalTickets)
-										finished(totalTickets);
-							});
-						});
+							//log.info("Push " + count + " elements for index" + index);
+							//log.info("Finished parsing ticket " + index);
+							countParsedTickets++;
+							if (countParsedTickets == totalTickets)
+								finished(totalTickets);
+					});
 				});
-			});
 		});
 	}
 
@@ -146,21 +131,43 @@ var date = new Date();
 queryParameters["DateFrom_date"] = util.atlasDate(date); 
 date.setDate(date.getDate() + 7);
 queryParameters["DateTo_date"] = util.atlasDate(date); 
-//For each destination and language
-var steps = destinations.length * languages.length;
-var currentStep = 0;
-destinations.forEach(function(destination){
-	languages.forEach(function(language){
-		queryParameters["Language"] = language;
-		queryParameters["Destination_code"] = destination;
-		log.info("About to parse " + destination + " and " + language);
-		parseTickets(queryParameters, function(totalTickets) {
-			log.info("Parsed " + totalTickets + " tickets for " + destination + " and " + language);
-			currentStep++;
-			if (currentStep == steps)
-		 		process.exit();
+//Open database
+db.open(function(error,db) {
+	if (error) {
+		log.error("error returned while trying to open the database: " + JSON.stringify(error));
+		throw error;
+	}
+	db.collection("tickets", function(error,collection) {
+		if (error) {
+			log.error("error returned while trying to open tickets collection: " + JSON.stringify(error));
+			throw error;
+		}
+		//For each destination and language
+		var steps = destinations.length * languages.length;
+		var currentStep = 0;
+		destinations.forEach(function(destination){
+			languages.forEach(function(language){
+				queryParameters["Language"] = language;
+				queryParameters["Destination_code"] = destination;
+				log.info("About to parse " + destination + " and " + language);
+				parseTickets(queryParameters, collection, function(totalTickets) {
+					log.info("Parsed " + totalTickets + " tickets for " + destination + " and " + language);
+					currentStep++;
+					if (currentStep == steps){
+						//close database and exit
+						db.close(true, function(error, result){
+							if (error) {
+								log.error("error returned while trying to open tickets collection: " + JSON.stringify(error));
+								throw error;
+							}
+							process.exit();
+						});
+				 	}
+				});
+			});
 		});
 	});
 });
+
 
 
