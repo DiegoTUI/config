@@ -63,7 +63,6 @@ var ticketAvailMap = [
 		//browse the tickets, update the db
 		var countParsedTickets = 0;
 		result.forEach(function(ticket, index) {
-			log.info("parsing ticket " + index);
 			//First update the "simple" fields and remove the arrays
 			var setItem = {
 				code: ticket['code'],
