@@ -74,7 +74,7 @@ var ticketAvailMap = [
 					log.error("error returned while trying to open tickets collection: " + JSON.stringify(error));
 					throw error;
 				}
-				log.info("Collection opened correctly.");
+				log.info("Collection opened correctly. Removing...");
 				//browse the tickets, update the db
 				var countParsedTickets = 0;
 				result.forEach(function(ticket, index) {
