@@ -75,7 +75,8 @@ var ticketAvailMap = [
 				}
 				log.info("Collection opened correctly: " + collection);
 				//browse the tickets, update the db
-				result.forEach(function(ticket) {
+				result.forEach(function(ticket, index) {
+					log.info("parsing ticket " + index);
 					//First update the "simple" fields and remove the arrays
 					var setItem = {
 						code: ticket['code'],
@@ -109,8 +110,9 @@ var ticketAvailMap = [
 										throw error;
 									}
 									log.info("Push " + count + " elements. Pushing items now.");
+									log.info("Finished parsing ticket " + index);
 							});
-					});
+						});
 				});
 			});
 		});
@@ -132,7 +134,8 @@ var ticketAvailMap = [
 
  var queryParameters = {
  	Destination_code: "TFS",
- 	Language: "ENG"
+ 	Language: "ENG",
+ 	PaginationData_itemsPerPage: "200"
  };
 
  parseTickets(queryParameters);
