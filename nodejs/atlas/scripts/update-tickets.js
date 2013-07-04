@@ -96,7 +96,7 @@ var ticketAvailMap = [
 								log.error ("Error while updating set and unset");
 								throw error;
 							}
-							log.info("Set and unset " + count + " elements. Pushing items now.");
+							log.info("Set and unset " + count + " elements for index " + index);
 							//Now push the new arrays
 							var pushItem = {};
 							pushItem["ImageList"] = {'$each': ticket["ImageList"]};
@@ -109,7 +109,7 @@ var ticketAvailMap = [
 										log.error ("Error while updating push");
 										throw error;
 									}
-									log.info("Push " + count + " elements. Pushing items now.");
+									log.info("Push " + count + " elements for index" + index);
 									log.info("Finished parsing ticket " + index);
 							});
 						});
