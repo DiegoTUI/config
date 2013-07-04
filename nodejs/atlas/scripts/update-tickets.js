@@ -66,6 +66,7 @@ var ticketAvailMap = [
 				log.error("error returned while trying to open tickets collection: " + JSON.stringify(error));
 				throw error;
 			}
+			log.info("Collection opened correctly: " + collection);
 			//browse the tickets, update the db
 			result.forEach(function(ticket) {
 				//First update the "simple" fields and remove the arrays
