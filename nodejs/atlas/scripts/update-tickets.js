@@ -30,8 +30,6 @@ process.on('uncaughtException', function(err) {
 /**
  * Globals.
  */
-var languages = JSON.parse(fs.readFileSync("./languages.json"));
-var destinations = JSON.parse(fs.readFileSync("./destinations.json"));
 var server = new mongo.Server("127.0.0.1", mongo.Connection.DEFAULT_PORT, {});
 log.info("db listening on port: " + mongo.Connection.DEFAULT_PORT);
 var db = new mongo.Db("tuiinnovation", server, {w:1});
@@ -67,14 +65,14 @@ var ticketAvailMap = [
 				log.error("error returned while trying to open the database: " + JSON.stringify(error));
 				throw error;
 			}
-			log.info("Database opened correctly.");
+			//log.info("Database opened correctly.");
 			//get to the collection
 			db.collection("tickets", function(error,collection) {
 				if (error) {
 					log.error("error returned while trying to open tickets collection: " + JSON.stringify(error));
 					throw error;
 				}
-				log.info("Collection opened correctly. Removing...");
+				//log.info("Collection opened correctly. Removing...");
 				//browse the tickets, update the db
 				var countParsedTickets = 0;
 				result.forEach(function(ticket, index) {
@@ -98,7 +96,7 @@ var ticketAvailMap = [
 								log.error ("Error while updating set and unset");
 								throw error;
 							}
-							log.info("Set and unset " + count + " elements for index " + index);
+							//log.info("Set and unset " + count + " elements for index " + index);
 							//Now push the new arrays
 							var pushItem = {};
 							pushItem["ImageList"] = {'$each': ticket["ImageList"]};
@@ -111,11 +109,11 @@ var ticketAvailMap = [
 										log.error ("Error while updating push");
 										throw error;
 									}
-									log.info("Push " + count + " elements for index" + index);
-									log.info("Finished parsing ticket " + index);
+									//log.info("Push " + count + " elements for index" + index);
+									//log.info("Finished parsing ticket " + index);
 									countParsedTickets++;
 									if (countParsedTickets == totalTickets)
-										finished();
+										finished(totalTickets);
 							});
 						});
 				});
@@ -137,13 +135,32 @@ var ticketAvailMap = [
  	ticketAvailRQ.sendRequest(ok,nok);
  }
 
- var queryParameters = {
- 	Destination_code: "TFS",
- 	Language: "ENG",
+//Script start here
+var languages = JSON.parse(fs.readFileSync("./languages.json"));
+var destinations = JSON.parse(fs.readFileSync("./destinations.json"));
+var queryParameters = {
  	PaginationData_itemsPerPage: "200"
- };
+};
+//set the dates
+var date = new Date();
+queryParameters["DateFrom_date"] = util.atlasDate(date); 
+date.setDate(date.getDate() + 7);
+queryParameters["DateTo_date"] = util.atlasDate(date); 
+//For each destination and language
+var steps = destinations.length * languages.length;
+var currentStep = 0;
+destinations.forEach(function(destination){
+	languages.forEach(function(language){
+		queryParameters["Language"] = language;
+		queryParameters["Destination_code"] = destination;
+		log.info("About to parse " + destination + " and " + language);
+		parseTickets(queryParameters, function(totalTickets) {
+			log.info("Parsed " + totalTickets + " tickets for " + destination + " and " + language);
+			currentStep++;
+			if (currentStep == steps)
+		 		process.exit();
+		});
+	});
+});
 
- parseTickets(queryParameters, function() {
- 	process.exit();
- });
 
