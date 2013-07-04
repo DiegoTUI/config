@@ -56,10 +56,11 @@ var ticketAvailMap = [
 /**
  * Connect and parse
  */
- function parseTickets (parameters) {
+ function parseTickets (parameters, finished) {
  	function ok(result)
 	{
-		log.info("Received " + result.length + " tickets for " + destinationCode + " in " + language);
+		var totalTickets = result.length;
+		log.info("Received " + totalTickets + " tickets for " + destinationCode + " in " + language);
 		//open db
 		db.open(function(error,db){
 			if (error) {
@@ -73,8 +74,9 @@ var ticketAvailMap = [
 					log.error("error returned while trying to open tickets collection: " + JSON.stringify(error));
 					throw error;
 				}
-				log.info("Collection opened correctly: " + collection);
+				log.info("Collection opened correctly.");
 				//browse the tickets, update the db
+				var countParsedTickets = 0;
 				result.forEach(function(ticket, index) {
 					log.info("parsing ticket " + index);
 					//First update the "simple" fields and remove the arrays
@@ -111,6 +113,9 @@ var ticketAvailMap = [
 									}
 									log.info("Push " + count + " elements for index" + index);
 									log.info("Finished parsing ticket " + index);
+									countParsedTickets++;
+									if (countParsedTickets == totalTickets)
+										finished();
 							});
 						});
 				});
@@ -138,5 +143,7 @@ var ticketAvailMap = [
  	PaginationData_itemsPerPage: "200"
  };
 
- parseTickets(queryParameters);
+ parseTickets(queryParameters, function() {
+ 	process.exit();
+ });
 
