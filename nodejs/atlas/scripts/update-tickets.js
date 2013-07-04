@@ -60,49 +60,57 @@ var ticketAvailMap = [
  	function ok(result)
 	{
 		log.info("Received " + result.length + " tickets for " + destinationCode + " in " + language);
-		//get to the collection
-		db.collection("tickets", function(error,collection) {
+		//open db
+		db.open(function(error,db){
 			if (error) {
-				log.error("error returned while trying to open tickets collection: " + JSON.stringify(error));
+				log.error("error returned while trying to open the database: " + JSON.stringify(error));
 				throw error;
 			}
-			log.info("Collection opened correctly: " + collection);
-			//browse the tickets, update the db
-			result.forEach(function(ticket) {
-				//First update the "simple" fields and remove the arrays
-				var setItem = {
-					code: ticket['code'],
-					currencyCode: ticket['currencyCode'],
-					destinationCode: destinationCode 
-				};
-				setItem["name."+language] = ticket.name;
-				var unsetItem ={
-					ImageList: 1,
-					AvailableModalityList: 1
-				};
-				unsetItem["DescriptionList."+language] = 1;
-				collection.update({code: ticket['code']},
-					{'$set': setItem, '$unset': unsetItem},
-					{upsert: true}, function(error, count){
-						if (error) {
-							log.error ("Error while updating set and unset");
-							throw error;
-						}
-						log.info("Set and unset " + count + " elements. Pushing items now.");
-						//Now push the new arrays
-						var pushItem = {};
-						pushItem["ImageList"] = {'$each': ticket["ImageList"]};
-						pushItem["AvailableModalityList"] = {'$each': ticket["AvailableModalityList"]};
-						pushItem["DescriptionList."+language] = {'$each': ticket["DescriptionList"]};
-						collection.update({code: ticket['code']},
-							{'$push': pushItem},
-							{upsert: true}, function (error, count){
-								if (error) {
-									log.error ("Error while updating push");
-									throw error;
-								}
-								log.info("Push " + count + " elements. Pushing items now.");
-						});
+			log.info("Database opened correctly.");
+			//get to the collection
+			db.collection("tickets", function(error,collection) {
+				if (error) {
+					log.error("error returned while trying to open tickets collection: " + JSON.stringify(error));
+					throw error;
+				}
+				log.info("Collection opened correctly: " + collection);
+				//browse the tickets, update the db
+				result.forEach(function(ticket) {
+					//First update the "simple" fields and remove the arrays
+					var setItem = {
+						code: ticket['code'],
+						currencyCode: ticket['currencyCode'],
+						destinationCode: destinationCode 
+					};
+					setItem["name."+language] = ticket.name;
+					var unsetItem ={
+						ImageList: 1,
+						AvailableModalityList: 1
+					};
+					unsetItem["DescriptionList."+language] = 1;
+					collection.update({code: ticket['code']},
+						{'$set': setItem, '$unset': unsetItem},
+						{upsert: true}, function(error, count){
+							if (error) {
+								log.error ("Error while updating set and unset");
+								throw error;
+							}
+							log.info("Set and unset " + count + " elements. Pushing items now.");
+							//Now push the new arrays
+							var pushItem = {};
+							pushItem["ImageList"] = {'$each': ticket["ImageList"]};
+							pushItem["AvailableModalityList"] = {'$each': ticket["AvailableModalityList"]};
+							pushItem["DescriptionList."+language] = {'$each': ticket["DescriptionList"]};
+							collection.update({code: ticket['code']},
+								{'$push': pushItem},
+								{upsert: true}, function (error, count){
+									if (error) {
+										log.error ("Error while updating push");
+										throw error;
+									}
+									log.info("Push " + count + " elements. Pushing items now.");
+							});
+					});
 				});
 			});
 		});
