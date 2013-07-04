@@ -1,2 +1,2 @@
-mongo tuiinnovation remove-tickets.js
-node update-tickets.js
+mongo tuiinnovation remove-tickets.js >> update-tickets.log
+node update-tickets.js >> update-tickets.log
