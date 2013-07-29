@@ -67,7 +67,8 @@ var ticketAvailMap = [
 			var setItem = {
 				code: ticket['code'],
 				currencyCode: ticket['currencyCode'],
-				destinationCode: destinationCode 
+				destinationCode: destinationCode,
+				lastUpdated: new Date()
 			};
 			setItem["name."+language] = ticket.name;
 			var unsetItem ={
@@ -119,7 +120,9 @@ var ticketAvailMap = [
  	ticketAvailRQ.sendRequest(ok,nok);
  }
 
-//Script start here
+/**
+ * ----SCRIPT STARTS HERE----
+ */
 var languages = JSON.parse(fs.readFileSync("/etc/tuiinnovation/config/nodejs/atlas/scripts/languages.json"));
 var destinations = JSON.parse(fs.readFileSync("/etc/tuiinnovation/config/nodejs/atlas/scripts/destinations.json"));
 var queryParameters = {
