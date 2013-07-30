@@ -59,8 +59,7 @@ var removed = {};
  function parseTickets (parameters, collection, finished) {
 
  	function ok(result) {
-		var totalTickets = result.length;
-		log.info("Received " + totalTickets + " tickets for " + destinationCode + " in " + language);
+		log.info("Received " + result.length + " tickets for " + destinationCode + " in " + language);
 		//check if I have to remove the elements of the collection
 		if (removed[destinationCode]) { //already removed, just update DB
 			updateDB(result);
@@ -86,6 +85,7 @@ var removed = {};
 
 	function updateDB(result) {
 		//browse the tickets, update the db
+		var totalTickets = result.length;
 		var countParsedTickets = 0;
 		result.forEach(function(ticket, index) {
 			//First update the "simple" fields and remove the arrays
