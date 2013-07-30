@@ -4,6 +4,7 @@
  * Requirements.
  */
 var fs = require('fs');
+var path = require('path');
 var express = require('express');
 var services = require('./services/services.js');
 var log = require('./util/log.js');
@@ -23,7 +24,7 @@ process.title = 'tuiMashup';
 /**
  * Globals.
  */
-var config = JSON.parse(fs.readFileSync("./config.json"));
+var config = JSON.parse(fs.readFileSync(path.resolve(__dirname, "config.json")));
 //The app
 var app = express();
 //Serve root GET calls
