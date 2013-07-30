@@ -69,7 +69,7 @@ var removed = {};
 					log.error ("Error while removing for destination: " + destinationCode);
 					throw error;
 				}
-				log.info("Removed " + numberRemoved + " elements for destination " + destinationCode);
+				log.info("Removed " + numberRemoved + " elements for destination " + destinationCode + ". Removed is: " + removed[destinationCode]);
 				removed[destinationCode] = true;
 				updateDB(result);
 			});
