@@ -10,6 +10,7 @@
  */
 var mongo = require('mongodb');
 var fs = require('fs');
+var path = require('path');
 var ATTicketAvail = require('../services/ATTicketAvail.js');
 var log = require('../util/log.js');
 var util = require('../util/util.js');
@@ -123,10 +124,10 @@ var ticketAvailMap = [
 /**
  * ----SCRIPT STARTS HERE----
  */
-var languages = JSON.parse(fs.readFileSync("/etc/tuiinnovation/config/nodejs/mashoop/scripts/languages.json"));
-var destinations = JSON.parse(fs.readFileSync("/etc/tuiinnovation/config/nodejs/mashoop/scripts/destinations.json"));
+var languages = JSON.parse(fs.readFileSync(path.resolve(__dirname, "languages.json")));
+var destinations = JSON.parse(fs.readFileSync(path.resolve(__dirname, "destinations.json")));
 var queryParameters = {
- 	PaginationData_itemsPerPage: "200"
+ 	PaginationData_itemsPerPage: "2000"
 };
 //set the dates
 var date = new Date();
