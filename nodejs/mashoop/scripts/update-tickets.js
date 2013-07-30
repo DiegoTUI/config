@@ -51,16 +51,40 @@ var ticketAvailMap = [
 											{'description':'Description'}]},
 						{'childAgeFrom':'ChildAge.@ageFrom'},
 						{'childAgeTo':'ChildAge.@ageTo'}]}];
+var removed = {};
 
 /**
  * Connect and parse
  */
  function parseTickets (parameters, collection, finished) {
- 	function ok(result)
-	{
+
+ 	function ok(result) {
 		var totalTickets = result.length;
 		log.info("Received " + totalTickets + " tickets for " + destinationCode + " in " + language);
-		
+		//check if I have to remove the elements of the collection
+		if (removed[destinationCode]) { //already removed, just update DB
+			updateDB(result);
+		} else { //remove first, then update
+			collection.remove({destinationCode:destinationCode}, function(error,numberRemoved){
+				if (error) {
+					log.error ("Error while removing for destination: " + destinationCode);
+					throw error;
+				}
+				log.info("Removed " + numberRemoved + " elements for destination " + destinationCode);
+				removed[destinationCode] = true;
+				updateDB(result);
+			});
+		}
+	}
+
+	function nok(result) {
+		var message = 'Error returned while calling: ' + JSON.stringify(parameters) + '. Status code: ' + result.statusCode;
+		if (error)
+			message += '. Error: ' + JSON.stringify(result.error);
+		log.error(message)
+	}
+
+	function updateDB(result) {
 		//browse the tickets, update the db
 		var countParsedTickets = 0;
 		result.forEach(function(ticket, index) {
@@ -107,13 +131,6 @@ var ticketAvailMap = [
 		});
 	}
 
-	function nok(result)
-	{
-		var message = 'Error returned while calling: ' + JSON.stringify(parameters) + '. Status code: ' + result.statusCode;
-		if (error)
-			message += '. Error: ' + JSON.stringify(result.error);
-		log.error(message)
-	}
 	var destinationCode = parameters.Destination_code;
 	var language = parameters.Language;
  	var ticketAvailRQ = new ATTicketAvail(parameters, ticketAvailMap, "ServiceTicket");
