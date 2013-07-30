@@ -52,6 +52,8 @@ var ticketAvailMap = [
 						{'childAgeFrom':'ChildAge.@ageFrom'},
 						{'childAgeTo':'ChildAge.@ageTo'}]}];
 var removed = {};
+var updating = false;
+var removing = false;
 
 /**
  * Connect and parse
@@ -64,6 +66,8 @@ var removed = {};
 		if (removed[destinationCode]) { //already removed, just update DB
 			updateDB(result);
 		} else { //remove first, then update
+			while (removing){};
+			removing = true;
 			collection.remove({destinationCode:destinationCode}, function(error,numberRemoved){
 				if (error) {
 					log.error ("Error while removing for destination: " + destinationCode);
@@ -71,6 +75,7 @@ var removed = {};
 				}
 				log.info("Removed " + numberRemoved + " elements for destination " + destinationCode + ". Removed is: " + removed[destinationCode]);
 				removed[destinationCode] = true;
+				removing = false;
 				updateDB(result);
 			});
 		}
@@ -84,6 +89,8 @@ var removed = {};
 	}
 
 	function updateDB(result) {
+		while(updating){};
+		updating = true;
 		//browse the tickets, update the db
 		var totalTickets = result.length;
 		var countParsedTickets = 0;
@@ -124,8 +131,10 @@ var removed = {};
 							//log.info("Push " + count + " elements for index" + index);
 							//log.info("Finished parsing ticket " + index);
 							countParsedTickets++;
-							if (countParsedTickets == totalTickets)
+							if (countParsedTickets == totalTickets){
+								updating = false;
 								finished(totalTickets);
+							}
 					});
 				});
 		});
