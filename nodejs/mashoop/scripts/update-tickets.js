@@ -123,8 +123,8 @@ var ticketAvailMap = [
 /**
  * ----SCRIPT STARTS HERE----
  */
-var languages = JSON.parse(fs.readFileSync("./languages.json"));
-var destinations = JSON.parse(fs.readFileSync("./destinations.json"));
+var languages = JSON.parse(fs.readFileSync("/etc/tuiinnovation/config/nodejs/mashoop/scripts/languages.json"));
+var destinations = JSON.parse(fs.readFileSync("/etc/tuiinnovation/config/nodejs/mashoop/scripts/destinations.json"));
 var queryParameters = {
  	PaginationData_itemsPerPage: "200"
 };
