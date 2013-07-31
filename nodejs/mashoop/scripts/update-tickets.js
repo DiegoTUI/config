@@ -174,7 +174,7 @@ db.open(function(error,db) {
 				parseTickets(queryParameters, collection, function(totalTickets) {
 					log.info("Parsed " + totalTickets + " tickets for " + destination + " and " + language);
 					//perform integrity test
-					var countQuery = {}:
+					var countQuery = {};
 					countQuery["destinationCode"] = destination;
 					countQuery["name." + language] = {"$exists": true};
 					countQuery["DescriptionList." + language] = {"$exists": true};
