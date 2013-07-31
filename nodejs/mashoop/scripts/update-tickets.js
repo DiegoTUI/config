@@ -173,17 +173,32 @@ db.open(function(error,db) {
 				log.info("About to parse " + destination + " and " + language);
 				parseTickets(queryParameters, collection, function(totalTickets) {
 					log.info("Parsed " + totalTickets + " tickets for " + destination + " and " + language);
-					currentStep++;
-					if (currentStep == steps){
-						//close database and exit
-						db.close(true, function(error, result){
-							if (error) {
-								log.error("error returned while trying to open tickets collection: " + JSON.stringify(error));
-								throw error;
-							}
-							process.exit();
-						});
-				 	}
+					//perform integrity test
+					var countQuery = {}:
+					countQuery["destinationCode"] = destination;
+					countQuery["name." + language] = {"$exists": true};
+					countQuery["DescriptionList." + language] = {"$exists": true};
+					collection.count(countQuery, function(error, count){
+						if (error) {
+							log.error("error returned while counting for destination " + destination + " and language " + language + ": " + JSON.stringify(error));
+						}
+						if (count != totalTickets) {
+							log.error("INTEGRITY TEST FAILED!!! Destination: " + destination + ". Language: " + language + ". TotalTickets: " + totalTickets + ". Count: " + count);
+						} else {
+							log.info("Passed integrity test. Destination: " + destination + ". Language: " + language);
+						}
+						currentStep++;
+						if (currentStep == steps){
+							//close database and exit
+							db.close(true, function(error, result){
+								if (error) {
+									log.error("error returned while trying to open tickets collection: " + JSON.stringify(error));
+									throw error;
+								}
+								process.exit();
+							});
+					 	}
+					});
 				});
 			});
 		});
