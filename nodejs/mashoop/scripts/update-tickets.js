@@ -182,7 +182,7 @@ db.open(function(error,db) {
 						if (error) {
 							log.error("error returned while counting for destination " + destination + " and language " + language + ": " + JSON.stringify(error));
 						}
-						if (count != totalTickets+1) {
+						if (count != totalTickets) {
 							log.error("INTEGRITY TEST FAILED!!! Destination: " + destination + ". Language: " + language + ". TotalTickets: " + totalTickets + ". Count: " + count);
 						} else {
 							log.info("Passed integrity test. Destination: " + destination + ". Language: " + language);
