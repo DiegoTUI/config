@@ -1,9 +1,6 @@
 #!/bin/bash
 # Diego 20130131: setup TuiInnovation server and/or update config
 
-# refresh repo
-git pull -q
-
 current=$( pwd )
 
 # link cron jobs -- without periods in the name
