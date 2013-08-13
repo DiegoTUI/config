@@ -9,6 +9,7 @@ ln -fs "$current/backup/backup.sh" /etc/cron.daily/backup
 # Set up nginx
 ln -fs "$current/nginx/nginx-tuiinnovation" /etc/nginx/sites-available/tuiinnovation
 ln -fs /etc/nginx/sites-available/tuiinnovation /etc/nginx/sites-enabled/tuiinnovation
+rm -f /etc/nginx/sites-enabled/default
 service nginx reload
 
 # stop services

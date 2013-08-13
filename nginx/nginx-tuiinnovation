@@ -2,6 +2,11 @@
 # Global configuration file.
 # (C) 2013 TuiInnovation.
 
+# Upstream for Mashoop
+upstream mashoop_balancer {
+    server 127.0.0.1:8080 max_fails=0;
+}
+
 # TuiInnovation main domain, localhost via http
 server
 {
@@ -9,22 +14,19 @@ server
 
         server_name localhost;
 
-        access_log  /var/tuiinnovation/log/nginx-tuiinnovation.access.log;
-        error_log   /var/tuiinnovation/log/nginx-tuiinnovation.error.log;
+        access_log  /var/log/nginx/tuiinnovation.access.log;
+        error_log   /var/log/nginx/tuiinnovation.error.log;
 
         # Main web pages
         location / {
-                root   /var/tuiinnovation/deploy/web;
+                root   /home/ubuntu/web;
                 index  index.html;
                 ssi    on;
         }
-
-        # Proxy the PHP scripts to Apache listening on 127.0.0.1:8000
-        location ~ ^/api/\w+.php$ {
-                include /etc/tuiinnovation/config/nginx/inc/proxy-nginx;
-        }
-        # Proxy the ATLAS calls to http://212.170.239.71/appservices/http/FrontendService
-        location ~ ^/appservices/http/FrontendService {
-                include /etc/tuiinnovation/config/nginx/inc/proxy-atlas;
-        }
+        # Proxy to node.js Mashoop server
+	location ~ ^/api/ {
+		proxy_pass http://mashoop_balancer;
+		proxy_set_header Host $host;
+		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+	}
 }
