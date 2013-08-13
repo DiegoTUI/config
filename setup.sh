@@ -4,7 +4,7 @@
 current=$( pwd )
 
 # link cron jobs -- without periods in the name
-ln -fs "$current/backup/backup.sh" /etc/cron.daily/backup
+ln -fs "$current/cron/backup.sh" /etc/cron.daily/backup
 ln -fs "$current/cron/update-tickets.sh" /etc/cron.daily/update-tickets
 
 # Set up nginx
