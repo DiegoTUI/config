@@ -3,4 +3,5 @@ sitemap.xml
 *.swp
 moveinblue.com.crt
 moveinblue.com.key
+*.log
 
