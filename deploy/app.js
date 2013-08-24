@@ -11,13 +11,19 @@ var Log = require('log');
 var util = require('util');
 var express = require('express');
 var deploy = require('./deploy.js');
+var emailjs = require('emailjs');
+
 // globals
 var log = new Log('info');
+
 // constants
 var PORT = 34107;
 var TOKEN = '6xRrHTIU5Xr3e2Y3XWFT';
 var MANUAL_TOKEN = 'manual';
+
+// init
 process.title = 'deploy-listener';
+
 
 /**
  * Start server.
@@ -46,6 +52,7 @@ function serve (request, response) {
 	else {
 		response.status(200).end('OK');
 		// but continue processing
+		show = new EmailLog();
 	}
 	show.notice('Starting deployment...');
 	deploy.run(show, function(error, result) {
@@ -70,7 +77,7 @@ function WebPageLog(response) {
 	var self = this;
 
 	// attributes
-	var priorities = {
+	self.priorities = {
 		info: 'black',
 		notice: 'black',
 		error: 'red',
@@ -85,8 +92,8 @@ function WebPageLog(response) {
 	response.set('Content-Type', 'text/html');
 	response.write('<html><head><title>Deployment</title></head><body>\n');
 	response.write('<h1>Mashoop Deployment</h1>');
-	for (var name in priorities) {
-		self[name] = getShower(name, priorities[name]);
+	for (var name in self.priorities) {
+		self[name] = getShower(name, self.priorities[name]);
 	}
 
 	/**
@@ -113,6 +120,97 @@ function WebPageLog(response) {
 	 */
 	self.close = function() {
 		response.write('</body></html>');
+	}
+}
+
+/**
+ * Log the results and email them.
+ */
+function EmailLog() {
+	// self-reference
+	var self = this;
+
+	// attributes
+	var response = new WebPageResponse();
+	var webPage = new WebPageLog(response);
+	var recipient = 'alejandrofer@gmail.com';
+	var email = 'alexfernandeznpm@gmail.com';
+	var password = 'rsoWkVtbTn2U4Q';
+	var server = 'smtp.gmail.com';
+
+	// init
+	for (var name in webPage.priorities) {
+		self[name] = getStorer(name);
+	}
+
+	/**
+	 * Get a function to store a message in the web page.
+	 */
+	function getStorer(name) {
+		return function(message) {
+			webPage[name].apply(webPage, arguments);
+		};
+	}
+
+	/**
+	 * Close web page and send.
+	 */
+	self.close = function() {
+		webPage.close();
+		self.send('Deployment', webPage.contents);
+	}
+
+	/**
+	 * Send an email with subject and contents.
+	 */
+	self.send = function(subject, contents) {
+		log.info('Sending email to %s', recipient);
+		var options = {
+			user:     email,
+			password: password,
+			host:     server,
+			ssl:      true,
+		};
+		var server = emailjs.server.connect(options);
+		var email = {
+			text: 'This is a generated HTML email',
+			from: email,
+			to: recipient,
+			subject: subject,
+		};
+		server.send(email, function(err, msg)
+		{
+			if (err)
+			{
+				log.error('While sending an email: ' + err);
+				return;
+			}
+			log.info('Email sent');
+		});
+	}
+}
+
+/**
+ * A response that accumulates its input into a web page variable.
+ */
+function WebPageResponse() {
+	// self-reference
+	var self = this;
+
+	// attributes
+	self.result = '';
+
+	/**
+	 * Ignore set.
+	 */
+	self.set = function() {
+	}
+
+	/**
+	 * Write something to the web page.
+	 */
+	self.write = function(message) {
+		self.result += message;
 	}
 }
 
