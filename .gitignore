@@ -4,4 +4,5 @@ sitemap.xml
 moveinblue.com.crt
 moveinblue.com.key
 *.log
+node_modules
 
