@@ -10,20 +10,20 @@ upstream mashoop_balancer {
 # TuiInnovation main domain, localhost via http
 server
 {
-        listen 80;
+	listen 80;
 
-        server_name localhost;
+	server_name localhost;
 
-        access_log  /var/log/nginx/tuiinnovation.access.log;
-        error_log   /var/log/nginx/tuiinnovation.error.log;
+	access_log  /var/log/nginx/tuiinnovation.access.log;
+	error_log   /var/log/nginx/tuiinnovation.error.log;
 
-        # Main web pages
-        location / {
-                root   /home/ubuntu/web;
-                index  index.html;
-                ssi    on;
-        }
-        # Proxy to node.js Mashoop server
+	# Main web pages
+	location / {
+		root   /home/ubuntu/web;
+		index  index.html;
+		ssi    on;
+	}
+	# Proxy to node.js Mashoop server
 	location ~ ^/api/ {
 		proxy_pass http://mashoop_balancer;
 		proxy_set_header Host $host;
