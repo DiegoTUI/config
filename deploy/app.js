@@ -42,6 +42,10 @@ function serve (request, response) {
 	else if (request.params.token != TOKEN) {
 		return response.status(500).send('Invalid request');
 	}
+	else {
+		response.status(200).end('OK');
+		// but continue processing
+	}
 	show.notice('Starting deployment...');
 	deploy.run(show, function(error, result) {
 		if (error) {
