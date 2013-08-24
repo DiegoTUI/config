@@ -53,7 +53,7 @@ function serve (request, response) {
 		return response.status(500).send('Invalid request');
 	}
 	response.set('Content-Type', 'text/plain');
-	show('Starting deployment...\n');
+	show('Starting deployment...');
 	run(function(error, result) {
 		if (error) {
 			show('Deployment failed: ' + error);
@@ -61,7 +61,7 @@ function serve (request, response) {
 		else {
 			show('Deployment successful: ' + result);
 		}
-		response.end('\nFinished\n');
+		response.end('Finished');
 	});
 }
 
