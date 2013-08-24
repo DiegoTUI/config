@@ -23,7 +23,7 @@ exports.run = function(log, callback) {
 	// uncaught exceptions
 	process.on('uncaughtException', function(err) {
 		log.error('Uncaught exception: %s', err.stack);
-		return callback('Uncaught exception: %s', err.stack);
+		return callback('Uncaught exception: ' + err.stack);
 	});
 	log.info('Initiating...');
 	var options = {
@@ -60,9 +60,8 @@ function runTests(log, callback) {
  * Deploy when invoked directly.
  */
 if (__filename == process.argv[1]) {
-	exports.run(function(message) {
-		log.info(message);
-	}, function(error, result) {
+	var log = new Log('info');
+	exports.run(log, function(error, result) {
 		if (error) {
 			log.error('Deployment failed: %s', error);
 		}
