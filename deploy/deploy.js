@@ -10,19 +10,17 @@ var child_process = require('child_process');
 var Log = require('log');
 var deploy = require('./deploy.js');
 var test = require('../../mashoop/test.js');
-// globals
-var log = new Log('info');
 // constants
 var MASHOOP_DIRECTORY = '../mashoop';
 
 
 /**
  * Run a deployment. Params:
- *	- show: a function to show messages.
+ *	- log: an object to log messages.
  *	- callback(error, result): to be called with the final result.
  */
-exports.run = function(show, callback) {
-	show('Initiating...');
+exports.run = function(log, callback) {
+	log.info('Initiating...');
 	var options = {
 		cwd: MASHOOP_DIRECTORY,
 	};
@@ -30,13 +28,13 @@ exports.run = function(show, callback) {
 		if (error) {
 			return callback('ERROR: git pull: ' + error + ', ' + stderr);
 		}
-		show('git pull: ' + stdout);
+		log.info('git pull: ' + stdout);
 		child_process.exec('npm install', options, function(error, stdout, stderr) {
 			if (error) {
 				return callback('ERROR: npm install: ' + error + ', ' + stderr);
 			}
-			show('npm install: ' + stdout);
-			runTests(show, callback);
+			log.info('npm install: ' + stdout);
+			runTests(log, callback);
 		});
 	});
 }
@@ -44,7 +42,7 @@ exports.run = function(show, callback) {
 /**
  * Run all package tsts.
  */
-function runTests(show, callback) {
+function runTests(log, callback) {
 	test.test(function(error, result) {
 		if (error) {
 			return callback('ERROR: test: ' + error);

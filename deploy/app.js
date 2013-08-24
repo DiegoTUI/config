@@ -16,10 +16,6 @@ var PORT = 34107;
 var TOKEN = '6xRrHTIU5Xr3e2Y3XWFT';
 var MANUAL_TOKEN = 'manual';
 process.title = 'deploy-listener';
-// uncaught exceptions
-process.on('uncaughtException', function(err) {
-	log.error('Uncaught exception: %s', err.stack);
-});
 
 /**
  * Start server.
@@ -38,36 +34,69 @@ function serve (request, response) {
 	if (request.params.token == 'nop') {
 		return response.status(200).send('NOP');
 	}
-	var show = function(message) {
-		log.info(message);
-	};
+	var show = log;
 	if (request.params.token == MANUAL_TOKEN) {
-		show = function(message) {
-			log.info(message);
-			response.write(message + '\n');
-		}
+		show = new WebPageLog(response);
 	}
 	else if (request.params.token != TOKEN) {
 		return response.status(500).send('Invalid request');
 	}
-	response.set('Content-Type', 'text/plain');
-	show('Starting deployment...');
+	show.notice('Starting deployment...');
 	deploy.run(show, function(error, result) {
 		if (error) {
-			show('Deployment failed: ' + error);
+			show.error('Deployment failed: ' + error);
 		}
 		else {
-			show('Deployment successful: ' + result);
+			show.notice('Deployment successful: ' + result);
 		}
 		response.end('Finished');
 	});
 }
 
 /**
+ * Log the results printing to a web page.
+ */
+function WebPageLog(response) {
+	// self-reference
+	var self = this;
+
+	// attributes
+	var priorities = {
+		info: 'black',
+		notice: 'black',
+		error: 'red',
+	}
+
+	// init
+	response.set('Content-Type', 'text/html');
+	response.write('<html><head><title>Deployment</title></head><body>\n');
+	for (var name in priorities) {
+		self[name] = function(message) {
+			var color = priorities[name];
+			response.write('<p style="color: ' + color + '>' + message + '</p>');
+			// call legacy log
+			var fn = log[name];
+			fn.apply(log, arguments);
+		};
+	}
+
+	/**
+	 * Close the response.
+	 */
+	self.close = function() {
+		response.write('</body></html>');
+	}
+}
+
+/**
  * Fake deployment function.
  */
 function run(show, callback) {
-	show('Starting deployment');
+	show.info('Starting deployment');
+	// uncaught exceptions
+	process.on('uncaughtException', function(err) {
+		show.error('Uncaught exception: %s', err.stack);
+	});
 	callback(null, 'Success!');
 }
 
