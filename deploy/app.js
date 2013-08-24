@@ -7,6 +7,7 @@
 
 // requires
 var Log = require('log');
+var util = require('util');
 var express = require('express');
 var deploy = require('./deploy.js');
 // globals
@@ -49,6 +50,9 @@ function serve (request, response) {
 		else {
 			show.notice('Deployment successful: ' + result);
 		}
+		if (show.close) {
+			show.close();
+		}
 		response.end('Finished');
 	});
 }
@@ -70,10 +74,17 @@ function WebPageLog(response) {
 	// init
 	response.set('Content-Type', 'text/html');
 	response.write('<html><head><title>Deployment</title></head><body>\n');
+	response.write('<h1>Mashoop Deployment</h1>');
 	for (var name in priorities) {
-		self[name] = function(message) {
-			var color = priorities[name];
-			response.write('<p style="color: ' + color + '>' + message + '</p>');
+		self[name] = getShower(name, priorities[name]);
+	}
+
+	/**
+	 * Get a function that shows the text in the given color, and prints to the log.
+	 */
+	function getShower(name, color) {
+		return function(message) {
+			response.write('<p style="color: ' + color + '>' + message + '</p>\n');
 			// call legacy log
 			var fn = log[name];
 			fn.apply(log, arguments);
