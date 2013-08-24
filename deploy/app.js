@@ -84,7 +84,7 @@ function WebPageLog(response) {
 	 */
 	function getShower(name, color) {
 		return function(message) {
-			response.write('<p style="color: ' + color + '>' + message + '</p>\n');
+			response.write('<p style="color: ' + color + '">' + message + '</p>\n');
 			// call legacy log
 			var fn = log[name];
 			fn.apply(log, arguments);
