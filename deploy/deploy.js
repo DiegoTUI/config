@@ -20,6 +20,11 @@ var MASHOOP_DIRECTORY = '../mashoop';
  *	- callback(error, result): to be called with the final result.
  */
 exports.run = function(log, callback) {
+	// uncaught exceptions
+	process.on('uncaughtException', function(err) {
+		log.error('Uncaught exception: %s', err.stack);
+		return callback('Uncaught exception: %s', err.stack);
+	});
 	log.info('Initiating...');
 	var options = {
 		cwd: MASHOOP_DIRECTORY,
