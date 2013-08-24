@@ -6,10 +6,10 @@
  */
 
 // requires
-var fs = require('fs');
 var child_process = require('child_process');
 var Log = require('log');
 var deploy = require('./deploy.js');
+var test = require('../../mashoop/test.js');
 // globals
 var log = new Log('info');
 // constants
@@ -31,7 +31,25 @@ exports.run = function(show, callback) {
 			return callback('ERROR: git pull: ' + error + ', ' + stderr);
 		}
 		show('git pull: ' + stdout);
-		callback(false, 'Success!');
+		child_process.exec('npm install', options, function(error, stdout, stderr) {
+			if (error) {
+				return callback('ERROR: npm install: ' + error + ', ' + stderr);
+			}
+			show('npm install: ' + stdout);
+			runTests(show, callback);
+		});
+	});
+}
+
+/**
+ * Run all package tsts.
+ */
+function runTests(show, callback) {
+	test.test(function(error, result) {
+		if (error) {
+			return callback('ERROR: test: ' + error);
+		}
+		callback(false, result);
 	});
 }
 
