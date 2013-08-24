@@ -6,6 +6,7 @@
  */
 
 // requires
+require('./prototypes.js');
 var Log = require('log');
 var util = require('util');
 var express = require('express');
@@ -73,7 +74,12 @@ function WebPageLog(response) {
 		info: 'black',
 		notice: 'black',
 		error: 'red',
-	}
+	};
+	var bashColors = {
+		'\u001b[32m': '<span style="color: green">',
+		'\u001b[1;31m': '<span style="color: red">',
+		'\u001b[0m': '</span>',
+	};
 
 	// init
 	response.set('Content-Type', 'text/html');
@@ -88,7 +94,14 @@ function WebPageLog(response) {
 	 */
 	function getShower(name, color) {
 		return function(message) {
-			response.write('<p style="color: ' + color + '">' + message + '</p>\n');
+			message = util.format.apply(util, arguments);
+			var replaced = message;
+			for (var bash in bashColors) {
+				if (replaced.contains(bash)) {
+					replaced = replaced.replaceAll(bash, bashColors[bash]);
+				}
+			}
+			response.write('<p style="color: ' + color + '">' + replaced + '</p>\n');
 			// call legacy log
 			var fn = log[name];
 			fn.apply(log, arguments);
