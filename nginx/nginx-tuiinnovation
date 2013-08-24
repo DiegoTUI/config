@@ -7,6 +7,11 @@ upstream mashoop_balancer {
     server 127.0.0.1:8080 max_fails=0;
 }
 
+# Upstream for deployment server
+upstream deploy_balancer {
+    server 127.0.0.1:34107 max_fails=0;
+}
+
 # TuiInnovation main domain, localhost via http
 server
 {
@@ -26,6 +31,12 @@ server
 	# Proxy to node.js Mashoop server
 	location ~ ^/api/ {
 		proxy_pass http://mashoop_balancer;
+		proxy_set_header Host $host;
+		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+	}
+	# Proxy to node.js deployment server
+	location ~ ^/deploy/ {
+		proxy_pass http://deploy_balancer;
 		proxy_set_header Host $host;
 		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
 	}
