@@ -11,7 +11,8 @@ var Log = require('log');
 var deploy = require('./deploy.js');
 var test = require('../../mashoop/test.js');
 // constants
-var MASHOOP_DIRECTORY = '../mashoop';
+var TEST_DIRECTORY = '../test/mashoop';
+var DEPLOYMENT_DIRECTORY = '../mashoop';
 
 
 /**
@@ -25,8 +26,37 @@ exports.run = function(log, callback) {
 		return callback('Uncaught exception: ' + err.stack);
 	});
 	log.info('Initiating...');
+	update(TEST_DIRECTORY, log, function(error, result) {
+		if (error) {
+			return callback(error);
+		}
+		runTests(log, function(error, result) {
+			if (error) {
+				return callback(error);
+			}
+			update(DEPLOYMENT_DIRECTORY, log, function(error, result) {
+				if (error) {
+					return callback(error);
+				}
+				child_process.exec('sudo restart mashoop', function(error, stdout, stderr) {
+					if (error) {
+						return callback('ERROR: git pull: ' + error + ', ' + stderr);
+					}
+					log.info('sudo restart mashoop: ' + stdout);
+					callback(null, 'Success');
+				});
+			});
+		});
+	});
+}
+
+/**
+ * Update the given directory.
+ */
+function update(directory, log, callback) {
+	log.info('Updating %s', directory);
 	var options = {
-		cwd: MASHOOP_DIRECTORY,
+		cwd: directory,
 	};
 	child_process.exec('git pull', options, function(error, stdout, stderr) {
 		if (error) {
@@ -38,7 +68,7 @@ exports.run = function(log, callback) {
 				return callback('ERROR: npm install: ' + error + ', ' + stderr);
 			}
 			log.info('npm install: ' + stdout);
-			runTests(log, callback);
+			callback(null);
 		});
 	});
 }
