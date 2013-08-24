@@ -38,11 +38,10 @@ exports.run = function(log, callback) {
 				if (error) {
 					return callback(error);
 				}
-				child_process.exec('sudo restart mashoop', function(error, stdout, stderr) {
+				runCommand('sudo restart mashoop', {}, log, function(error, result) {
 					if (error) {
-						return callback('ERROR: git pull: ' + error + ', ' + stderr);
+						return callback(error);
 					}
-					log.info('sudo restart mashoop: ' + stdout);
 					callback(null, 'Success');
 				});
 			});
@@ -58,18 +57,29 @@ function update(directory, log, callback) {
 	var options = {
 		cwd: directory,
 	};
-	child_process.exec('git pull', options, function(error, stdout, stderr) {
+	runCommand('git pull', options, log, function(error, result) {
 		if (error) {
-			return callback('ERROR: git pull: ' + error + ', ' + stderr);
+			return callback(error);
 		}
-		log.info('git pull: ' + stdout);
-		child_process.exec('npm install', options, function(error, stdout, stderr) {
+		runCommand('npm install', options, log, function(error, result) {
 			if (error) {
-				return callback('ERROR: npm install: ' + error + ', ' + stderr);
+				return callback(error);
 			}
-			log.info('npm install: ' + stdout);
 			callback(null);
 		});
+	});
+}
+
+/**
+ * Run a command with the given options.
+ */
+function runCommand(command, options, log, callback) {
+	child_process.exec(command, options, function(error, stdout, stderr) {
+		if (error) {
+			return callback(command + ': ' + error + ', ' + stderr);
+		}
+		log.info(command + ': ' + stdout);
+		callback(null);
 	});
 }
 
@@ -77,7 +87,7 @@ function update(directory, log, callback) {
  * Run all package tsts.
  */
 function runTests(log, callback) {
-	return callback(false, 'fake');
+	return callback(false, '\u001b[32m%s\u001b[0m' + 'fake' + '\u001b[1;31m%s\u001b[0m');
 	test.test(function(error, result) {
 		if (error) {
 			return callback('ERROR: test: ' + error);
