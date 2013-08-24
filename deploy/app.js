@@ -6,11 +6,9 @@
  */
 
 // requires
-var fs = require('fs');
-var path = require('path');
 var Log = require('log');
 var express = require('express');
-//var deployment = require('./deployment.js');
+var deploy = require('./deploy.js');
 // globals
 var log = new Log('info');
 // constants
@@ -54,7 +52,7 @@ function serve (request, response) {
 	}
 	response.set('Content-Type', 'text/plain');
 	show('Starting deployment...');
-	run(function(error, result) {
+	deploy.run(show, function(error, result) {
 		if (error) {
 			show('Deployment failed: ' + error);
 		}
@@ -68,7 +66,8 @@ function serve (request, response) {
 /**
  * Fake deployment function.
  */
-function run(callback) {
+function run(show, callback) {
+	show('Starting deployment');
 	callback(null, 'Success!');
 }
 
