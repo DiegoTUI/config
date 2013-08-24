@@ -38,7 +38,7 @@ exports.run = function(log, callback) {
 				if (error) {
 					return callback(error);
 				}
-				runCommand('ls', {}, log, function(error, result) {
+				runCommand('sudo restart mashoop', {}, log, function(error, result) {
 					if (error) {
 						return callback(error);
 					}
@@ -87,7 +87,7 @@ function runCommand(command, options, log, callback) {
  * Run all package tsts.
  */
 function runTests(log, callback) {
-	return callback('\u001b[32m%s\u001b[0m' + 'fake' + '\u001b[1;31m%s\u001b[0m');
+	// return callback('\u001b[32m%s\u001b[0m' + 'fake' + '\u001b[1;31m%s\u001b[0m');
 	test.test(function(error, result) {
 		if (error) {
 			return callback('ERROR: test: ' + error);
