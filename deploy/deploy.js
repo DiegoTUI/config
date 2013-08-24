@@ -22,7 +22,6 @@ var MASHOOP_DIRECTORY = '../mashoop';
 exports.run = function(log, callback) {
 	// uncaught exceptions
 	process.on('uncaughtException', function(err) {
-		log.error('Uncaught exception: %s', err.stack);
 		return callback('Uncaught exception: ' + err.stack);
 	});
 	log.info('Initiating...');
