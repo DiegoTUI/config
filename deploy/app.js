@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Run a server that listens for signs of a deployment.
+ * Run a server that listens for deployment requests.
  * (C) 2013 TuiInnovation.
  */
 
@@ -30,6 +30,7 @@ function startServer() {
 	var app = express();
 	app.get('/deploy/:token', serve);
 	app.listen(PORT);
+	log.notice('Deployment server running on port %s', PORT);
 }
 
 /**
@@ -37,19 +38,19 @@ function startServer() {
  */
 function serve (request, response) {
 	if (request.params.token == 'nop') {
-		return response.status(200).close('NOP');
+		return response.status(200).send('NOP');
 	}
 	var show = function(message) {
 		log.info(message);
 	};
-	if (request.params.token == MANUAL) {
+	if (request.params.token == MANUAL_TOKEN) {
 		show = function(message) {
-			log.info(mesage);
-			response.send(message + '\n');
+			log.info(message);
+			response.write(message + '\n');
 		}
 	}
 	else if (request.params.token != TOKEN) {
-		return response.status(500).close('Invalid request');
+		return response.status(500).send('Invalid request');
 	}
 	response.set('Content-Type', 'text/plain');
 	show('Starting deployment...\n');
@@ -60,7 +61,7 @@ function serve (request, response) {
 		else {
 			show('Deployment successful: ' + result);
 		}
-		response.close('\nFinished\n');
+		response.end('\nFinished\n');
 	});
 }
 
