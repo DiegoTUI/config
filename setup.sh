@@ -15,9 +15,12 @@ service nginx reload
 
 # stop services
 stop mashoop
+stop deploy
 
 cp -f $current/upstart/mashoop.conf /etc/init/
+cp -f $current/upstart/deploy.conf /etc/init/
 
 # start services again
 start mashoop
+start deploy
 
