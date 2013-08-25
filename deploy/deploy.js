@@ -8,6 +8,7 @@
 // requires
 var child_process = require('child_process');
 var Log = require('log');
+var loadtest = require('loadtest');
 var deploy = require('./deploy.js');
 var test = require('../../mashoop/test.js');
 // constants
@@ -30,11 +31,6 @@ exports.run = function(log, callback) {
 			if (error) {
 				return callback(error);
 			}
-			if (result && result.failure) {
-				log.error('Tests failed: %s', result);
-				return callback('Failure');
-			}
-			log.info('Test results: %s', result);
 			update(DEPLOYMENT_DIRECTORY, log, function(error, result) {
 				if (error) {
 					return callback(error);
@@ -93,7 +89,24 @@ function runTests(log, callback) {
 		if (error) {
 			return callback(error);
 		}
-		callback(false, result);
+		if (result && result.failure) {
+			log.error('Tests failed: %s', result);
+			return callback('Failure');
+		}
+		log.info('Test results: %s', result);
+		// run load test
+		var options = {
+			url: 'http://localhost:8080/',
+			concurrency: 10,
+			maxRequests: 100,
+		};
+		loadtest.loadTest(options, function(error, result) {
+			if (error) {
+				return callback('Load tests failed: ' + error);
+			}
+			log.info('Load test results: %s', result);
+			callback(false, 'Tests passed');
+		});
 	});
 }
 
