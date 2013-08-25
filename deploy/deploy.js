@@ -15,6 +15,9 @@ var test = require('../../mashoop/test.js');
 // constants
 var TEST_DIRECTORY = '../test/mashoop';
 var DEPLOYMENT_DIRECTORY = '../mashoop';
+var LOADTEST_URL = 'http://localhost:8080/';
+var LOADTEST_REQUESTS = 1000;
+var LOADTEST_MAX_LATENCY = 1;
 
 
 /**
@@ -97,18 +100,48 @@ function runTests(log, callback) {
 		log.info('Test results: %s', result);
 		// run load test
 		var options = {
-			url: 'http://localhost:8080/',
+			url: LOADTEST_URL,
 			concurrency: 10,
-			maxRequests: 1000,
+			maxRequests: LOADTEST_REQUESTS,
 		};
 		loadtest.loadTest(options, function(error, result) {
 			if (error) {
 				return callback('Load tests failed: ' + error);
 			}
 			log.info('Load test results: %s', util.inspect(result));
+			var loadTestError = checkLoadTestError(result);
+			if (loadTestError) {
+				return callback(loadTestError);
+			}
 			callback(false, 'Tests passed');
 		});
 	});
+}
+
+/**
+ * Check if there is any error in load tests.
+ * Returns null if everything OK, error otherwise.
+ */
+function checkLoadTestError(result) {
+	if (!result) {
+		return 'Empty load test results';
+	}
+	if (!result.totalRequests) {
+		return 'No total requests in load test';
+	}
+	if (result.totalRequests != LOADTEST_REQUESTS) {
+		return 'Missing requests in load test';
+	}
+	if (result.errors) {
+		return result.errors + ' errors in load test';
+	}
+	if (!result.meanLatencyMs) {
+		return 'No latency value in load test';
+	}
+	if (result.meanLatencyMs > LOADTEST_MAX_LATENCY) {
+		return 'Too much latency in load test: ' + result.meanLatencyMs;
+	}
+	return null;
 }
 
 /**
@@ -132,4 +165,5 @@ if (__filename == process.argv[1]) {
 		}
 	});
 }
+
 
