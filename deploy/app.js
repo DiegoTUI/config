@@ -31,6 +31,7 @@ process.title = 'deploy-listener';
 function startServer() {
 	var app = express();
 	app.get('/deploy/:token', serve);
+	app.post('/deploy/:token', serve);
 	app.listen(PORT);
 	log.notice('Deployment server running on port %s', PORT);
 }
