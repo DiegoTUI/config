@@ -17,7 +17,7 @@ var DEPLOYMENT_DIRECTORY = '../mashoop';
 var LOADTEST_PORT = 7357;
 var LOADTEST_URL = 'http://localhost:' + LOADTEST_PORT + '/api/token/at-read-ticket-names?destination=BCN\&language=ENG';
 var LOADTEST_REQUESTS = 1000;
-var LOADTEST_MAX_LATENCY = 10;
+var LOADTEST_MAX_LATENCY = 20;
 // init
 var testTest = require('../' + TEST_DIRECTORY + '/test.js');
 var testApp = require('../' + TEST_DIRECTORY + '/lib/app.js');
@@ -58,7 +58,6 @@ exports.run = function(log, callback) {
  */
 function update(directory, log, callback) {
 	log.info('Updating %s', directory);
-	return callback(null);
 	var options = {
 		cwd: directory,
 	};
@@ -92,8 +91,8 @@ function runCommand(command, options, log, callback) {
  * Run all package tsts.
  */
 function runTests(log, callback) {
-	// testTest.test(function(error, result) {
-	fakeTest(function(error, result) {
+	testTest.test(function(error, result) {
+	//fakeTest(function(error, result) {
 		if (error) {
 			return callback(error);
 		}
