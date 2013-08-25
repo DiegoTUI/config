@@ -11,13 +11,15 @@ var Log = require('log');
 var util = require('util');
 var loadtest = require('loadtest');
 var deploy = require('./deploy.js');
-var test = require('../../mashoop/test.js');
 // constants
 var TEST_DIRECTORY = '../test/mashoop';
 var DEPLOYMENT_DIRECTORY = '../mashoop';
 var LOADTEST_URL = 'http://localhost:8080/';
 var LOADTEST_REQUESTS = 1000;
 var LOADTEST_MAX_LATENCY = 1;
+// init
+var testTest = require('../' + TEST_DIRECTORY + '/test.js');
+var testApp = require('../' + TEST_DIRECTORY + '/lib/app.js');
 
 
 /**
@@ -88,7 +90,7 @@ function runCommand(command, options, log, callback) {
  * Run all package tsts.
  */
 function runTests(log, callback) {
-	// return callback('\u001b[32m%s\u001b[0m' + 'fake' + '\u001b[1;31m%s\u001b[0m');
+	// testTest.test(function(error, result) {
 	fakeTest(function(error, result) {
 		if (error) {
 			return callback(error);
@@ -98,23 +100,37 @@ function runTests(log, callback) {
 			return callback('Failure');
 		}
 		log.info('Test results: %s', result);
-		// run load test
-		var options = {
-			url: LOADTEST_URL,
-			concurrency: 10,
-			maxRequests: LOADTEST_REQUESTS,
-		};
-		loadtest.loadTest(options, function(error, result) {
+		loadTest(function(error, result) {
 			if (error) {
 				return callback('Load tests failed: ' + error);
 			}
-			log.info('Load test results: %s', util.inspect(result));
-			var loadTestError = checkLoadTestError(result);
-			if (loadTestError) {
-				return callback(loadTestError);
-			}
+			log.info('Load test results: %s', result);
 			callback(false, 'Tests passed');
 		});
+	});
+}
+
+/**
+ * Run the load tests.
+ */
+function loadTest(callback) {
+	// start app
+	testApp.startServer();
+	// run load test
+	var options = {
+		url: LOADTEST_URL,
+		concurrency: 10,
+		maxRequests: LOADTEST_REQUESTS,
+	};
+	loadtest.loadTest(options, function(error, result) {
+		if (error) {
+			return callback('Load tests failed: ' + error);
+		}
+		log.info('Load test results: %s', util.inspect(result));
+		var loadTestError = checkLoadTestError(result);
+		if (loadTestError) {
+			return callback(loadTestError);
+		}
 	});
 }
 
