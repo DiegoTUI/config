@@ -92,6 +92,9 @@ function runTests(log, callback) {
 		if (error) {
 			return callback(error);
 		}
+		if (result && result.failure) {
+			callback(result);
+		}
 		callback(false, result);
 	});
 }
