@@ -30,6 +30,7 @@ exports.run = function(log, callback) {
 			if (error) {
 				return callback(error);
 			}
+			log.info('Test results: %s', result);
 			update(DEPLOYMENT_DIRECTORY, log, function(error, result) {
 				if (error) {
 					return callback(error);
