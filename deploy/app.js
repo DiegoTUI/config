@@ -96,7 +96,7 @@ function WebPageLog(response) {
 
 	// init
 	response.set('Content-Type', 'text/html');
-	response.write('<html><head><title>Deployment</title></head><body>\n');
+	response.write('<html>\n<head><meta charset="UTF-8"><title>Deployment</title></head>\n<body>\n');
 	response.write('<h1>Mashoop Deployment</h1>');
 	for (var name in self.priorities) {
 		self[name] = getShower(name, self.priorities[name]);
@@ -126,7 +126,7 @@ function WebPageLog(response) {
 	 * Close the response.
 	 */
 	self.close = function() {
-		response.write('</body></html>');
+		response.write('</body>\n</html>');
 	}
 }
 
