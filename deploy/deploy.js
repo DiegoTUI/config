@@ -31,6 +31,9 @@ exports.run = function(log, callback) {
 				return callback(error);
 			}
 			log.info('Test results: %s', result);
+			if (result && result.failure) {
+				return callback('Failure');
+			}
 			update(DEPLOYMENT_DIRECTORY, log, function(error, result) {
 				if (error) {
 					return callback(error);
@@ -87,10 +90,7 @@ function runTests(log, callback) {
 	// return callback('\u001b[32m%s\u001b[0m' + 'fake' + '\u001b[1;31m%s\u001b[0m');
 	test.test(function(error, result) {
 		if (error) {
-			return callback('ERROR: test: ' + error);
-		}
-		if (result && result.failure) {
-			return callback(result);
+			return callback(error);
 		}
 		callback(false, result);
 	});

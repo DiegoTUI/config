@@ -61,12 +61,12 @@ function serve (request, response) {
 		show.notice('Ending deployment, %s seconds elapsed', elapsed);
 		var subject;
 		if (error) {
-			subject = 'Deployment failed: ' + error;
-			show.error(subject);
+			subject = 'Mashoop deployment failed';
+			show.error(subject + ': ' + error);
 		}
 		else {
-			subject = 'Deployment successful: ' + result;
-			show.notice(subject);
+			subject = 'Mashoop deployment successful';
+			show.notice(subject + ': ' + result);
 		}
 		if (show.close) {
 			show.close(subject);
