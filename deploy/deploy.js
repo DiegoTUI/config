@@ -30,10 +30,11 @@ exports.run = function(log, callback) {
 			if (error) {
 				return callback(error);
 			}
-			log.info('Test results: %s', result);
 			if (result && result.failure) {
+				log.error('Tests failed: %s', result);
 				return callback('Failure');
 			}
+			log.info('Test results: %s', result);
 			update(DEPLOYMENT_DIRECTORY, log, function(error, result) {
 				if (error) {
 					return callback(error);
@@ -91,9 +92,6 @@ function runTests(log, callback) {
 	test.test(function(error, result) {
 		if (error) {
 			return callback(error);
-		}
-		if (result && result.failure) {
-			callback(result);
 		}
 		callback(false, result);
 	});
