@@ -102,7 +102,7 @@ function runTests(log, callback) {
 			return callback('Failure');
 		}
 		log.info('Test results: %s', result);
-		loadTest(function(error, result) {
+		loadTest(log, function(error, result) {
 			testApp.closeServer(function() {
 				if (error) {
 					return callback('Load tests failed: ' + error);
@@ -117,7 +117,7 @@ function runTests(log, callback) {
 /**
  * Run the load tests.
  */
-function loadTest(callback) {
+function loadTest(log, callback) {
 	try {
 		// start app
 		testApp.startServer(LOADTEST_PORT, function() {
