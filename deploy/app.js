@@ -54,12 +54,11 @@ function serve (request, response) {
 		// but continue processing
 		show = new EmailLog();
 	}
-	var start = new Date();
-	show.notice('Starting deployment at %s...', start.toISOString());
+	var start = Date.now();
+	show.notice('Starting deployment...');
 	deploy.run(show, function(error, result) {
-		var end = new Date();
-		var elapsed = (end.getTime() - start.getTime()) / 1000;
-		show.notice('Ending deployment at %s, %s seconds elapsed', end.toISOString(), elapsed);
+		var elapsed = (Date.now() - start) / 1000;
+		show.notice('Ending deployment, %s seconds elapsed', elapsed);
 		var subject;
 		if (error) {
 			subject = 'Deployment failed: ' + error;
@@ -115,7 +114,8 @@ function WebPageLog(response) {
 					replaced = replaced.replaceAll(bash, bashColors[bash]);
 				}
 			}
-			response.write('<p style="color: ' + color + '">' + replaced + '</p>\n');
+			var now = new Date().toISOString();
+			response.write('<p style="color: ' + color + '">[' + now + '] ' + replaced + '</p>\n');
 			// call legacy log
 			var fn = log[name];
 			fn.apply(log, arguments);
