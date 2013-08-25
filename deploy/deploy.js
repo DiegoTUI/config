@@ -14,9 +14,10 @@ var deploy = require('./deploy.js');
 // constants
 var TEST_DIRECTORY = '../test/mashoop';
 var DEPLOYMENT_DIRECTORY = '../mashoop';
-var LOADTEST_URL = 'http://localhost:8080/';
+var LOADTEST_PORT = 7357;
+var LOADTEST_URL = 'http://localhost:' + LOADTEST_PORT + '/api/token/at-read-ticket-names?destination=BCN\&language=ENG';
 var LOADTEST_REQUESTS = 1000;
-var LOADTEST_MAX_LATENCY = 1;
+var LOADTEST_MAX_LATENCY = 10;
 // init
 var testTest = require('../' + TEST_DIRECTORY + '/test.js');
 var testApp = require('../' + TEST_DIRECTORY + '/lib/app.js');
@@ -57,6 +58,7 @@ exports.run = function(log, callback) {
  */
 function update(directory, log, callback) {
 	log.info('Updating %s', directory);
+	return callback(null);
 	var options = {
 		cwd: directory,
 	};
@@ -101,11 +103,13 @@ function runTests(log, callback) {
 		}
 		log.info('Test results: %s', result);
 		loadTest(function(error, result) {
-			if (error) {
-				return callback('Load tests failed: ' + error);
-			}
-			log.info('Load test results: %s', result);
-			callback(false, 'Tests passed');
+			testApp.closeServer(function() {
+				if (error) {
+					return callback('Load tests failed: ' + error);
+				}
+				log.info('Load test results: %s', result);
+				callback(false, 'Tests passed');
+			});
 		});
 	});
 }
@@ -116,7 +120,7 @@ function runTests(log, callback) {
 function loadTest(callback) {
 	try {
 		// start app
-		testApp.startServer(function() {
+		testApp.startServer(LOADTEST_PORT, function() {
 			// run load test
 			var options = {
 				url: LOADTEST_URL,
@@ -132,6 +136,7 @@ function loadTest(callback) {
 				if (loadTestError) {
 					return callback(loadTestError);
 				}
+				callback(null);
 			});
 		});
 	}
@@ -154,8 +159,8 @@ function checkLoadTestError(result) {
 	if (result.totalRequests != LOADTEST_REQUESTS) {
 		return 'Missing requests in load test';
 	}
-	if (result.errors) {
-		return result.errors + ' errors in load test';
+	if (result.totalErrors) {
+		return result.totalErrors + ' errors in load test';
 	}
 	if (!result.meanLatencyMs) {
 		return 'No latency value in load test';
