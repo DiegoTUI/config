@@ -21,11 +21,7 @@ var DEPLOYMENT_DIRECTORY = '../mashoop';
  *	- callback(error, result): to be called with the final result.
  */
 exports.run = function(log, callback) {
-	// uncaught exceptions
-	process.on('uncaughtException', function(err) {
-		return callback('Uncaught exception: ' + err.stack);
-	});
-	log.info('Initiating...');
+	log.info('Updating...');
 	update(TEST_DIRECTORY, log, function(error, result) {
 		if (error) {
 			return callback(error);
