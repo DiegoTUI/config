@@ -134,7 +134,7 @@ function EmailLog() {
 	var response = new WebPageResponse();
 	var webPage = new WebPageLog(response);
 	var recipient = 'alejandrofer@gmail.com';
-	var email = 'alexfernandeznpm@gmail.com';
+	var sender = 'alexfernandeznpm@gmail.com';
 	var password = 'rsoWkVtbTn2U4Q';
 	var server = 'smtp.gmail.com';
 
@@ -165,24 +165,27 @@ function EmailLog() {
 	 */
 	self.send = function(subject, contents) {
 		log.info('Sending email to %s', recipient);
-		var options = {
-			user:     email,
+		var server = emailjs.server.connect({
+			user:     sender,
 			password: password,
 			host:     server,
 			ssl:      true,
-		};
-		var server = emailjs.server.connect(options);
+		});
 		var email = {
 			text: 'This is a generated HTML email',
-			from: email,
+			from: sender,
 			to: recipient,
 			subject: subject,
+			attachment: [ {
+				data: contents,
+				alternative: true,
+			} ],
 		};
-		server.send(email, function(err, msg)
+		server.send(email, function(error, result)
 		{
-			if (err)
+			if (error)
 			{
-				log.error('While sending an email: ' + err);
+				log.error('While sending an email: ' + error);
 				return;
 			}
 			log.info('Email sent');
