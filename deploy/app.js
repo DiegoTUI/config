@@ -228,7 +228,7 @@ function WebPageResponse() {
  * Fake deployment function.
  */
 function run(show, callback) {
-	show.info('Starting fake deployment');
+	show.info('Simulating fake deployment');
 	// uncaught exceptions
 	process.on('uncaughtException', function(err) {
 		show.error('Uncaught exception: %s', err.stack);
