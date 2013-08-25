@@ -88,10 +88,11 @@ function WebPageLog(response) {
 		notice: 'black',
 		error: 'red',
 	};
-	var bashColors = {
+	var substitutions = {
 		'\u001b[32m': '<span style="color: green">',
 		'\u001b[1;31m': '<span style="color: red">',
 		'\u001b[0m': '</span>',
+		'\n': '<br>',
 	};
 
 	// init
@@ -109,9 +110,9 @@ function WebPageLog(response) {
 		return function(message) {
 			message = util.format.apply(util, arguments);
 			var replaced = message;
-			for (var bash in bashColors) {
-				if (replaced.contains(bash)) {
-					replaced = replaced.replaceAll(bash, bashColors[bash]);
+			for (var substitution in substitutions) {
+				if (replaced.contains(substitution)) {
+					replaced = replaced.replaceAll(substitution, substitutions[substitution]);
 				}
 			}
 			var now = new Date().toISOString();
