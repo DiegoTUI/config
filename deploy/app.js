@@ -54,16 +54,23 @@ function serve (request, response) {
 		// but continue processing
 		show = new EmailLog();
 	}
-	show.notice('Starting deployment...');
+	var start = new Date();
+	show.notice('Starting deployment at %s...', start.toISOString());
 	deploy.run(show, function(error, result) {
+		var end = new Date();
+		var elapsed = (end.getTime() - start.getTime()) / 1000;
+		show.notice('Ending deployment at %s, %s seconds elapsed', end.toISOString(), elapsed);
+		var subject;
 		if (error) {
-			show.error('Deployment failed: ' + error);
+			subject = 'Deployment failed: ' + error;
+			show.error(subject);
 		}
 		else {
-			show.notice('Deployment successful: ' + result);
+			subject = 'Deployment successful: ' + result;
+			show.notice(subject);
 		}
 		if (show.close) {
-			show.close();
+			show.close(subject);
 		}
 		response.end('Finished');
 	});
@@ -155,9 +162,9 @@ function EmailLog() {
 	/**
 	 * Close web page and send.
 	 */
-	self.close = function() {
+	self.close = function(subject) {
 		webPage.close();
-		self.send('Deployment', response.contents);
+		self.send(subject, response.contents);
 	}
 
 	/**
