@@ -89,6 +89,9 @@ function runTests(log, callback) {
 		if (error) {
 			return callback('ERROR: test: ' + error);
 		}
+		if (result && result.failure) {
+			callback(result);
+		}
 		callback(false, result);
 	});
 }
