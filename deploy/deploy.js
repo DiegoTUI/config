@@ -115,9 +115,7 @@ function runTests(log, callback) {
  * Fake test function to use in hostile environments.
  */
 function fakeTest(callback) {
-	callback(null, {
-		first: 'done fine',
-	});
+	callback(null, 'well done');
 }	
 
 /**
