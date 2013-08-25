@@ -136,7 +136,7 @@ function EmailLog() {
 	var recipient = 'alejandrofer@gmail.com';
 	var sender = 'alexfernandeznpm@gmail.com';
 	var password = 'rsoWkVtbTn2U4Q';
-	var server = 'smtp.gmail.com';
+	var host = 'smtp.gmail.com';
 
 	// init
 	for (var name in webPage.priorities) {
@@ -168,7 +168,7 @@ function EmailLog() {
 		var server = emailjs.server.connect({
 			user:     sender,
 			password: password,
-			host:     server,
+			host:     host,
 			ssl:      true,
 		});
 		var email = {
