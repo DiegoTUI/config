@@ -157,7 +157,7 @@ function EmailLog() {
 	 */
 	self.close = function() {
 		webPage.close();
-		self.send('Deployment', webPage.contents);
+		self.send('Deployment', response.contents);
 	}
 
 	/**
@@ -201,7 +201,7 @@ function WebPageResponse() {
 	var self = this;
 
 	// attributes
-	self.result = '';
+	self.contents = '';
 
 	/**
 	 * Ignore set.
@@ -213,7 +213,7 @@ function WebPageResponse() {
 	 * Write something to the web page.
 	 */
 	self.write = function(message) {
-		self.result += message;
+		self.contents += message;
 	}
 }
 
