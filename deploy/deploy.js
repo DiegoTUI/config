@@ -114,24 +114,30 @@ function runTests(log, callback) {
  * Run the load tests.
  */
 function loadTest(callback) {
-	// start app
-	testApp.startServer();
-	// run load test
-	var options = {
-		url: LOADTEST_URL,
-		concurrency: 10,
-		maxRequests: LOADTEST_REQUESTS,
-	};
-	loadtest.loadTest(options, function(error, result) {
-		if (error) {
-			return callback('Load tests failed: ' + error);
-		}
-		log.info('Load test results: %s', util.inspect(result));
-		var loadTestError = checkLoadTestError(result);
-		if (loadTestError) {
-			return callback(loadTestError);
-		}
-	});
+	try {
+		// start app
+		testApp.startServer(function() {
+			// run load test
+			var options = {
+				url: LOADTEST_URL,
+				concurrency: 10,
+				maxRequests: LOADTEST_REQUESTS,
+			};
+			loadtest.loadTest(options, function(error, result) {
+				if (error) {
+					return callback('Load tests failed: ' + error);
+				}
+				log.info('Load test results: %s', util.inspect(result));
+				var loadTestError = checkLoadTestError(result);
+				if (loadTestError) {
+					return callback(loadTestError);
+				}
+			});
+		});
+	}
+	catch(exception) {
+		callback('Could not run load tests: ' + exception);
+	}
 }
 
 /**
