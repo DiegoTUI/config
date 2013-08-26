@@ -106,7 +106,6 @@ function runTests(log, callback) {
 				if (error) {
 					return callback('Load tests failed: ' + error);
 				}
-				log.info('Load test results: %s', result);
 				callback(false, 'Tests passed');
 			});
 		});
