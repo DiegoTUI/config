@@ -90,7 +90,7 @@ function runCommand(command, options, log, callback) {
  */
 function runTests(log, callback) {
 	try {
-		var modules = getTestModules();
+		var modules = getTestModules(log);
 		modules.test.test(function(error, result) {
 		//fakeTest(function(error, result) {
 		if (error) {
@@ -123,11 +123,10 @@ function runTests(log, callback) {
  * Clean all paths, get the test modules.
  * Returns a structure with test and app attributes.
  */
-function getTestModules() {
-	var start = path.normalize(TEST_DIRECTORY);
+function getTestModules(log) {
+	var start = path.resolve(TEST_DIRECTORY);
 	for (var cached in require.cache) {
 		if (cached.contains(start)) {
-			log.info('Cleaning up %s', cached);
 			delete require.cache[cached];
 		}
 	}
