@@ -9,6 +9,7 @@
 var child_process = require('child_process');
 var Log = require('log');
 var util = require('util');
+var path = require('path');
 var loadtest = require('loadtest');
 var deploy = require('./deploy.js');
 // constants
@@ -18,9 +19,6 @@ var LOADTEST_PORT = 7357;
 var LOADTEST_URL = 'http://localhost:' + LOADTEST_PORT + '/api/token/at-read-ticket-names?destination=BCN\&language=ENG';
 var LOADTEST_REQUESTS = 1000;
 var LOADTEST_MAX_LATENCY = 20;
-// init
-var testTest = require('../' + TEST_DIRECTORY + '/test.js');
-var testApp = require('../' + TEST_DIRECTORY + '/lib/app.js');
 
 
 /**
@@ -91,8 +89,10 @@ function runCommand(command, options, log, callback) {
  * Run all package tsts.
  */
 function runTests(log, callback) {
-	testTest.test(function(error, result) {
-	//fakeTest(function(error, result) {
+	try {
+		var modules = getTestModules();
+		modules.test.test(function(error, result) {
+		//fakeTest(function(error, result) {
 		if (error) {
 			return callback(error);
 		}
@@ -101,46 +101,63 @@ function runTests(log, callback) {
 			return callback('Failure');
 		}
 		log.info('Test results: %s', result);
-		loadTest(log, function(error, result) {
-			testApp.closeServer(function() {
-				if (error) {
-					return callback('Load tests failed: ' + error);
-				}
-				callback(false, 'Tests passed');
+		// start app
+		modules.app.startServer(LOADTEST_PORT, function() {
+			loadTest(log, function(error, result) {
+				modules.app.closeServer(function() {
+					if (error) {
+						return callback('Load tests failed: ' + error);
+					}
+					callback(false, 'Tests passed');
+				});
 			});
 		});
-	});
+		});
+	}
+	catch(exception) {
+		callback('Could not run load tests: ' + exception);
+	}
+}
+
+/**
+ * Clean all paths, get the test modules.
+ * Returns a structure with test and app attributes.
+ */
+function getTestModules() {
+	var start = path.normalize(TEST_DIRECTORY);
+	for (var cached in require.cache) {
+		if (cached.contains(start)) {
+			log.info('Cleaning up %s', cached);
+			delete require.cache[cached];
+		}
+	}
+	return {
+		test: require('../' + TEST_DIRECTORY + '/test.js'),
+		app: require('../' + TEST_DIRECTORY + '/lib/app.js'),
+	};
 }
 
 /**
  * Run the load tests.
  */
 function loadTest(log, callback) {
-	try {
-		// start app
-		testApp.startServer(LOADTEST_PORT, function() {
-			// run load test
-			var options = {
-				url: LOADTEST_URL,
-				concurrency: 10,
-				maxRequests: LOADTEST_REQUESTS,
-			};
-			loadtest.loadTest(options, function(error, result) {
-				if (error) {
-					return callback('Load tests failed: ' + error);
-				}
-				log.info('Load test results: %s', util.inspect(result));
-				var loadTestError = checkLoadTestError(result);
-				if (loadTestError) {
-					return callback(loadTestError);
-				}
-				callback(null);
-			});
-		});
-	}
-	catch(exception) {
-		callback('Could not run load tests: ' + exception);
-	}
+	// run load test
+	var options = {
+		url: LOADTEST_URL,
+		concurrency: 10,
+		maxRequests: LOADTEST_REQUESTS,
+	};
+	loadtest.loadTest(options, function(error, result) {
+		if (error) {
+			return callback('Load tests failed: ' + error);
+		}
+		log.info('Load test results: %s', util.inspect(result));
+		var loadTestError = checkLoadTestError(result);
+		if (loadTestError) {
+			return callback(loadTestError);
+		}
+		callback(null);
+	});
 }
 
 /**
