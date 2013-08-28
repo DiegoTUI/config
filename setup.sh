@@ -3,9 +3,9 @@
 
 current=$( pwd )
 
-# link cron jobs -- without periods in the name
-ln -fs "$current/cron/backup.sh" /etc/cron.daily/backup
-ln -fs "$current/cron/update-tickets.sh" /etc/cron.daily/update-tickets
+# install crontab for user ubuntu
+crontab -u ubuntu -r
+crontab -u ubuntu "$current/cron/crontab-update-tickets"
 
 # Set up nginx
 ln -fs "$current/nginx/nginx-tuiinnovation" /etc/nginx/sites-available/tuiinnovation

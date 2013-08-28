@@ -1,0 +1,3 @@
+# m h  dom mon dow   command
+ 00 06 * * *         /home/ubuntu/config/cron/update-tickets.sh 
+ 30 06 * * *         /home/ubuntu/config/cron/backup.sh 
