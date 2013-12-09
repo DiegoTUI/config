@@ -143,7 +143,7 @@ function EmailLog() {
 	// attributes
 	var response = new WebPageResponse();
 	var webPage = new WebPageLog(response);
-	var recipient = 'alejandrofer@gmail.com,dlafuente@tuitravel-ad.com';
+	var recipient = 'dlafuente@tuitravel-ad.com';
 	var sender = 'innovation.lab.palma@gmail.com';
 	var password = 'chickenbus';
 	var host = 'smtp.gmail.com';
