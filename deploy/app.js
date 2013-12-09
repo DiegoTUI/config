@@ -30,6 +30,7 @@ process.title = 'deploy-listener';
  */
 function startServer() {
 	var app = express();
+	app.use(express.bodyParser());
 	app.get('/deploy/:token', serve);
 	app.post('/deploy/:token', serve);
 	app.listen(PORT);
@@ -55,8 +56,8 @@ function serve (request, response) {
 		// but continue processing
 		show = new EmailLog();
 	}
+	show.notice('Starting deployment on request, body: %s', JSON.stringify(request.body));
 	var start = Date.now();
-	show.notice('Starting deployment...');
 	deploy.run(show, function(error, result) {
 		var elapsed = (Date.now() - start) / 1000;
 		show.notice('Ending deployment, %s seconds elapsed', elapsed);
