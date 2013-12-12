@@ -5,7 +5,7 @@ current=$( pwd )
 
 # install crontab for user ubuntu
 crontab -u ubuntu -r
-crontab -u ubuntu "$current/cron/crontab-update-tickets"
+crontab -u ubuntu "$current/cron/crontab-update-db"
 
 # Set up nginx
 ln -fs "$current/nginx/nginx-tuiinnovation" /etc/nginx/sites-available/tuiinnovation
