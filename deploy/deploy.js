@@ -16,7 +16,7 @@ var deploy = require('./deploy.js');
 var TEST_DIRECTORY = '../test/mashoop';
 var DEPLOYMENT_DIRECTORY = '../mashoop';
 var LOADTEST_PORT = 7357;
-var LOADTEST_URL = 'http://localhost:' + LOADTEST_PORT + '/api/token/at-read-ticket-names?destination=BCN\&language=ENG';
+var LOADTEST_URL = 'http://localhost:' + LOADTEST_PORT + '/api/token/lr-json-mirror?destination=BCN\&language=ENG';
 var LOADTEST_REQUESTS = 1000;
 var LOADTEST_MAX_LATENCY = 20;
 
